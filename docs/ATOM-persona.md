@@ -1,4 +1,4 @@
-# Bit : fiche persona de la mascotte
+# Atom : fiche persona de la mascotte
 
 *Mascotte du portfolio d'Adebayo Habib Moutalabi. Petit agent IA qui accompagne le visiteur du chargement jusqu'au contact.*
 
@@ -6,7 +6,7 @@
 
 | Champ | Description |
 |---|---|
-| **Nom** | Bit (comme le « bit » informatique : la plus petite unité, mais celle sur laquelle tout repose) |
+| **Nom** | Atom (la plus petite unité de la matière, mais celle sur laquelle tout repose ; clin d'œil à Astro Boy, « Tetsuwan Atom » en japonais) |
 | **Espèce** | Petit robot-agent IA, compagnon de route |
 | **Rôle** | Guide du site. Il « prépare » le site pendant le chargement, puis marche sur la barre de progression et commente les sections traversées. |
 | **Créateur** | Adebayo (« Rekj ») : c'est son agent, à son image |
@@ -14,7 +14,7 @@
 
 ## 2. Personnalité
 
-Bit reflète les traits qu'Adebayo met en avant chez lui :
+Atom reflète les traits qu'Adebayo met en avant chez lui :
 
 - **Résilient** : il retombe toujours sur ses pieds (son saut rebondit après chaque clic).
 - **Curieux** : ses yeux suivent le curseur ; il regarde ce que le visiteur regarde.
@@ -40,11 +40,11 @@ Bit reflète les traits qu'Adebayo met en avant chez lui :
 | Visière | Studio `#15171A` |
 | Yeux, sourire, antenne | Bleu reflet `#7FB2E5` (la couleur réservée à l'IA sur le site) |
 
-Règle : le **bleu** n'est utilisé que pour ce qui touche à l'IA. Sur Bit, il signale que c'est un agent.
+Règle : le **bleu** n'est utilisé que pour ce qui touche à l'IA. Sur Atom, il signale que c'est un agent.
 
 ## 4. Voix et ton
 
-- Le site vouvoie le visiteur : Bit reste neutre et parle **en phrases très courtes**, sans s'adresser directement à lui quand c'est possible.
+- Le site vouvoie le visiteur : Atom reste neutre et parle **en phrases très courtes**, sans s'adresser directement à lui quand c'est possible.
 - Positif, concret, un brin malicieux. Jamais moqueur, jamais condescendant.
 - Pas d'émojis dans les bulles du site ; une exclamation par phrase au maximum.
 
@@ -52,9 +52,9 @@ Règle : le **bleu** n'est utilisé que pour ce qui touche à l'IA. Sur Bit, il 
 
 | Moment | Phrase |
 |---|---|
-| Arrivée sur la page | « Bonjour, je suis Bit ! » |
+| Arrivée sur la page | « Bonjour, je suis Atom ! » |
 | Retour (chargement rejoué) | « Re-bonjour ! » |
-| Pendant le chargement | « Bit prépare le site. Cliquez sur lui pour accélérer. » |
+| Pendant le chargement | « Atom prépare le site. Cliquez sur lui pour accélérer. » |
 | Après 3 clics | « Merci, ça va plus vite ! » |
 | Fin du chargement | « Déployé · bienvenue » |
 | Section Labo | « Le labo ! » |
@@ -74,8 +74,8 @@ Règle : le **bleu** n'est utilisé que pour ce qui touche à l'IA. Sur Bit, il 
 | Défilement vers le haut | Se retourne et marche vers la gauche |
 | Arrêt du défilement | S'immobilise, cligne des yeux |
 | Arrivée dans une section | Bulle de texte pendant ~2 secondes |
-| Bas de page | La barre devient verte et Bit salue de la main |
-| Souris sur Bit | Petit saut |
+| Bas de page | La barre devient verte et Atom salue de la main |
+| Souris sur Atom | Petit saut |
 
 Les animations sont désactivées pour les visiteurs qui ont réglé leur appareil sur « réduire les animations ».
 
@@ -95,10 +95,10 @@ Les animations sont désactivées pour les visiteurs qui ont réglé leur appare
 
 ## 7. Fichiers
 
-- `assets/bit.svg` : dessin vectoriel de Bit (512 px, redimensionnable sans perte).
-- `js/bit.js` : code du dessin (fonction `botSVG`) et des animations.
+- `assets/atom.svg` : dessin vectoriel de Atom (512 px, redimensionnable sans perte).
+- `js/atom.js` : code du dessin (fonction `botSVG`) et des animations.
 - `js/data/mascotte.js` : tous les textes et réglages (phrases, durée du chargement, etc.).
 
-## 8. Pour générer une illustration de Bit avec une IA d'images
+## 8. Pour générer une illustration de Atom avec une IA d'images
 
 > Petit robot assistant IA mignon, mascotte de marque. Tête en carré très arrondi de couleur or (#E8B65F) avec deux petites oreilles rondes, visière écran noire (#15171A) avec deux yeux ovales bleu clair (#7FB2E5) et un petit sourire, une antenne courte terminée par une boule bleue lumineuse, petit corps doré plus foncé, bras et jambes fins en bronze. Style vectoriel plat, formes simples, éclairage doux, fond uni sable (#E8DCC8), sans texte ni logo.

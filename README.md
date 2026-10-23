@@ -56,17 +56,17 @@ portfolio-adebayo/
 │   │   ├── vignettes.js      petits dessins des projets
 │   │   ├── parcours.js       expériences, formations, langues, distinctions
 │   │   ├── contact.js        e-mail, LinkedIn, fiche de statut
-│   │   └── mascotte.js       textes de Bit et réglages du chargement
+│   │   └── mascotte.js       textes de Atom et réglages du chargement
 │   ├── render.js           ← fabrique le HTML à partir des données
 │   ├── hero.js, labo.js, competences.js, methode.js, projets.js,
-│   │   parcours.js, contact.js, navigation.js, fond.js, bit.js
+│   │   parcours.js, contact.js, navigation.js, fond.js, atom.js
 │   │                       ← le comportement (animations, interactions)
 │   ├── verifier.js         ← contrôle de cohérence (?debug)
 │   ├── utils.js, main.js   ← outils partagés et démarrage
 ├── assets/
 │   ├── photo.webp          ← ta photo (carrée, 640 px conseillé)
-│   └── bit.svg             ← dessin de la mascotte
-├── docs/BIT-persona.md     ← fiche persona de la mascotte
+│   └── atom.svg             ← dessin de la mascotte
+├── docs/ATOM-persona.md     ← fiche persona de la mascotte
 ├── outils/construire_fichier_unique.py   ← fabrique un fichier HTML unique
 └── dist/                   ← sortie du fichier unique (créé par le script)
 ```
@@ -141,7 +141,7 @@ Pour une nouvelle catégorie de filtre : ajoutez-la dans `categories` du même f
 `js/data/mascotte.js` :
 - `actif: false` → plus d'écran de chargement du tout ;
 - `uneFoisParSession: true` → seulement à la première visite de l'onglet (actuellement : **à chaque rechargement**) ;
-- `dureeSecondes`, `clicBonus`, les commandes affichées, les phrases de Bit.
+- `dureeSecondes`, `clicBonus`, les commandes affichées, les phrases de Atom.
 
 ### Changer les couleurs
 `css/base.css`, tout début : les blocs `:root` (thème sombre) et `:root[data-theme="light"]` / `@media (prefers-color-scheme: light)` (thème clair). Principales variables : `--gold` (or, accent), `--blue` (bleu « IA »), `--ground` (fond), `--surface` (cartes), `--ink` (texte).
@@ -174,10 +174,10 @@ Rien à faire : toutes les sections se réorganisent automatiquement. Les listes
 | Ajouter une commande au terminal (Cmd/Ctrl+K) | `js/navigation.js`, liste `CMDS` |
 | Ajouter une section entière | 1) `<section id="…">` dans `index.html` ; 2) une fonction de rendu dans `js/render.js` ; 3) son id dans `navigation` de `profil.js` ; 4) son lien dans le dock de `index.html` |
 | Créer un nouveau type de démo dans le labo | `render.js` (fonction `labo`) + `js/labo.js` + `data/labo.js` |
-| Modifier le dessin ou les animations de Bit | `js/bit.js` (`botSVG`) + `css/mascotte.css` |
+| Modifier le dessin ou les animations de Atom | `js/atom.js` (`botSVG`) + `css/mascotte.css` |
 | Changer la forme du fond selon la section | attribut `data-shape` des sections dans `index.html` (formes : sphere, ring, cube, galaxy, helix, wave, torus) |
 
-**Ordre de chargement** (voir la fin de `index.html`) : données → `render.js` (construit le HTML) → modules d'interaction → `bit.js` → `verifier.js` → `main.js`. Chaque module est isolé et communique via l'objet global `Site`.
+**Ordre de chargement** (voir la fin de `index.html`) : données → `render.js` (construit le HTML) → modules d'interaction → `atom.js` → `verifier.js` → `main.js`. Chaque module est isolé et communique via l'objet global `Site`.
 
 ## 8. En cas de problème
 
@@ -190,4 +190,4 @@ Rien à faire : toutes les sections se réorganisent automatiquement. Les listes
 | L'écran de chargement gêne | `uneFoisParSession: true` ou `actif: false` dans `data/mascotte.js` |
 | Changement invisible | Rechargez en forçant : Cmd/Ctrl + Maj + R |
 
-*Mascotte : voir `docs/BIT-persona.md`.*
+*Mascotte : voir `docs/ATOM-persona.md`.*

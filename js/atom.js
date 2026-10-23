@@ -1,12 +1,12 @@
 /* =====================================================================
-   MASCOTTE « BIT » : dessin, écran de chargement, barre de progression du haut
-   de page (Bit marche dessus en suivant le défilement).
+   MASCOTTE « ATOM » : dessin, écran de chargement, barre de progression du haut
+   de page (Atom marche dessus en suivant le défilement).
    Textes et réglages : data/mascotte.js. Navigation : data/profil.js.
    ===================================================================== */
 (function (S) {
   var $ = S.$, $$ = S.$$, esc = S.esc, reduce = S.reduce, fine = S.fine, toast = S.toast;
 
-  /* ----- dessin de Bit (SVG). Couleurs : variables CSS --gold / --blue ----- */
+  /* ----- dessin de Atom (SVG). Couleurs : variables CSS --gold / --blue ----- */
   function botSVG() {
     return '<svg class="bot" viewBox="0 0 64 64" aria-hidden="true">' +
       '<g class="b-arm l"><path class="b-line" d="M13 40 L7 47"/></g><g class="b-arm r"><path class="b-line" d="M51 40 L57 47"/></g>' +
@@ -143,7 +143,7 @@
     if (document.getElementById('pre')) return;
     rail.classList.remove('show'); runPre(true);
   }
-  S.bit = { replay: replayPre };
+  S.atom = { replay: replayPre };
   S.frames.push(railFrame);
   runPre(false);   /* lancé une fois la page construite */
 })(window.Site);

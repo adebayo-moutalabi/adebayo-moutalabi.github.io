@@ -1,5 +1,5 @@
-/* Mascotte Bit, écran de chargement, barre de progression (voir aussi les autres fichiers du dossier css/) */
-/* ===== mascotte Bit ===== */
+/* Mascotte Atom, écran de chargement, barre de progression (voir aussi les autres fichiers du dossier css/) */
+/* ===== mascotte Atom ===== */
 .bot { display: block; width: 100%; height: 100%; overflow: visible; }
 .bot .b-head { fill: var(--gold); } .bot .b-body { fill: color-mix(in srgb, var(--gold) 82%, #000); }
 .bot .b-face { fill: #15171a; } .bot .b-eye { fill: var(--blue); } .bot .b-ant { fill: var(--blue); }
