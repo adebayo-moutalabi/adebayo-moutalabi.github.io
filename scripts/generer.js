@@ -5,10 +5,16 @@
 //   2. les données structurées JSON-LD (fiche « Person » pour Google), dans le <head> ;
 //   3. le fichier llms.txt (résumé factuel pour les moteurs IA) ;
 //   4. une page par projet qui a un champ « page » (ex. projets/nox/index.html) ;
-//   5. sitemap.xml (accueil + pages de projet).
+//   5. sitemap.xml (accueil + pages de projet), robots.txt et site.webmanifest ;
+//   6. les balises du <head> de l'accueil (URL canonique, icônes, Open Graph).
+//
+// ADRESSE DU SITE : une seule variable, SITE_URL, juste en dessous. Pour passer à un nom de domaine
+// personnel, changez-la puis relancez le script (voir docs/NOM-DE-DOMAINE.md).
 //
 // Lancer après chaque modification de js/data :   node scripts/generer.js
 // Vérifier sans rien écrire (utilisé par la CI) : node scripts/generer.js --verifier
+const SITE_URL = 'https://adebayo-moutalabi.github.io/';   // ← toujours terminée par « / »
+
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const racine = path.resolve(__dirname, '..');
 const lire = f => fs.readFileSync(path.join(racine, f), 'utf8');
@@ -20,9 +26,10 @@ const element = sel => (elements[sel] = elements[sel] || { innerHTML: '', textCo
 const ctx = { matchMedia: () => ({ matches: false }), document: { querySelector: element, querySelectorAll: () => [] } };
 ctx.window = ctx;
 vm.createContext(ctx);
-const fichiersData = ['profil', 'visiteurs', 'labo', 'competences', 'methode', 'vignettes', 'projets', 'parcours', 'contact', 'mascotte'];
+const fichiersData = ['profil', 'visiteurs', 'domaines', 'labo', 'competences', 'methode', 'vignettes', 'projets', 'parcours', 'contact', 'mascotte'];
 ['js/utils.js', ...fichiersData.map(f => 'js/data/' + f + '.js'), 'js/render.js'].forEach(f => vm.runInContext(lire(f), ctx, { filename: f }));
 const S = ctx.Site, D = S.data, esc = S.esc;
+D.profil.site = SITE_URL;   // toutes les URL absolues générées partent de SITE_URL
 const html = sel => element(sel).innerHTML;
 
 // ---------- 2. Compléter les zones remplies d'habitude par les modules interactifs ----------
@@ -36,7 +43,7 @@ const competences = D.competences.familles.map(f =>
 
 // Projets : la fiche complète (problème, ce que j'ai fait, résultat, stack, liens)
 const projets = D.projets.liste.map(p =>
-  '<article class="p-statique" id="projet-' + esc(p.id) + '"><span class="caps">' + esc(p.type) + '</span><h3>' + esc(p.titre) + '</h3>' +
+  '<article class="p-statique" id="projet-' + esc(p.id) + '">' + (p.image ? '<img src="' + esc(p.image) + '" alt="' + esc(p.imageAlt || '') + '" width="' + (p.imageTaille || [1200, 678])[0] + '" height="' + (p.imageTaille || [1200, 678])[1] + '" loading="lazy">' : '') + '<span class="caps">' + esc(p.type) + '</span><h3>' + esc(p.titre) + '</h3>' +
   '<p>' + esc(p.intro) + '</p>' +
   (p.probleme ? '<h4>Problème</h4><p>' + esc(p.probleme) + '</p>' : '') +
   '<h4>Ce que j\'ai fait</h4>' + liste(p.points) +
@@ -66,6 +73,7 @@ const sections = {
   over: html('#over .wrap'),
   foot: html('#foot'),
   choix: html('#choix .wrap'),
+  domaines: html('#domaines .wrap'),
   labo: remplir(html('#labo .wrap'), 'qs', qr),
   competences: remplir(html('#competences .wrap'), 'panels', competences),
   methode: html('#methode .wrap'),
@@ -93,7 +101,8 @@ const personne = {
   alumniOf: ecoles.map(e => ({ '@type': 'EducationalOrganization', name: e })),
   knowsAbout: [...D.competences.familles.map(f => f.nom), ...D.competences.outils.map(o => o.nom)],
   knowsLanguage: D.parcours.langues.map(l => l.nom),
-  sameAs: [P.github, P.linkedin]
+  sameAs: [P.github, P.linkedin],
+  brand: { '@type': 'Brand', name: P.prenom + ' ' + P.nomFamille, logo: P.site + 'assets/logo/logo-am-512.png' }
 };
 // Une réalisation qui a sa page : SoftwareApplication si c'est un logiciel, sinon CreativeWork
 const realisation = p => {
@@ -127,8 +136,35 @@ const jsonld = {
     ...avecPage.map(realisation)
   ]
 };
+// Balises communes du <head> : icônes (racineRel = chemin relatif vers la racine, ex. « ../../ »)
+const iconesHTML = racineRel => [
+  '<link rel="icon" href="' + racineRel + 'assets/favicon.svg" type="image/svg+xml">',
+  '<link rel="icon" href="' + racineRel + 'favicon.ico" sizes="32x32">',
+  '<link rel="apple-touch-icon" href="' + racineRel + 'assets/icones/apple-touch-icon.png">',
+  '<link rel="manifest" href="' + racineRel + 'site.webmanifest">'
+].join('\n');
 const ldJSON = o => '\n<script type="application/ld+json">\n' + JSON.stringify(o, null, 2).replace(/</g, '\\u003c') + '\n</script>\n';
 sections.jsonld = ldJSON(jsonld);
+sections.head = '\n' + [
+  '<link rel="canonical" href="' + P.site + '">',
+  iconesHTML(''),
+  '<link rel="me" href="' + P.github + '">',
+  '<link rel="me" href="' + P.linkedin + '">',
+  '<!-- Aperçu lors d\'un partage (LinkedIn, Slack, WhatsApp…) : protocole Open Graph -->',
+  '<meta property="og:type" content="profile">',
+  '<meta property="og:locale" content="fr_FR">',
+  '<meta property="og:site_name" content="' + esc(P.prenom + ' ' + P.nomFamille) + '">',
+  '<meta property="og:url" content="' + P.site + '">',
+  '<meta property="og:title" content="' + esc(P.prenom + ' ' + P.nomFamille + ' · ' + P.metier) + '">',
+  '<meta property="og:description" content="' + esc(P.accroche.texte) + '">',
+  '<meta property="og:image" content="' + P.site + 'assets/partage.png">',
+  '<meta property="og:image:width" content="1200">',
+  '<meta property="og:image:height" content="630">',
+  '<meta property="og:image:alt" content="' + esc(P.prenom + ' ' + P.nomFamille + ', ' + P.metier.charAt(0).toLowerCase() + P.metier.slice(1)) + '">',
+  '<meta property="profile:first_name" content="' + esc(P.prenom) + '">',
+  '<meta property="profile:last_name" content="' + esc(P.nomFamille) + '">',
+  '<meta name="twitter:card" content="summary_large_image">'
+].join('\n') + '\n';
 
 // ---------- 4. llms.txt (format https://llmstxt.org) ----------
 const txt = s => String(s).replace(/<[^>]+>/g, '');
@@ -136,14 +172,18 @@ const C = D.contact;
 const llms = [
   '# ' + P.prenom + ' ' + P.nomFamille,
   '',
-  '> ' + P.metier + ', basé à Rennes (France). ' + P.accroche.texte + ' Recherche : ' + C.fiche.recherche + '.',
+  '> ' + P.prenom + ' ' + P.nomFamille + ' · ' + P.metier + ', basé à Rennes (France). ' + P.accroche.titre + ' ' + P.accroche.accent + ' ' + P.accroche.texte,
   '',
   '## Profil',
   '',
   '- Nom complet : ' + P.nomComplet,
   '- Métier : ' + P.metier,
   '- Lieu : ' + C.fiche.lieu,
-  '- Recherche : ' + C.fiche.recherche + ' (' + C.fiche.domaines + ')',
+  '- Ouvert à : ' + C.fiche.recherche + ' (' + C.fiche.domaines + ')',
+  '',
+  '## Ce que je fais',
+  '',
+  ...D.domaines.liste.map(d => '- ' + d.titre + ' : ' + d.texte + ' (' + d.outils.join(', ') + ')'),
   '- Langues : ' + D.parcours.langues.map(l => l.nom + ' (' + l.niveau + ')').join(', '),
   '',
   '## Compétences',
@@ -214,7 +254,7 @@ const pageProjet = p => {
 <meta name="author" content="${esc(P.prenom + ' ' + P.nomFamille)}">
 <meta name="theme-color" content="#0d0e10">
 <link rel="canonical" href="${url}">
-<link rel="icon" href="${racineRel}assets/favicon.svg" type="image/svg+xml">
+${iconesHTML(racineRel)}
 <meta property="og:type" content="article">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="${esc(P.prenom + ' ' + P.nomFamille)}">
@@ -236,6 +276,7 @@ ${ldJSON(ld).trim()}
 <body class="page-projet">
 <a class="skip" href="#contenu">Aller au contenu</a>
 <header class="pp-top gut">
+  <div class="wrap pp-marque"><a class="pp-logo" href="${racineRel}">${S.logo(40, racineRel)}</a></div>
   <nav class="wrap pp-nav" aria-label="Fil d'Ariane">
     <a href="${racineRel}">${esc(P.prenom + ' ' + P.nomFamille)}</a><span aria-hidden="true">/</span><a href="${racineRel}#projets">Réalisations</a><span aria-hidden="true">/</span><span aria-current="page">${esc(p.nomCourt)}</span>
   </nav>
@@ -256,6 +297,7 @@ ${ldJSON(ld).trim()}
 </main>
 <footer class="gut pp-pied">
   <div class="wrap">
+    <a class="pp-logo" href="${racineRel}">${S.logo(32, racineRel)}</a>
     <p>Réalisé par <a href="${racineRel}">${esc(P.prenom + ' ' + P.nomFamille)}</a>, ${esc(P.metier.charAt(0).toLowerCase() + P.metier.slice(1))}, basé à Rennes.</p>
     <p><a href="${racineRel}">Portfolio</a> · <a href="${P.github}" rel="me">GitHub</a> · <a href="${P.linkedin}" rel="me">LinkedIn</a> · <a href="${racineRel}#contact">Contact</a></p>
   </div>
@@ -269,6 +311,24 @@ ${ldJSON(ld).trim()}
 const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
   [P.site, ...avecPage.map(p => P.site + p.page)].map(u => '  <url>\n    <loc>' + u + '</loc>\n  </url>\n').join('') + '</urlset>\n';
 
+const robots = '# Tous les robots (moteurs de recherche et moteurs IA) peuvent lire tout le site.\n' +
+  '# Fichier généré par scripts/generer.js.\nUser-agent: *\nAllow: /\n\nSitemap: ' + P.site + 'sitemap.xml\n';
+const manifest = JSON.stringify({
+  name: P.prenom + ' ' + P.nomFamille + ' · ' + P.metier,
+  short_name: P.prenom + ' ' + P.nomFamille,
+  description: P.accroche.texte,
+  lang: 'fr',
+  start_url: './',
+  display: 'browser',
+  background_color: '#0d0e10',
+  theme_color: '#0d0e10',
+  icons: [
+    { src: 'assets/icones/icon-192.png', sizes: '192x192', type: 'image/png' },
+    { src: 'assets/icones/icon-512.png', sizes: '512x512', type: 'image/png' },
+    { src: 'assets/favicon.svg', sizes: 'any', type: 'image/svg+xml' }
+  ]
+}, null, 2) + '\n';
+
 // ---------- 7. Écrire (ou vérifier) ----------
 let index = lire('index.html');
 for (const [id, contenu] of Object.entries(sections)) {
@@ -276,7 +336,7 @@ for (const [id, contenu] of Object.entries(sections)) {
   if (!re.test(index)) { console.error('✗ Repère <!-- genere:' + id + ' --> absent de index.html'); process.exit(1); }
   index = index.replace(re, (m, a, b) => a + contenu + b);
 }
-const sorties = { 'index.html': index, 'llms.txt': llms, 'sitemap.xml': sitemap };
+const sorties = { 'index.html': index, 'llms.txt': llms, 'sitemap.xml': sitemap, 'robots.txt': robots, 'site.webmanifest': manifest };
 avecPage.forEach(p => { sorties[p.page + 'index.html'] = pageProjet(p); });
 let aJour = true;
 for (const [f, contenu] of Object.entries(sorties)) {

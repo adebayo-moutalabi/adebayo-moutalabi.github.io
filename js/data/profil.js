@@ -8,10 +8,11 @@ Site.data.profil = {
   prenom: "Adebayo",
   nomFamille: "Moutalabi",
   nomComplet: "Adebayo Habib Moutalabi",
-  /* Métier : affiché dans le titre principal (h1), le titre de l'onglet et les données pour Google */
-  metier: "Ingénieur Cloud, DevOps & IA",
-  /* Liens publics (repris dans le contact, le pied de page, les données pour Google et llms.txt) */
-  site: "https://adebayo-moutalabi.github.io/",
+  /* Intitulé : affiché dans le titre principal (h1), le titre de l'onglet et les données pour Google.
+     Marque personnelle : ni « Ingénieur », ni « étudiant », ni étiquette « candidat » / « indépendant ». */
+  metier: "Cloud, DevOps & IA",
+  /* Liens publics (repris dans le contact, les données pour Google et llms.txt).
+     L'adresse du site lui-même est la variable SITE_URL de scripts/generer.js. */
   github: "https://github.com/adebayo-moutalabi",
   linkedin: "https://www.linkedin.com/in/adebayo-moutalabi/",
   annee: 2026,
@@ -24,22 +25,22 @@ Site.data.profil = {
   /* Ouverture (l'écran avec la photo qui s'agrandit au défilement) */
   accroche: {
     sur: "Cloud, DevOps & IA",
-    titre: "Fini les déploiements manuels.",
-    accent: "Place à vos pipelines et à vos agents IA.",
-    texte: "Je construis des infrastructures fiables, puis j'automatise ce qui fait perdre du temps aux équipes.",
-    pied: "Ingénieur Cloud, DevOps & IA · Rennes",
+    titre: "Je construis, j'automatise,",
+    accent: "je livre.",
+    texte: "Des infrastructures qui tiennent, des déploiements qui partent seuls et des agents IA qui font gagner du temps, du besoin de départ à la mise en ligne.",
+    pied: "Cloud, DevOps & IA · Rennes",
     defiler: "Faites défiler"
   },
 
-  /* Sections affichées sur la barre de progression (dans l'ordre de la page).
-     « bulle » = phrase dite par la mascotte quand elle y arrive (facultatif). */
+  /* Sections affichées sur la barre de progression (dans l'ordre de la page) */
   navigation: [
     { id: "intro", nom: "Accueil" },
-    { id: "labo", nom: "Labo", bulle: "Le labo !" },
-    { id: "competences", nom: "Compétences", bulle: "Ma stack" },
-    { id: "methode", nom: "Méthode", bulle: "La méthode" },
-    { id: "projets", nom: "Projets", bulle: "Les projets" },
-    { id: "parcours", nom: "Parcours", bulle: "Le parcours" },
-    { id: "contact", nom: "Contact", bulle: "Parlons-en !" }
+    { id: "domaines", nom: "Ce que je fais" },
+    { id: "labo", nom: "Labo" },
+    { id: "competences", nom: "Compétences" },
+    { id: "methode", nom: "Méthode" },
+    { id: "projets", nom: "Réalisations" },
+    { id: "parcours", nom: "Parcours" },
+    { id: "contact", nom: "Contact" }
   ]
 };

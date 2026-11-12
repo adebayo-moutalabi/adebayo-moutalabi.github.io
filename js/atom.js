@@ -1,28 +1,19 @@
 /* =====================================================================
-   MASCOTTE « ATOM » : dessin, écran de chargement, barre de progression du haut
-   de page (Atom marche dessus en suivant le défilement).
+   LOGO AM ANIMÉ : écran de chargement (l'orbite du logo se trace au rythme du chargement)
+   et barre de progression du haut de page (le logo la parcourt en suivant le défilement).
    Textes et réglages : data/mascotte.js. Navigation : data/profil.js.
    ===================================================================== */
 (function (S) {
   var $ = S.$, $$ = S.$$, esc = S.esc, reduce = S.reduce, fine = S.fine, toast = S.toast;
 
-  /* ----- dessin de Atom (SVG). Couleurs : variables CSS --gold / --blue ----- */
-  function botSVG() {
-    return '<svg class="bot" viewBox="0 0 64 64" aria-hidden="true">' +
-      '<g class="b-arm l"><path class="b-line" d="M13 40 L7 47"/></g><g class="b-arm r"><path class="b-line" d="M51 40 L57 47"/></g>' +
-      '<g class="b-leg l"><path class="b-line" d="M25 55 L25 61"/></g><g class="b-leg r"><path class="b-line" d="M39 55 L39 61"/></g>' +
-      '<rect class="b-body" x="17" y="42" width="30" height="15" rx="7"/>' +
-      '<path class="b-line" d="M32 14 L32 8"/><circle class="b-ant" cx="32" cy="6" r="3.6"/>' +
-      '<rect class="b-head" x="7" y="13" width="50" height="35" rx="15"/><circle class="b-head" cx="7" cy="31" r="4.5"/><circle class="b-head" cx="57" cy="31" r="4.5"/>' +
-      '<rect class="b-face" x="13" y="19" width="38" height="23" rx="11"/>' +
-      '<g class="b-eyes"><ellipse class="b-eye" cx="24" cy="29" rx="3.6" ry="4.4"/><ellipse class="b-eye" cx="40" cy="29" rx="3.6" ry="4.4"/></g>' +
-      '<path class="b-mouth" d="M28 36 Q32 39.5 36 36"/></svg>';
-  }
+  /* ----- le logo AM (SVG, js/logo.js) : couleurs selon le thème, voir css/mascotte.css ----- */
+  function botSVG() { return S.logoSVG(); }
   var botNodes = [];
   function mountBot(el) { el.innerHTML = botSVG(); botNodes.push(el.querySelector('.b-eyes')); return el; }
+  /* le logo s'incline doucement vers la souris (perspective 3D légère) */
   function lookAt(x, y, el) {
-    var g = el.querySelector('.b-eyes'); if (!g) return; var r = el.getBoundingClientRect(), dx = x - (r.left + r.width / 2), dy = y - (r.top + r.height / 2), d = Math.hypot(dx, dy) || 1, m = Math.min(1, d / 220);
-    g.style.transform = 'translate(' + (dx / d * 3.2 * m).toFixed(2) + 'px,' + (dy / d * 2.2 * m).toFixed(2) + 'px)';
+    var g = el.querySelector('.lg'); if (!g || reduce) return; var r = el.getBoundingClientRect(), dx = x - (r.left + r.width / 2), dy = y - (r.top + r.height / 2), d = Math.hypot(dx, dy) || 1, m = Math.min(1, d / 260);
+    g.style.transform = 'perspective(400px) rotateY(' + (dx / d * 16 * m).toFixed(2) + 'deg) rotateX(' + (-dy / d * 12 * m).toFixed(2) + 'deg)';
   }
   function hopBot(el) { el.classList.remove('hop'); void el.offsetWidth; el.classList.add('hop'); }
 
@@ -49,7 +40,9 @@
     if (p !== rP) { rDir = p > rP ? 1 : -1; railFlip.style.transform = rDir < 0 ? 'scaleX(-1)' : ''; }
     rP = p; railFill.style.transform = 'scaleX(' + p.toFixed(4) + ')';
     railBot.style.transform = 'translateX(' + (p * rW).toFixed(1) + 'px)';
-    var cur = 0; mkEls.forEach(function (m, i) { var on = p >= m._p - .001; m.classList.toggle('on', on); if (on) cur = i; });
+    mkEls.forEach(function (m) { m.classList.toggle('on', p >= m._p - .001); });
+    /* section courante : la dernière dont le haut a dépassé le milieu de l'écran (et non un calcul sur la longueur de page) */
+    var cur = 0; for (var i = 0; i < RS.length; i++) { var sec = document.getElementById(RS[i][0]); if (sec && sec.getBoundingClientRect().top <= innerHeight * .5) cur = i; }
     if (cur !== rCur) { var first = rCur === -1; rCur = cur; railNow.textContent = '0' + (cur + 1) + ' / ' + RS[cur][1]; if (!first && SAY[RS[cur][0]] && rail.classList.contains('show')) railSayNow(SAY[RS[cur][0]]); }
     rail.classList.toggle('done', p > .985); railBot.firstElementChild.nextElementSibling.classList.toggle('wave', p > .985);
     railBot.classList.add('walk'); clearTimeout(rIdle); rIdle = setTimeout(function () { railBot.classList.remove('walk'); }, 220);
@@ -65,7 +58,7 @@
   var M = S.data.mascotte, CH = M.chargement, pre = null;
   function preHTML() {
     return '<div class="pre" id="pre" role="status" aria-live="polite" aria-label="Chargement du site"><canvas id="pre-cv" aria-hidden="true"></canvas><div class="pre-c">' +
-      '<div class="pre-bot" id="pre-bot" role="button" tabindex="0" aria-label="' + esc(M.nom) + ', la mascotte : cliquez pour accélérer le chargement"></div>' +
+      '<div class="pre-bot" id="pre-bot" role="button" tabindex="0" aria-label="' + esc(M.nom) + ' : cliquez pour accélérer le chargement"></div>' +
       '<div class="pre-n" aria-hidden="true"><span id="pre-n">0</span><small>%</small></div>' +
       '<div class="pre-lab" id="pre-lab"><b>$</b><span id="pre-t">' + esc(CH.commandes[0][1]) + '</span><i class="caret"></i></div>' +
       '<div class="pre-bar" aria-hidden="true"><i id="pre-f"></i>' + CH.commandes.slice(1).map(function (c) { return '<span style="left:' + c[0] + '%"></span>'; }).join('') + '</div>' +
@@ -105,7 +98,7 @@
     function tick(t) {
       var dt = Math.min(60, t - last); last = t;
       if (!fin) { var sp = v < 25 ? .031 : v < 55 ? .026 : v < 82 ? .035 : .024; v = Math.min(100, v + dt * sp * speed); }
-      var shown = Math.floor(v); nEl.textContent = shown; fEl.style.width = v + '%';
+      var shown = Math.floor(v); nEl.textContent = shown; fEl.style.width = v + '%'; botEl.style.setProperty('--p', (v / 100).toFixed(3));
       for (var i = STG.length - 1; i >= 0; i--) if (v >= STG[i][0]) { if (tEl.textContent !== STG[i][1] && !fin) tEl.textContent = STG[i][1]; break; }
       dots.forEach(function (d, i) { d.classList.toggle('on', v >= STG[i + 1][0]); });
       drawNet();
@@ -113,7 +106,7 @@
       if (!done) raf = requestAnimationFrame(tick);
     }
     function finish() {
-      lab.classList.add('ok'); lab.innerHTML = '<b>✓</b><span>' + esc(CH.termine) + '</span>'; hint.textContent = ''; nEl.textContent = 100; fEl.style.width = '100%'; hopBot(botEl);
+      botEl.classList.add('ok'); lab.classList.add('ok'); lab.innerHTML = '<b>✓</b><span>' + esc(CH.termine) + '</span>'; hint.textContent = ''; nEl.textContent = 100; fEl.style.width = '100%'; hopBot(botEl);
       setTimeout(exit, 650);
     }
     function exit() {
@@ -121,7 +114,7 @@
       railMeasure(); railFrame(); var tr = railBot.getBoundingClientRect(); /* cible : rail (même hors affichage) */
       var tw = railBot.offsetWidth, th = railBot.offsetHeight, tl = railBot.getBoundingClientRect().left, tt = railBot.getBoundingClientRect().top;
       var r = botEl.getBoundingClientRect(); botEl.style.animation = 'none';
-      var fl = document.createElement('div'); fl.className = 'fly'; fl.style.cssText = 'left:' + r.left + 'px;top:' + r.top + 'px;width:' + r.width + 'px;height:' + r.height + 'px'; fl.innerHTML = botSVG(); document.body.appendChild(fl);
+      var fl = document.createElement('div'); fl.className = 'fly ok'; fl.style.cssText = '--p:1;left:' + r.left + 'px;top:' + r.top + 'px;width:' + r.width + 'px;height:' + r.height + 'px'; fl.innerHTML = botSVG(); document.body.appendChild(fl);
       botEl.style.visibility = 'hidden';
       var sc = tw / r.width, dx = tl - r.left, dy = tt - r.top, dur = 950;
       var anim = fl.animate([{ transform: 'translate(0,0) scale(1)' }, { transform: 'translate(' + (dx * .5) + 'px,' + (dy * .5 - 90) + 'px) scale(' + ((1 + sc) / 2 + .1) + ')', offset: .55 }, { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + sc + ')' }], { duration: dur, easing: 'cubic-bezier(.55,0,.25,1)', fill: 'forwards' });

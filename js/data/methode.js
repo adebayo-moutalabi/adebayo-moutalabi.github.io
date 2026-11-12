@@ -5,7 +5,7 @@
    ===================================================================== */
 
 Site.data.methode = {
-  entete: { etiquette: "Méthode", titre: "Quatre temps,", accent: "toujours les mêmes.", texte: "Je pars du besoin réel, je livre vite quelque chose qui fonctionne, et je ne laisse rien que l'équipe ne sache faire tourner seule." },
+  entete: { etiquette: "Méthode", titre: "Ma façon de travailler,", accent: "en quatre temps.", texte: "Partir du besoin réel, livrer vite quelque chose qui fonctionne, et laisser une équipe autonome." },
   etapes: [
     { titre: "Écouter", texte: "Comprendre le métier, l'existant et ce qui fait perdre du temps, puis l'écrire noir sur blanc.", outils: ["Entretiens", "Cartographie"], livrable: "Un cahier des charges clair" },
     { titre: "Prototyper", texte: "Construire rapidement une première version qui fonctionne, pour valider l'idée avant d'investir.", outils: ["Docker", "n8n", "Next.js"], livrable: "Un prototype utilisable" },

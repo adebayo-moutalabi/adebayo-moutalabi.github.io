@@ -24,5 +24,10 @@
   S.head = function (e) {
     return '<div class="head"><span class="caps">' + S.esc(e.etiquette) + '</span><h2>' + S.esc(e.titre) + ' <span class="it">' + S.esc(e.accent) + '</span></h2><p>' + S.esc(e.texte) + '</p></div>';
   };
+  /* Logo : version sombre et version claire (la bonne s'affiche selon le thème, voir css/base.css) */
+  S.logo = function (taille, prefixe) {
+    var p = prefixe || '', t = taille || 32;
+    return '<span class="logo"><img class="l-sombre" src="' + p + 'assets/logo/logo-am.svg" alt="Adebayo Moutalabi" width="' + t + '" height="' + t + '"><img class="l-clair" src="' + p + 'assets/logo/logo-am-clair.svg" alt="Adebayo Moutalabi" width="' + t + '" height="' + t + '"></span>';
+  };
   S.chips = function (arr) { return '<div class="chips">' + arr.map(function (t) { return '<span class="chip">' + S.esc(t) + '</span>'; }).join('') + '</div>'; };
 })(window.Site = window.Site || { data: {} });

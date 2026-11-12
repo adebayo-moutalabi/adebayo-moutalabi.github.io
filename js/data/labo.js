@@ -7,7 +7,7 @@
    ===================================================================== */
 
 Site.data.labo = {
-  entete: { etiquette: "Le labo", titre: "Ne me croyez pas sur parole.", accent: "Essayez.", texte: "Quatre démos interactives pour comprendre mon métier en dix secondes chacune." },
+  entete: { etiquette: "Le labo", titre: "Mon métier,", accent: "en quatre démos.", texte: "Kubernetes, CI/CD, agent IA, architecture AWS : manipulez chaque démo, dix secondes suffisent." },
 
   k8s: {
     onglet: "Kubernetes", etiquette: "Conteneurs & orchestration", titre: "Votre trafic monte,", accent: "l'infra suit.",

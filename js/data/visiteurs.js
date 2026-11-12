@@ -5,26 +5,26 @@
    ===================================================================== */
 
 Site.data.visiteurs = {
-  entete: { etiquette: "Par où commencer ?", titre: "Dites-moi qui vous êtes,", accent: "je vous guide.", texte: "Choisissez un profil : la page vous emmène directement vers ce qui vous intéresse." },
+  entete: { etiquette: "Par où commencer ?", titre: "Chacun vient pour sa raison.", accent: "Choisissez la vôtre.", texte: "La page vous emmène directement à ce qui vous intéresse." },
   profils: [
     {
       id: "rec",
-      etiquette: "Recruteur",
+      etiquette: "Recrutement",
       titre: "Je recrute",
-      texte: "Parcours, formations et compétences, l'essentiel pour évaluer un profil.",
+      texte: "Parcours, formations et compétences : l'essentiel pour évaluer un profil.",
       message: "Parfait. Direction le parcours : expériences, formations et distinctions.",
       cible: "#parcours",
-      contactTitre: "Une alternance en Cloud, DevOps & IA ?",
-      contactAccent: "Échangeons."
+      contactTitre: "Un poste, une alternance ?",
+      contactAccent: "Écrivez-moi."
     },
     {
       id: "pro",
-      etiquette: "Client",
-      titre: "J'ai un projet",
-      texte: "Pipelines, agents IA, automatisations : comment je construis une solution.",
-      message: "Très bien. Voici ma méthode, du besoin réel au déploiement.",
-      cible: "#methode",
-      contactTitre: "Une tâche à automatiser ?",
+      etiquette: "Projet",
+      titre: "J'ai un besoin",
+      texte: "Infrastructure, site web, agent IA : ce que je construis, et comment.",
+      message: "Très bien. Voici ce que je fais, du besoin de départ à la mise en ligne.",
+      cible: "#domaines",
+      contactTitre: "Un projet, une mission ?",
       contactAccent: "Parlons-en."
     },
     {
@@ -34,8 +34,8 @@ Site.data.visiteurs = {
       texte: "Le labo : manipulez des démos Kubernetes, CI/CD et agent IA.",
       message: "Bienvenue dans le labo. Manipulez les démos à votre rythme.",
       cible: "#labo",
-      contactTitre: "Envie d'aller plus loin ?",
-      contactAccent: "Discutons tech."
+      contactTitre: "Envie d'échanger ?",
+      contactAccent: "Écrivez-moi."
     }
   ]
 };

@@ -6,10 +6,12 @@
   var $ = S.$, $$ = S.$$, esc = S.esc, D = S.data.projets, ART = S.data.vignettes, P = D.liste;
 
   var grid = $('#pgrid'), filter = 'all';
+  /* Vraie capture d'écran du projet si elle existe (champ « image »), sinon le dessin de vignettes.js */
+  function vignette(p) { return p.image ? '<img src="' + esc(p.image) + '" alt="" loading="lazy" width="' + (p.imageTaille || [1200, 678])[0] + '" height="' + (p.imageTaille || [1200, 678])[1] + '">' : (ART[p.vignette] || ''); }
   function drawP() {
     grid.innerHTML = P.filter(function (p) { return filter === 'all' || p.categorie === filter; }).map(function (p) {
       return '<button type="button" class="pcard' + (p.large && filter === 'all' ? ' wide' : '') + '" id="projet-' + esc(p.id) + '" data-id="' + esc(p.id) + '" aria-haspopup="dialog">' +
-        '<div class="pthumb" aria-hidden="true">' + (ART[p.vignette] || '') + '</div><div class="pbody"><span class="caps">' + esc(p.type) + '</span><h3>' + esc(p.titre) + '</h3><p>' + esc(p.resume) + '</p><span class="pmore">Voir la fiche →</span></div></button>';
+        '<div class="pthumb' + (p.image ? ' shot' : '') + '" aria-hidden="true">' + vignette(p) + '</div><div class="pbody"><span class="caps">' + esc(p.type) + '</span><h3>' + esc(p.titre) + '</h3><p>' + esc(p.resume) + '</p><span class="pmore">Voir la fiche →</span></div></button>';
     }).join('');
   }
   drawP();
@@ -25,7 +27,7 @@
     var p = P.filter(function (x) { return x.id === id; })[0]; if (!p) return;
     lastF = document.activeElement;
     sheet.innerHTML = '<span class="grab"></span><div class="sheet-top"><span class="caps">' + esc(p.type) + '</span><button type="button" class="x" id="sh-x" aria-label="Fermer la fiche">✕</button></div>' +
-      '<div class="pthumb" style="border-radius:20px;border:1px solid var(--hair)" aria-hidden="true">' + (ART[p.vignette] || '') + '</div>' +
+      '<div class="pthumb' + (p.image ? ' shot' : '') + '" style="border-radius:20px;border:1px solid var(--hair)" aria-hidden="true">' + vignette(p) + '</div>' +
       '<h3 id="sh-title">' + esc(p.titre) + '</h3><p class="lead">' + esc(p.intro) + '</p>' +
       (p.probleme ? '<span class="caps">Problème</span><p>' + esc(p.probleme) + '</p><span class="caps">Ce que j\'ai fait</span>' : '') +
       '<ul>' + p.points.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' +

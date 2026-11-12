@@ -23,6 +23,16 @@
     }).join('') + '</div><p class="choice-out" id="choice-out" aria-live="polite"></p>';
   }
 
+  /* ---------- Ce que je fais : trois domaines ---------- */
+  function domaines() {
+    var Dm = D.domaines, ART = D.vignettes;
+    S.$('#domaines .wrap').innerHTML = head(Dm.entete) + '<div class="doms">' + Dm.liste.map(function (d, i) {
+      return '<article class="dom' + (d.ia ? ' ia' : '') + '" id="domaine-' + esc(d.id) + '"><div class="dom-vis" aria-hidden="true"><span class="dom-no">0' + (i + 1) + '</span>' + (ART[d.vignette] || '') + '</div>' +
+        '<h3>' + esc(d.titre) + '</h3><p>' + esc(d.texte) + '</p>' + chips(d.outils) +
+        (d.exemple ? '<a class="dom-ex" href="' + esc(d.exemple.url) + '">' + esc(d.exemple.texte) + ' →</a>' : '') + '</article>';
+    }).join('') + '</div>';
+  }
+
   /* ---------- Labo ---------- */
   function labo() {
     var L = D.labo, ids = ['k8s', 'ci', 'ia', 'aws'];
@@ -88,8 +98,8 @@
       '<div class="ft"><span class="lb">Lieu</span><span class="v" style="font-size:22px">' + esc(f.lieu) + '</span></div>' +
       '<div class="ft-2"><a class="ft link" href="' + esc(c.linkedin) + '" target="_blank" rel="noopener me"><span class="lb">Réseau</span><span class="v">LinkedIn ↗</span></a>' +
       '<a class="ft link" href="' + esc(c.github) + '" target="_blank" rel="noopener me"><span class="lb">Code</span><span class="v">GitHub ↗</span></a></div></div></div>' +
-      '<div class="legal"><span>© ' + D.profil.annee + ' ' + esc(D.profil.nomComplet) + ' · ' + esc(D.profil.metier) + '</span><span>' + esc(D.profil.ville) + '</span></div>';
+      '<div class="legal"><span class="legal-id">' + S.logo(28) + '<span>© ' + D.profil.annee + ' ' + esc(D.profil.nomComplet) + ' · ' + esc(D.profil.metier) + '</span></span><span>' + esc(D.profil.ville) + '</span></div>';
   }
 
-  hero(); choix(); labo(); competences(); methode(); projets(); parcours(); contact();
+  hero(); choix(); domaines(); labo(); competences(); methode(); projets(); parcours(); contact();
 })(window.Site);

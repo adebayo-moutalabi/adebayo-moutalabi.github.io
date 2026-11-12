@@ -38,7 +38,7 @@
     { k: 'methode', l: 'Voir ma méthode', h: 'section', r: function () { go('#methode'); } },
     { k: 'contact email mail linkedin', l: 'Me contacter', h: 'section', r: function () { go('#contact'); } },
     { k: 'theme sombre clair', l: 'Changer de thème', h: 'apparence', r: function () { $('#dk-theme').click(); } },
-    { k: 'intro preloader chargement rejouer atom mascotte', l: 'Rejouer le chargement', h: 'avec Atom, la mascotte', r: function () { S.atom && S.atom.replay(); } },
+    { k: 'intro preloader chargement rejouer logo', l: 'Rejouer le chargement', h: 'le logo AM se déploie', r: function () { S.atom && S.atom.replay(); } },
     { k: 'whoami', l: 'whoami', h: 'qui est derrière ce site ?', r: function () { toast(S.data.profil.nomComplet + ' · ' + S.data.profil.accroche.pied); } }
   ];
   function fl() { var q = inp.value.trim().toLowerCase(); return CMDS.filter(function (c) { return !q || (c.k + ' ' + c.l).toLowerCase().indexOf(q) > -1; }); }

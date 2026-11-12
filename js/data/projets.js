@@ -27,7 +27,7 @@
    ===================================================================== */
 
 Site.data.projets = {
-  entete: { etiquette: "Réalisations", titre: "Peu de projets,", accent: "mais vérifiables.", texte: "Seules les réalisations en ligne et vérifiables sont présentées ici : code public, site ou application téléchargeable. De nouveaux projets Cloud, DevOps et IA arriveront au fil de leur mise en production." },
+  entete: { etiquette: "Réalisations", titre: "Des projets en ligne,", accent: "du besoin au résultat.", texte: "Chaque fiche raconte un projet : le problème de départ, ce que j'ai construit, et ce qui tourne aujourd'hui." },
   /* filtres: false = pas de boutons de filtre (inutiles avec peu de projets). Remettez true quand il y en aura plus. */
   filtres: false,
   categories: [
@@ -45,7 +45,7 @@ Site.data.projets = {
       type: "Agent IA vocal · OpenAI DevDay Hackathon Paris",
       titre: "Nox, le compagnon de bureau qui aide à démarrer",
       nomCourt: "Nox",
-      resume: "Une mascotte de bureau qui parle en premier, découpe une tâche en micro-étapes de 2 à 10 minutes et aide les personnes TDAH à démarrer, rester concentrées et reprendre.",
+      resume: "Un agent IA vocal pour Windows qui aide les personnes TDAH à passer à l'action : il parle en premier, découpe la tâche en micro-étapes de 2 à 10 minutes et lance le minuteur.",
       description: "Nox, application Windows d'Adebayo Moutalabi : un agent IA vocal (API Realtime d'OpenAI) qui aide les personnes TDAH à démarrer une tâche par micro-étapes.",
       intro: "Application de bureau pour Windows, réalisée pour l'OpenAI DevDay Community Hackathon Paris (piste Impact / inclusion). Pensée d'abord pour les personnes TDAH, utile à toute personne qui a du mal à démarrer.",
       probleme: "Pour beaucoup de personnes TDAH, le plus difficile n'est pas le travail lui-même : c'est démarrer, rester sur la tâche après une notification, et reprendre après une interruption. Les outils de productivité (listes, agendas, minuteurs) attendent qu'on les ouvre : ils aident surtout les personnes déjà organisées.",
@@ -88,7 +88,7 @@ Site.data.projets = {
       type: "Site vitrine · Cybersécurité · Bénin",
       titre: "Continental IT, le site d'un cabinet de cybersécurité à Cotonou",
       nomCourt: "Continental IT",
-      resume: "Site vitrine de Continental IT, cabinet béninois de conseil en gouvernance des SI, gestion des risques et cybersécurité, en ligne sur continentalit.org.",
+      resume: "Le site d'un cabinet de cybersécurité à Cotonou : six pôles d'expertise, masterclasses et demande d'audit, en ligne sur continentalit.org.",
       description: "Site vitrine de Continental IT, cabinet de conseil en cybersécurité à Cotonou (Bénin), réalisé par Adebayo Moutalabi sous WordPress et Elementor.",
       intro: "Continental IT est un cabinet basé à Cotonou (Bénin) qui accompagne les organisations publiques et privées d'Afrique de l'Ouest en gouvernance des systèmes d'information, gestion des risques et cybersécurité (ISO/IEC 27001, EBIOS RM, formations certifiantes PECB).",
       probleme: "Le cabinet devait présenter en ligne ses six pôles d'expertise, ses certifications et ses masterclasses en cybersécurité, et permettre aux visiteurs de le contacter ou de demander un audit gratuit.",
@@ -117,7 +117,7 @@ Site.data.projets = {
       type: "Web · France 2030 / ANR",
       titre: "ExpoIA, l'exposition sur l'IA du Musée des Transmissions",
       nomCourt: "ExpoIA",
-      resume: "Site bilingue et accessible de l'exposition du Musée des Transmissions à Rennes, avec le jeu Floriale.",
+      resume: "Le site bilingue et accessible de l'exposition sur l'IA du Musée des Transmissions, à Rennes, et son jeu Floriale.",
       intro: "Projet confié dans le cadre du master Cloud & Réseaux de l'ISTIC (Université de Rennes), d'octobre 2025 à mai 2026, au sein du projet TIARe financé par France 2030 et l'ANR.",
       probleme: "Le Musée des Transmissions avait besoin d'un site public pour son exposition sur l'intelligence artificielle : bilingue, accessible, et dont l'équipe du musée peut modifier le contenu sans développeur.",
       points: [
@@ -129,7 +129,13 @@ Site.data.projets = {
       ],
       resultat: "Le site est en ligne sur expo-ia.univ-rennes.fr et le jeu Floriale y est jouable.",
       techno: ["Next.js 16", "Payload CMS 3", "PostgreSQL", "TypeScript", "Tailwind", "Framer Motion"],
+      description: "ExpoIA, site bilingue et accessible de l'exposition sur l'IA du Musée des Transmissions (Rennes), développé par Adebayo Moutalabi avec Next.js et Payload CMS.",
       outils: ["Next.js", "Payload CMS", "TypeScript", "Git"],
+      page: "projets/expoia/",
+      image: "assets/projets/expoia-accueil.webp",
+      imageAlt: "Page d'accueil du site de l'exposition ExpoIA : « Qu'est-ce qu'IA ? »",
+      partage: "assets/projets/expoia-partage.png",
+      imageTaille: [1200, 750],
       liens: [
         { url: "https://expo-ia.univ-rennes.fr/fr", texte: "Voir le site" },
         { url: "https://expo-ia.univ-rennes.fr/fr/jeu/floriale", texte: "Jouer à Floriale" }
@@ -142,7 +148,7 @@ Site.data.projets = {
       type: "CI/CD · GitHub Actions",
       titre: "Ce portfolio, vérifié et déployé par un pipeline",
       nomCourt: "Portfolio CI/CD",
-      resume: "Un site statique dont chaque modification passe par un pipeline GitHub Actions avant d'être mise en ligne.",
+      resume: "Ce site lui-même : chaque modification est contrôlée (HTML, liens, Lighthouse) puis déployée par GitHub Actions.",
       intro: "Le site que vous lisez est aussi une démonstration : son code source est public sur GitHub.",
       probleme: "Publier un site à la main laisse passer des erreurs : HTML invalide, liens cassés, baisse de performance ou d'accessibilité.",
       points: [
