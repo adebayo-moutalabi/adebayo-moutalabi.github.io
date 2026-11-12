@@ -11,6 +11,20 @@ https://adebayo-moutalabi.github.io (dépôt `adebayo-moutalabi/adebayo-moutalab
 - Aperçu (captures) avant chaque publication.
 - Après toute modification de `js/data/` : `node scripts/generer.js` (sinon la CI échoue).
 
+## v3.4 : stack en couches, méthode en pipeline (12/11/2026)
+
+Retours d'Adebayo sur la v3.3 :
+- **Ce que je fais** : retour aux trois cartes de la v3.2 (il préférait, pas de clic pour ouvrir) ; phrase
+  « Je fais passer une idée… » retirée.
+- **Compétences** : la boîte à outils (jugée générique) est remplacée par une **pile de couches en 3D** (du
+  réseau en bas jusqu'aux agents IA en haut, ordre dans `competences.js` → `pile`). Au défilement, la pile
+  s'ouvre et la couche courante monte, sa fiche (outils + rôles) s'affiche à côté ; la liste des couches
+  permet d'y sauter. Sur téléphone : pile fixe et fiches en carrousel horizontal.
+- **Méthode** : présentée comme une **exécution de pipeline CI** (`methode.yml`) : quatre jobs qui passent
+  « en cours » puis « réussi » quand la section arrive à l'écran, chacun avec ses étapes et son artefact
+  (le livrable).
+- **Dock en mode sombre** : les deux versions du logo s'affichaient côte à côte, corrigé.
+
 ## v3.3 : sections plus vivantes (12/11/2026)
 
 Retours d'Adebayo sur la v3.2 en ligne :

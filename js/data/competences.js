@@ -10,7 +10,9 @@
    ===================================================================== */
 
 Site.data.competences = {
-  entete: { etiquette: "Compétences", titre: "Ma boîte", accent: "à outils.", texte: "Les outils avec lesquels je construis, rangés en sept familles. Attrapez-les et lancez-les, ou choisissez une famille." },
+  entete: { etiquette: "Compétences", titre: "Ma stack,", accent: "couche par couche.", texte: "Du réseau jusqu'aux agents IA, chaque couche repose sur la précédente. Faites défiler : la pile s'ouvre et se détaille." },
+  /* Ordre de la pile, du bas vers le haut (identifiants de « familles ») */
+  pile: ["net", "sys", "cloud", "cont", "ci", "web", "ia"],
   familles: [
     { id: "ci", nom: "CI/CD", resume: "Automatiser le chemin entre une modification de code et sa mise en ligne." },
     { id: "cont", nom: "Conteneurs", resume: "Empaqueter les applications et les faire tourner de façon fiable." },
