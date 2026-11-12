@@ -51,8 +51,6 @@ p { margin: 0; }
 @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .logo .l-sombre { display: none; } :root:not([data-theme="dark"]) .logo .l-clair { display: block; } }
 :root[data-theme="light"] .logo .l-sombre { display: none; }
 :root[data-theme="light"] .logo .l-clair { display: block; }
-.site-top { position: absolute; z-index: 6; top: calc(64px + env(safe-area-inset-top, 0px)); left: var(--gl); }
-.site-top .logo img { width: 44px; }
 .legal-id { display: inline-flex; align-items: center; gap: 10px; }
 #contact .legal { align-items: center; }
 .sec { padding-block: clamp(80px, 11vw, 150px); }

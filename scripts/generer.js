@@ -161,6 +161,8 @@ const llms = [
   '',
   '## Ce que je fais',
   '',
+  D.domaines.phrase.map(m => typeof m === 'string' ? m : (m.accent || '')).filter(Boolean).join(' ').replace(/ ,/g, ','),
+  '',
   ...D.domaines.liste.map(d => '- ' + d.titre + ' : ' + d.texte + ' (' + d.outils.join(', ') + ')'),
   '- Langues : ' + D.parcours.langues.map(l => l.nom + ' (' + l.niveau + ')').join(', '),
   '',
@@ -200,7 +202,26 @@ const llms = [
   ''
 ].join('\n');
 
+
+// Barre de navigation des pages de projet et de la page « Tous les projets »
+const barre = (racineRel, courant) => '<div class="wrap pp-barre">' +
+  '<a class="pp-logo" href="' + racineRel + '" aria-label="Accueil">' + S.logo(36, racineRel) + '</a>' +
+  '<nav class="pp-menu" aria-label="Navigation principale">' +
+  '<a href="' + racineRel + '">Accueil</a>' +
+  '<a href="' + racineRel + '#projets">Réalisations</a>' +
+  '<a href="' + racineRel + 'projets/"' + (courant === 'tous' ? ' aria-current="page"' : '') + '>Tous les projets</a>' +
+  '<a href="' + racineRel + '#parcours">Parcours</a>' +
+  '</nav><a class="pp-btn or pp-ecrire" href="' + racineRel + '#contact">Écrivez-moi</a></div>';
+
 // ---------- 5. Pages de projet (une par projet qui a un champ « page ») ----------
+// Bas de page : projet précédent, tous les projets, projet suivant (en boucle)
+const suite = (p, racineRel) => {
+  const i = avecPage.indexOf(p), n = avecPage.length, av = avecPage[(i - 1 + n) % n], ap = avecPage[(i + 1) % n];
+  return '<nav class="wrap pp-suite" aria-label="Autres projets">' +
+    '<a class="pp-av" href="' + racineRel + av.page + '"><small>← Projet précédent</small><b>' + esc(av.nomCourt) + '</b></a>' +
+    '<a class="pp-tous" href="' + racineRel + 'projets/">Tous les projets</a>' +
+    '<a class="pp-ap" href="' + racineRel + ap.page + '"><small>Projet suivant →</small><b>' + esc(ap.nomCourt) + '</b></a></nav>';
+};
 const pageProjet = p => {
   const url = P.site + p.page, racineRel = p.page.split('/').filter(Boolean).map(() => '..').join('/') + '/';
   const titre = p.nomCourt + ' · ' + P.prenom + ' ' + P.nomFamille + ', ' + P.metier;
@@ -250,12 +271,12 @@ ${ldJSON(ld).trim()}
 <body class="page-projet">
 <a class="skip" href="#contenu">Aller au contenu</a>
 <header class="pp-top gut">
-  <div class="wrap pp-marque"><a class="pp-logo" href="${racineRel}">${S.logo(40, racineRel)}</a></div>
+  ${barre(racineRel, 'projet')}
+</header>
+<main id="contenu" class="gut">
   <nav class="wrap pp-nav" aria-label="Fil d'Ariane">
     <a href="${racineRel}">${esc(P.prenom + ' ' + P.nomFamille)}</a><span aria-hidden="true">/</span><a href="${racineRel}projets/">Projets</a><span aria-hidden="true">/</span><span aria-current="page">${esc(p.nomCourt)}</span>
   </nav>
-</header>
-<main id="contenu" class="gut">
   <article class="wrap pp">
     <span class="caps">${esc(p.type)}</span>
     <h1>${esc(p.titre)}</h1>
@@ -268,6 +289,7 @@ ${ldJSON(ld).trim()}
     ${p.resultat ? '<section><h2>Résultat</h2><p>' + esc(p.resultat) + '</p></section>' : ''}
     <section><h2>Stack</h2><div class="chips">${p.techno.map(t => '<span class="chip">' + esc(t) + '</span>').join('')}</div></section>
   </article>
+  ${suite(p, racineRel)}
 </main>
 <footer class="gut pp-pied">
   <div class="wrap">
@@ -342,12 +364,12 @@ ${ldJSON(ld).trim()}
 <body class="page-projet">
 <a class="skip" href="#contenu">Aller au contenu</a>
 <header class="pp-top gut">
-  <div class="wrap pp-marque"><a class="pp-logo" href="${racineRel}">${S.logo(40, racineRel)}</a></div>
+  ${barre(racineRel, 'tous')}
+</header>
+<main id="contenu" class="gut">
   <nav class="wrap pp-nav" aria-label="Fil d'Ariane">
     <a href="${racineRel}">${esc(P.prenom + ' ' + P.nomFamille)}</a><span aria-hidden="true">/</span><span aria-current="page">Projets</span>
   </nav>
-</header>
-<main id="contenu" class="gut">
   <div class="wrap pc">
     <span class="caps">Réalisations · ${L.length} projets</span>
     <h1>${esc(K.titre)}</h1>

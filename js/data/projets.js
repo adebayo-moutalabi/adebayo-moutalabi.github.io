@@ -162,32 +162,21 @@ Site.data.projets = {
       titre: "Floriale, le jeu de l'exposition ExpoIA",
       nomCourt: "Floriale",
       resume: "Le jeu de l'exposition ExpoIA, conçu et développé pour le Musée des Transmissions.",
-      intro: "Floriale est le jeu de l'exposition sur l'IA du Musée des Transmissions, à Rennes, intégré au site d'ExpoIA.",
+      intro: "Floriale (« Apprends comme une IA ! ») met le visiteur à la place d'une IA : observer des fleurs étiquetées, en déduire une règle de classification, puis la tester sur de nouvelles fleurs.",
       points: [
         "Conception et développement du jeu",
+        "Un parcours en six étapes : intro, entraînement, règle, test, récapitulatif, fin",
         "Intégration au site bilingue de l'exposition (Next.js, TypeScript)"
       ],
+      image: "assets/projets/floriale-accueil.webp",
+      imageAlt: "Écran d'accueil du jeu Floriale : « Apprends comme une IA ! »",
+      imageTaille: [1200, 750],
       resultat: "Le jeu est jouable en ligne sur le site d'ExpoIA.",
       techno: ["Next.js", "TypeScript"],
       outils: ["Next.js", "TypeScript"],
       liens: [
         { url: "https://expo-ia.univ-rennes.fr/fr/jeu/floriale", texte: "Jouer à Floriale" }
       ]
-    },
-    {
-      id: "todjumi",
-      categorie: "web",
-      vignette: "web",
-      type: "Santé numérique · Huawei Seeds for the Future 2023",
-      titre: "TODJUMI, le suivi des patients pour les médecins béninois",
-      nomCourt: "TODJUMI",
-      resume: "Une plateforme de suivi des patients pour les médecins béninois, projet d'équipe sélectionné.",
-      intro: "TODJUMI est un projet d'équipe : une plateforme de suivi des patients pensée pour les médecins béninois.",
-      points: [
-        "Projet d'équipe autour du suivi des patients",
-        "Sélectionné dans le cadre du programme Huawei Seeds for the Future 2023"
-      ],
-      techno: []
     },
     {
       id: "portfolio",
@@ -207,6 +196,9 @@ Site.data.projets = {
       ],
       resultat: "Chaque version en ligne a passé les mêmes contrôles ; l'historique des exécutions est public dans l'onglet Actions du dépôt.",
       techno: ["GitHub Actions", "GitHub Pages", "Node.js", "html-validate", "lychee", "Lighthouse CI"],
+      image: "assets/projets/portfolio-accueil.webp",
+      imageAlt: "Page d'accueil de ce portfolio",
+      imageTaille: [1200, 750],
       outils: ["GitHub Actions", "Git"],
       liens: [
         { url: "https://github.com/adebayo-moutalabi/adebayo-moutalabi.github.io", texte: "Voir le code" },

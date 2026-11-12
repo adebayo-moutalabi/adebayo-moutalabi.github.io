@@ -11,6 +11,24 @@ https://adebayo-moutalabi.github.io (dépôt `adebayo-moutalabi/adebayo-moutalab
 - Aperçu (captures) avant chaque publication.
 - Après toute modification de `js/data/` : `node scripts/generer.js` (sinon la CI échoue).
 
+## v3.3 : sections plus vivantes (12/11/2026)
+
+Retours d'Adebayo sur la v3.2 en ligne :
+- **TODJUMI retiré** (on en reparlera quand il sera reconstruit).
+- **Vraies captures** pour Floriale (écran d'accueil du jeu) et pour le portfolio.
+- **Logos des outils** seulement dans la boîte à outils, la phrase d'ouverture et les cartes de projets (plus dans
+  Méthode ni dans les domaines).
+- **Compétences = « Ma boîte à outils »** (repris du site v4) : les outils tombent dans une boîte, on les attrape et
+  on les lance (Matter.js, chargé seulement quand la section approche), filtres par famille, rôle de l'outil au
+  survol. Liste complète repliée dessous (lecture, référencement). Grille simple si « réduire les animations ».
+  Le filtre « Utilisés dans » et le point doré sont supprimés.
+- **Ce que je fais** : grande phrase d'ouverture avec logos (« Je fais passer une idée du premier commit à la
+  production… », reprise du site v4), puis trois panneaux reliés par un fil doré ; le panneau actif s'élargit,
+  défilement automatique jusqu'à ce que le visiteur interagisse. Plus d'espace sous le hero (la section collait).
+- **Pages de projet et « Tous les projets »** : barre de navigation fixe (Accueil, Réalisations, Tous les projets,
+  Parcours, Écrivez-moi) et, en bas des études de cas, projet précédent / tous les projets / projet suivant.
+- **Logo AM** : le logo flottant en haut à gauche de l'accueil est retiré ; il devient le bouton « Accueil » du dock.
+
 ## v3.2 : inspiré du site v4 d'Adebayo (12/11/2026)
 
 Source : l'archive `portfolio-v4.zip` envoyée par Adebayo (son propre essai de site).

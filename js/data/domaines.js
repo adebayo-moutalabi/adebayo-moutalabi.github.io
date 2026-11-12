@@ -6,7 +6,13 @@
    ===================================================================== */
 
 Site.data.domaines = {
-  entete: { etiquette: "Ce que je fais", titre: "Trois domaines,", accent: "un même fil : automatiser.", texte: "Du serveur à l'interface, jusqu'aux agents qui travaillent à votre place." },
+  /* Phrase d'ouverture : texte, { logos: [...] } (pastille de logos, voir data/logos.js) ou { accent: "..." } */
+  etiquette: "Ce que je fais",
+  phrase: [
+    "Je fais passer une idée", { logos: ["Git"] }, "du premier commit à la production", { logos: ["Kubernetes", "AWS EC2"] },
+    ", puis j'automatise", { accent: "tout ce qui peut l'être" }, { logos: ["OpenAI Realtime API"] }, "pour qu'elle y reste."
+  ],
+  fil: "Trois domaines, un même fil : automatiser.",
   liste: [
     {
       id: "infrastructure",
