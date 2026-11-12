@@ -62,6 +62,30 @@ Contenu publié :
   ajoutée au sitemap, à llms.txt, au JSON-LD de l'accueil et aux contrôles CI (html-validate, lychee, Lighthouse).
 - Lighthouse local : accueil 99/100/100/100, pages Nox et Continental IT 100/100/100/100.
 
+## Logo (12/11/2026)
+
+- Source : `assets/logo/logo-am.svg` (monogramme AM doré, orbite, check), fourni par Adebayo sur la branche `logo-am`.
+- Variante claire `assets/logo/logo-am-clair.svg` : orbite arrière et nœuds en brun doré (#8A6A3A), sinon
+  invisibles sur fond clair. La bonne variante s'affiche selon le thème (CSS `.logo .l-sombre / .l-clair`).
+- Présent : en-tête et pied de page de l'accueil et des pages de projet, image de partage, JSON-LD
+  (`Person.brand.logo` : Person n'a pas de propriété `logo` dans schema.org).
+- Icônes générées par `node outils/generer-icones.js` : favicon.svg (logo sur carré sombre arrondi, lisible
+  dans les deux thèmes), favicon.ico 32 px, apple-touch-icon 180 px, icônes 192 et 512 px, `site.webmanifest`.
+
+## Nom de domaine (plus tard)
+
+Démarche complète dans `docs/NOM-DE-DOMAINE.md`. En bref :
+1. Acheter le domaine (renouvellement automatique, verrouillage).
+2. DNS : 4 × A et 4 × AAAA vers GitHub Pages pour l'apex, CNAME `www` → `adebayo-moutalabi.github.io`,
+   TXT de vérification du domaine sur GitHub.
+3. GitHub → Settings → Pages : Custom domain, puis Enforce HTTPS ; github.io redirige alors tout seul (301).
+4. Code : changer **une seule variable**, `SITE_URL` en haut de `scripts/generer.js`, puis
+   `node scripts/generer.js` (canonical, Open Graph, JSON-LD, sitemap, robots.txt, llms.txt) ; à la main :
+   `lychee.toml`, texte de l'image de partage, docs.
+5. Liens : GitHub (profil, About, README de profil, dépôt nox), LinkedIn, CV.
+6. Search Console : propriété « Domaine » validée par TXT DNS, renvoi du sitemap, outil de changement d'adresse
+   depuis l'ancienne propriété ; Bing Webmaster Tools.
+
 ## Prochaines étapes
 
 1. **Réglage GitHub Pages à corriger (à la main)** : Settings → Pages → Build and deployment → Source :
@@ -83,3 +107,4 @@ Contenu publié :
   principale avec page `/projets/nox/`.
 - 12/11/2026 : Continental IT ajouté en 2e réalisation (`/projets/continental-it/`) ; relecture complète avant fusion.
 - 12/11/2026 : PR #1 fusionnée par Claude (autorisation d'Adebayo), déploiement vérifié en ligne ; double publication Pages constatée.
+- 12/11/2026 : logo AM intégré partout (variante claire, icônes, manifest, JSON-LD) ; SITE_URL unique ; docs/NOM-DE-DOMAINE.md.

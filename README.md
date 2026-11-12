@@ -66,7 +66,9 @@ portfolio-adebayo/
 ├── assets/
 │   ├── photo.webp          ← ta photo (carrée, 640 px conseillé)
 │   ├── partage.png         ← image d'aperçu lors d'un partage (1200 × 630)
-│   ├── favicon.svg         ← icône de l'onglet
+│   ├── favicon.svg         ← icône de l'onglet (générée)
+│   ├── icones/             ← apple-touch-icon, icônes 192 et 512 px (générées)
+│   ├── logo/               ← logo AM (sombre, clair, PNG 512 px)
 │   ├── projets/            ← captures et images de partage des projets
 │   └── atom.svg            ← dessin de la mascotte
 ├── robots.txt, sitemap.xml, llms.txt   ← référencement (voir §3)
@@ -108,10 +110,20 @@ Si vous oubliez de lancer le script, la CI échoue avec le message « index.html
 |---|---|---|
 | `index.html` (`<head>`) | Titre, description, Open Graph (aperçu de partage), URL canonique | À la main |
 | `assets/partage.png` | Image d'aperçu 1200 × 630 | `node outils/generer-image-partage.js` (modèle : `outils/image-partage.html`) |
-| `robots.txt` | Autoriser les robots | À la main |
 | `sitemap.xml`, `llms.txt`, JSON-LD | Liste des pages, résumé pour les moteurs IA, fiche Google | `node scripts/generer.js` |
 | `projets/<id>/index.html` | Page dédiée d'un projet (URL propre, ex. `/projets/nox/`) | `node scripts/generer.js`, pour chaque projet qui a un champ `page` |
 | `google2f457726f419ac07.html` | Vérification Google Search Console | **Ne pas supprimer** |
+| `robots.txt`, `site.webmanifest`, balises du `<head>` de l'accueil | Robots, icônes d'application, URL canonique, Open Graph | `node scripts/generer.js` |
+| `favicon.ico`, `assets/favicon.svg`, `assets/icones/*` | Icônes (onglet, iPhone, Android) | `node outils/generer-icones.js` (à partir du logo) |
+
+**Adresse du site** : une seule variable, `SITE_URL`, en haut de `scripts/generer.js`. Pour un nom de domaine
+personnel, voir `docs/NOM-DE-DOMAINE.md`.
+
+### Le logo
+
+`assets/logo/logo-am.svg` (fonds sombres) et `assets/logo/logo-am-clair.svg` (fonds clairs) : la bonne version
+s'affiche selon le thème. Après une modification du logo, relancez `node outils/generer-icones.js`,
+`node outils/generer-image-partage.js` puis `node scripts/generer.js`.
 
 ---
 
