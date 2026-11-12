@@ -10,9 +10,26 @@
    ===================================================================== */
 
 Site.data.competences = {
-  entete: { etiquette: "Compétences", titre: "Ma stack,", accent: "couche par couche.", texte: "Du réseau jusqu'aux agents IA, chaque couche repose sur la précédente. Faites défiler : la pile s'ouvre et se détaille." },
-  /* Ordre de la pile, du bas vers le haut (identifiants de « familles ») */
-  pile: ["net", "sys", "cloud", "cont", "ci", "web", "ia"],
+  entete: { etiquette: "Compétences", titre: "Ma stack,", accent: "suivie à la trace.", texte: "Suivez une requête, du clic d'un visiteur jusqu'au réseau. Chaque bloc est une famille d'outils, placée là où elle travaille dans une vraie infrastructure. Survolez un outil pour voir son rôle." },
+  /* Carte de l'infrastructure (section Compétences).
+     depart : le point de départ des requêtes ; place : rôle de chaque famille dans l'infrastructure ;
+     liens : [de, vers, verbe] (les « paquets » lumineux circulent dans ce sens) */
+  carte: {
+    depart: "Un visiteur",
+    place: {
+      web: "Ce que voit le visiteur",
+      ia: "Ce qui répond et automatise",
+      cont: "Où tourne l'application",
+      cloud: "Où elle est hébergée",
+      net: "Ce qui relie les machines",
+      ci: "Ce qui livre chaque modification",
+      sys: "Ce qui administre et surveille"
+    },
+    liens: [
+      ["depart", "web", "clique"], ["web", "ia", "appelle"], ["ia", "cont", "tourne sur"], ["cont", "cloud", "hébergé par"],
+      ["cloud", "net", "relié par"], ["ci", "cont", "déploie"], ["sys", "cont", "surveille"], ["sys", "cloud", "administre"]
+    ]
+  },
   familles: [
     { id: "ci", nom: "CI/CD", resume: "Automatiser le chemin entre une modification de code et sa mise en ligne." },
     { id: "cont", nom: "Conteneurs", resume: "Empaqueter les applications et les faire tourner de façon fiable." },

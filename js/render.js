@@ -25,24 +25,22 @@
     }).join('') + '</div>';
   }
 
-  /* ---------- Compétences : une pile de couches en 3D qui s'ouvre au défilement (js/competences.js) ----------
-     Chaque couche a sa fiche (outils et rôles), toutes présentes dans la page pour la lecture et le référencement. */
+  /* ---------- Compétences : la carte de l'infrastructure (liaisons et paquets dessinés par js/competences.js) ---------- */
   function competences() {
-    var C = D.competences, ordre = (C.pile || []).filter(function (id) { return C.familles.some(function (f) { return f.id === id; }); });
-    C.familles.forEach(function (f) { if (ordre.indexOf(f.id) < 0) ordre.push(f.id); });
-    var fams = ordre.map(function (id) { return C.familles.filter(function (f) { return f.id === id; })[0]; }), n = fams.length;
-    var outilsDe = function (f) { return C.outils.filter(function (o) { return o.famille === f.id; }); };
-    var couches = fams.map(function (f, i) {
-      return '<div class="couche' + (f.ia ? ' ia' : '') + (i === 0 ? ' on' : '') + '" style="--i:' + i + '"><div class="couche-dessous"></div><div class="couche-face"><span class="couche-nom">' + esc(f.nom) + '</span><span class="couche-puces">' +
-        outilsDe(f).map(function (o) { return S.icone(o.nom) || '<span class="puce">' + esc(o.nom.slice(0, 3)) + '</span>'; }).join('') + '</span></div></div>';
-    }).join('');
-    var fiches = fams.map(function (f, i) {
-      return '<article class="pd' + (f.ia ? ' ia' : '') + (i === 0 ? ' on' : '') + '" id="couche-' + esc(f.id) + '" data-i="' + i + '"><span class="pd-no">Couche ' + (i + 1) + ' / ' + n + '</span><h3>' + esc(f.nom) + '</h3><p>' + esc(f.resume) + '</p><ul class="pd-outils">' +
-        outilsDe(f).map(function (o) { return '<li>' + (S.icone(o.nom) || '<span class="ico ico-vide" aria-hidden="true"></span>') + '<b>' + esc(o.nom) + '</b><span>' + esc(o.role) + '</span></li>'; }).join('') + '</ul></article>';
-    }).join('');
-    var index = '<ol class="pile-index" aria-label="Couches">' + fams.map(function (f, i) { return '<li><a href="#couche-' + esc(f.id) + '" data-i="' + i + '"' + (i === 0 ? ' class="on"' : '') + '>' + esc(f.nom) + '</a></li>'; }).reverse().join('') + '</ol>';
+    var C = D.competences, K = C.carte, fam = {}; C.familles.forEach(function (f) { fam[f.id] = f; });
+    var noeud = function (id) {
+      var f = fam[id]; if (!f) return '';
+      return '<article class="nd' + (f.ia ? ' ia' : '') + '" id="nd-' + esc(id) + '" data-nd="' + esc(id) + '"><div class="nd-tete"><h3>' + esc(f.nom) + '</h3><span>' + esc(K.place[id] || '') + '</span></div>' +
+        '<ul class="nd-outils">' + C.outils.filter(function (o) { return o.famille === id; }).map(function (o) {
+          return '<li tabindex="0">' + (S.icone(o.nom) || '<span class="ico ico-txt" aria-hidden="true">' + esc(o.nom.slice(0, 2)) + '</span>') + '<b>' + esc(o.nom) + '</b><span class="nd-role" role="tooltip">' + esc(o.role) + '</span></li>';
+        }).join('') + '</ul></article>';
+    };
+    var etiquettes = K.liens.map(function (l, i) { return '<span class="lien-mot" data-l="' + i + '" aria-hidden="true">' + esc(l[2]) + '</span>'; }).join('');
     S.$('#competences .wrap').innerHTML = head(C.entete) +
-      '<div class="pile" id="pile" style="--n:' + n + '"><div class="pile-colle"><div class="pile-scene" aria-hidden="true"><div class="pile-3d">' + couches + '</div></div>' + index + '<div class="pile-fiches">' + fiches + '</div></div></div>';
+      '<div class="carte" id="carte"><svg class="carte-liens" id="carte-liens" aria-hidden="true"></svg>' + etiquettes +
+      '<div class="nd nd-depart" id="nd-depart" data-nd="depart"><span class="nd-pouls" aria-hidden="true"></span>' + esc(K.depart) + '</div>' +
+      ['web', 'ia', 'ci', 'cont', 'sys', 'cloud', 'net'].map(noeud).join('') + '</div>' +
+      '<p class="carte-note">Chaque liaison décrit ce que fait une famille pour la suivante. ' + C.outils.length + ' outils, ' + C.familles.length + ' familles.</p>';
   }
 
   /* ---------- Méthode : un pipeline qui se lance quand on arrive (js/methode.js) ---------- */
