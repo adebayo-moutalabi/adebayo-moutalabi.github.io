@@ -1,0 +1,76 @@
+# Adebayo Moutalabi
+
+> Ingénieur Cloud, DevOps & IA, basé à Rennes (France). Je construis des infrastructures fiables, puis j'automatise ce qui fait perdre du temps aux équipes. Recherche : Alternance M2 · septembre 2027.
+
+## Profil
+
+- Nom complet : Adebayo Habib Moutalabi
+- Métier : Ingénieur Cloud, DevOps & IA
+- Lieu : Rennes, mobile partout en France
+- Recherche : Alternance M2 · septembre 2027 (Cloud · DevOps · Agents IA)
+- Langues : Français (courant), Anglais (B1, lecture technique quotidienne)
+
+## Compétences
+
+- CI/CD : GitLab CI/CD, GitHub Actions, Git, Registry
+- Conteneurs : Docker, Kubernetes, Minikube, RBAC, HPA
+- Cloud : AWS EC2, VPC, S3, IAM, Terraform
+- Systèmes : Linux, Bash, Prometheus, Grafana
+- Réseaux : RIPv2, VLAN, Quagga, Wireshark, gRPC
+- Agents IA : n8n, API LLM, Claude, MCP, Mistral AI, Python, Supabase, RAG
+- Web : Next.js, Payload CMS, TypeScript
+
+## Réalisations
+
+### ExpoIA, l'exposition sur l'IA du Musée des Transmissions
+
+Projet confié dans le cadre du master Cloud & Réseaux de l'ISTIC (Université de Rennes), d'octobre 2025 à mai 2026, au sein du projet TIARe financé par France 2030 et l'ANR.
+
+- Problème : Le Musée des Transmissions avait besoin d'un site public pour son exposition sur l'intelligence artificielle : bilingue, accessible, et dont l'équipe du musée peut modifier le contenu sans développeur.
+- Ce que j'ai fait : Coordination technique entre les porteurs du projet et l'équipe de développement TIARe ; Développement sur Next.js 16, Payload CMS 3 et PostgreSQL ; Accessibilité (WCAG) et e-mails transactionnels avec React Email ; Contenus bilingues gérés dans le CMS ; Conception et développement du jeu Floriale
+- Résultat : Le site est en ligne sur expo-ia.univ-rennes.fr et le jeu Floriale y est jouable.
+- Stack : Next.js 16, Payload CMS 3, PostgreSQL, TypeScript, Tailwind, Framer Motion
+- [Voir le site](https://expo-ia.univ-rennes.fr/fr)
+- [Jouer à Floriale](https://expo-ia.univ-rennes.fr/fr/jeu/floriale)
+
+### Ce portfolio, vérifié et déployé par un pipeline
+
+Le site que vous lisez est aussi une démonstration : son code source est public sur GitHub.
+
+- Problème : Publier un site à la main laisse passer des erreurs : HTML invalide, liens cassés, baisse de performance ou d'accessibilité.
+- Ce que j'ai fait : Pipeline GitHub Actions déclenché à chaque push et à chaque pull request ; Contrôles automatiques : cohérence des données, validation HTML, liens cassés (lychee), audit Lighthouse ; Contenu lisible sans JavaScript, généré à partir des fichiers de données ; Déploiement sur GitHub Pages uniquement si tous les contrôles passent
+- Résultat : Chaque version en ligne a passé les mêmes contrôles ; l'historique des exécutions est public dans l'onglet Actions du dépôt.
+- Stack : GitHub Actions, GitHub Pages, Node.js, html-validate, lychee, Lighthouse CI
+- [Voir le code](https://github.com/adebayo-moutalabi/adebayo-moutalabi.github.io)
+- [Voir le pipeline](https://github.com/adebayo-moutalabi/adebayo-moutalabi.github.io/actions)
+
+## Parcours
+
+- oct. 2025 – mai 2026 : Développeur full-stack & appui à la coordination, ExpoIA / TIARe · Rennes (Projet de master). Projet France 2030 / ANR pour le Musée des Transmissions, confié dans le cadre du master : la formation et l'expérience se rejoignent.
+- 2025 – aujourd'hui : Master 1 Cloud & Réseaux, ISTIC · Université de Rennes (Master). Formation spécialisée en infrastructures cloud, réseaux et systèmes distribués.
+- mai – juin 2025 : Stage à distance, RHS Conseil-Formation · Lyon (Stage). Mission menée à distance pour un cabinet de conseil et de formation.
+- 2024 – 2025 : Licence 3 Informatique, ISTIC · Université de Rennes (Licence). L'année où j'ai choisi de construire mon parcours vers le Cloud et le DevOps.
+- déc. 2023 – juin 2025 : Développeur web, ICT-Consulting (CDD). Conception, déploiement et maintenance de sites et d'applications web pour des clients.
+- mai – sept. 2023 : Administration réseaux & systèmes, SPTIC · Université d'Abomey-Calavi (Stage). Stage au service des technologies de l'information et de la communication de l'université.
+- juil. – août 2022 : Développement web & mobile, PayPlus Africa · Cotonou (Stage). Premier stage en entreprise, entre web, mobile et formation.
+- 2020 – 2023 : Licence Informatique de gestion, ENEAM · Université d'Abomey-Calavi (Licence). Formation en informatique appliquée à la gestion des organisations. Le premier commit.
+
+## Distinctions
+
+- 2023 : Huawei Seeds for the Future. Participant au programme. Notre projet d'équipe TODJUMI, une plateforme de suivi des patients pour les médecins béninois, a été sélectionné.
+- 2026 : Statut étudiant-entrepreneur. Obtenu via Pépite Bretagne pour le projet VirtuStage.
+
+## Questions fréquentes
+
+- Que sais-tu faire ? Adebayo travaille d'abord en Cloud &amp; DevOps : Linux, Docker, Kubernetes, pipelines GitLab CI/CD et GitHub Actions, AWS et supervision Prometheus/Grafana. Il conçoit aussi des agents IA et des automatisations (n8n, API de LLM, RAG) qui répondent à des besoins métier précis.
+- Ta réalisation phare ? Le site ExpoIA du Musée des Transmissions (projet France 2030 / ANR) : coordination technique, Next.js et Payload CMS, et le jeu Floriale. Ce portfolio est aussi vérifié et déployé par un pipeline GitHub Actions. D'autres projets Cloud, DevOps et IA sont en préparation.
+- Comment travailles-tu ? Il part d'un problème réel, rédige le cahier des charges, puis livre un prototype qui fonctionne. Il se décrit comme résilient, curieux et minutieux.
+- Quelle formation ? Master 1 Cloud &amp; Réseaux à l'ISTIC (Université de Rennes), après une Licence 3 Informatique à l'ISTIC et une Licence Informatique de gestion à l'ENEAM (Université d'Abomey-Calavi).
+- Comment te contacter ? Le plus simple : un message sur LinkedIn. Le lien est dans la section Contact, en bas de page.
+
+## Liens
+
+- [Portfolio](https://adebayo-moutalabi.github.io/)
+- [GitHub](https://github.com/adebayo-moutalabi)
+- [LinkedIn](https://www.linkedin.com/in/adebayo-moutalabi/)
+- [Code source et pipeline CI/CD de ce site](https://github.com/adebayo-moutalabi/adebayo-moutalabi.github.io)

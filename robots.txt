@@ -1,0 +1,5 @@
+# Tous les robots (moteurs de recherche et moteurs IA) peuvent lire tout le site.
+User-agent: *
+Allow: /
+
+Sitemap: https://adebayo-moutalabi.github.io/sitemap.xml

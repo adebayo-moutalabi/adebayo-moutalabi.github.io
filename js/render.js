@@ -8,9 +8,10 @@
   /* ---------- Ouverture (hero) ---------- */
   function hero() {
     var p = D.profil, a = p.accroche;
+    S.$('#h1-txt').textContent = p.prenom + ' ' + p.nomFamille + ' · ' + p.metier;
     S.$('#r1').textContent = p.prenom; S.$('#r2').textContent = p.nomFamille;
     var img = S.$('#lens-img'); img.src = p.photo; img.alt = p.photoAlt;
-    S.$('#over .wrap').innerHTML = '<span class="caps" style="color:#e6cfa8">' + esc(a.sur) + '</span><h1>' + esc(a.titre) + ' <em>' + esc(a.accent) + '</em></h1><p>' + esc(a.texte) + '</p>';
+    S.$('#over .wrap').innerHTML = '<span class="caps" style="color:#e6cfa8">' + esc(a.sur) + '</span><h2>' + esc(a.titre) + ' <em>' + esc(a.accent) + '</em></h2><p>' + esc(a.texte) + '</p>';
     S.$('#foot').innerHTML = '<p class="tag">' + esc(a.pied) + '</p><span class="hint"><i></i>' + esc(a.defiler) + '</span>';
   }
 
@@ -18,7 +19,7 @@
   function choix() {
     var v = D.visiteurs;
     S.$('#choix .wrap').innerHTML = head(v.entete) + '<div class="choices" role="group" aria-label="Profil de visite">' + v.profils.map(function (c) {
-      return '<button type="button" class="choice" data-v="' + esc(c.id) + '" aria-pressed="false"><span class="go">→</span><span class="caps">' + esc(c.etiquette) + '</span><h3>' + esc(c.titre) + '</h3><p>' + esc(c.texte) + '</p></button>';
+      return '<button type="button" class="choice" data-v="' + esc(c.id) + '" aria-pressed="false"><span class="go">→</span><span class="caps">' + esc(c.etiquette) + '</span><span class="ct">' + esc(c.titre) + '</span><span class="cp">' + esc(c.texte) + '</span></button>';
     }).join('') + '</div><p class="choice-out" id="choice-out" aria-live="polite"></p>';
   }
 
@@ -42,7 +43,7 @@
   /* ---------- Méthode ---------- */
   function methode() {
     var m = D.methode;
-    S.$('#methode .wrap').innerHTML = head(m.entete) + '<ol class="method" id="method"><span class="mline" aria-hidden="true"><i id="mline"></i></span>' + m.etapes.map(function (e, i) {
+    S.$('#methode .wrap').innerHTML = head(m.entete) + '<ol class="method" id="method"><li class="mline" aria-hidden="true"><i id="mline"></i></li>' + m.etapes.map(function (e, i) {
       return '<li class="mstep"><span class="ghost" aria-hidden="true">' + (i + 1) + '</span><span class="mnum">0' + (i + 1) + '</span><h3>' + esc(e.titre) + '</h3><p>' + esc(e.texte) + '</p>' + chips(e.outils).replace('class="chips"', 'class="mtools"') + '<div class="mliv"><small>Livrable</small>' + esc(e.livrable) + '</div></li>';
     }).join('') + '</ol>';
   }
@@ -50,7 +51,8 @@
   /* ---------- Projets ---------- */
   function projets() {
     var p = D.projets;
-    S.$('#projets .wrap').innerHTML = head(p.entete) + '<div class="filters" role="group" aria-label="Filtrer les projets">' + p.categories.map(function (c, i) { return '<button type="button" data-f="' + esc(c.id) + '" aria-pressed="' + (i === 0) + '">' + esc(c.libelle) + '</button>'; }).join('') + '</div><div class="pgrid" id="pgrid"></div>';
+    var filtres = p.filtres === false ? '' : '<div class="filters" role="group" aria-label="Filtrer les projets">' + p.categories.map(function (c, i) { return '<button type="button" data-f="' + esc(c.id) + '" aria-pressed="' + (i === 0) + '">' + esc(c.libelle) + '</button>'; }).join('') + '</div>';
+    S.$('#projets .wrap').innerHTML = head(p.entete) + filtres + '<div class="pgrid" id="pgrid"></div>';
   }
 
   /* ---------- Parcours + langues + distinctions ---------- */
@@ -62,7 +64,7 @@
       '<div class="git" id="git"><ol class="glog" id="glog"></ol><aside class="gshow" id="gshow" aria-live="polite"></aside></div>' +
       '<div class="langs">' + P.langues.map(function (l) { return '<span><b>' + esc(l.nom) + '</b>' + esc(l.niveau) + '</span>'; }).join('') + '</div>' +
       '<div class="honors" id="honors">' + P.distinctions.map(function (d, i) {
-        return '<article class="tk"><div class="top"><span class="kind">' + esc(d.type) + '</span><span class="seal" aria-hidden="true"><svg viewBox="0 0 100 100"><defs><path id="sc' + i + '" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0"/></defs><g class="ring"><text><textPath href="#sc' + i + '">' + esc(d.sceau + ' · ' + d.annee + ' · ') + '</textPath></text></g><circle class="core" cx="50" cy="50" r="9"/></svg></span></div><h4>' + esc(d.titre) + '</h4><p>' + esc(d.texte) + '</p><span class="yr" aria-hidden="true">' + esc(d.annee) + '</span></article>';
+        return '<article class="tk"><div class="top"><span class="kind">' + esc(d.type) + '</span><span class="seal" aria-hidden="true"><svg viewBox="0 0 100 100"><defs><path id="sc' + i + '" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0"/></defs><g class="ring"><text><textPath href="#sc' + i + '">' + esc(d.sceau + ' · ' + d.annee + ' · ') + '</textPath></text></g><circle class="core" cx="50" cy="50" r="9"/></svg></span></div><h3>' + esc(d.titre) + '</h3><p>' + esc(d.texte) + '</p><span class="yr" aria-hidden="true">' + esc(d.annee) + '</span></article>';
       }).join('') + '</div>';
   }
 
@@ -83,9 +85,10 @@
       '<div class="fiche"><div class="ft stat"><div><span class="lb">Statut</span><div class="v">' + esc(f.statut) + '</div></div><span class="live"><i></i></span></div>' +
       '<div class="ft"><span class="lb">Recherche</span><span class="v">' + esc(f.recherche) + '</span></div>' +
       '<div class="ft"><span class="lb">Domaines</span><span class="v">' + esc(f.domaines) + '</span></div>' +
-      '<div class="ft-2"><div class="ft"><span class="lb">Lieu</span><span class="v" style="font-size:22px">' + esc(f.lieu) + '</span></div>' +
-      '<a class="ft link" href="' + esc(c.linkedin) + '" target="_blank" rel="noopener"><span class="lb">Réseau</span><span class="v">LinkedIn ↗</span></a></div></div></div>' +
-      '<div class="legal"><span>© ' + D.profil.annee + ' ' + esc(D.profil.nomComplet) + '</span><span>' + esc(D.profil.ville) + '</span></div>';
+      '<div class="ft"><span class="lb">Lieu</span><span class="v" style="font-size:22px">' + esc(f.lieu) + '</span></div>' +
+      '<div class="ft-2"><a class="ft link" href="' + esc(c.linkedin) + '" target="_blank" rel="noopener me"><span class="lb">Réseau</span><span class="v">LinkedIn ↗</span></a>' +
+      '<a class="ft link" href="' + esc(c.github) + '" target="_blank" rel="noopener me"><span class="lb">Code</span><span class="v">GitHub ↗</span></a></div></div></div>' +
+      '<div class="legal"><span>© ' + D.profil.annee + ' ' + esc(D.profil.nomComplet) + ' · ' + esc(D.profil.metier) + '</span><span>' + esc(D.profil.ville) + '</span></div>';
   }
 
   hero(); choix(); labo(); competences(); methode(); projets(); parcours(); contact();

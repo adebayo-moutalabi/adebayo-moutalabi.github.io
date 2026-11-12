@@ -19,9 +19,9 @@
 .pn-head p { margin: 0; color: var(--ink-muted); font-size: 15.5px; max-width: 52ch; }
 .pt { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .tcard { border: 1px solid var(--hair); border-radius: 18px; padding: 14px 16px; background: color-mix(in srgb, var(--ground) 40%, var(--surface)); display: grid; gap: 6px; align-content: start; min-width: 0; }
-.tcard h4 { font-family: var(--display); font-weight: 400; font-size: 21px; line-height: 1.1; display: flex; align-items: center; gap: 9px; }
-.tcard h4::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex: none; }
-.pn.ai .tcard h4::before { background: var(--blue); }
+.tcard h3 { font-family: var(--display); font-weight: 400; font-size: 21px; line-height: 1.1; display: flex; align-items: center; gap: 9px; }
+.tcard h3::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex: none; }
+.pn.ai .tcard h3::before { background: var(--blue); }
 .tcard p { margin: 0; color: var(--ink-muted); font-size: 14px; line-height: 1.45; }
 .tcard .used { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
 .tcard .used button { min-height: 28px; padding: 0 11px; border-radius: 999px; border: 1px solid var(--hair); background: transparent; color: var(--accent-ink); font: inherit; font-size: 12px; font-weight: 500; cursor: pointer; transition: all .25s; }
@@ -108,7 +108,7 @@
 .tk .seal .ring { transform-origin: 50% 50%; animation: spin 28s linear infinite; }
 .tk .seal text { font: 600 9.4px var(--body); letter-spacing: .24em; fill: currentColor; text-transform: uppercase; }
 .tk .seal .core { fill: var(--gold); }
-.tk h4 { position: relative; font-family: var(--display); font-weight: 300; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.04; letter-spacing: -.015em; align-self: end; }
+.tk h3 { position: relative; font-family: var(--display); font-weight: 300; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.04; letter-spacing: -.015em; align-self: end; }
 .tk p { position: relative; margin: 0; color: var(--ink-muted); font-size: 15px; max-width: 46ch; }
 @keyframes spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .tk .seal .ring { animation: none; } }

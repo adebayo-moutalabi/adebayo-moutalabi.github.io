@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- Modèle de l'image de partage (assets/partage.png, 1200 × 630).
+     Régénérer l'image : node outils/generer-image-partage.js (nécessite Playwright). -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Image de partage</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&family=Inter:wght@500&display=block">
+<style>
+  html, body { margin: 0; }
+  body { width: 1200px; height: 630px; overflow: hidden; background: #0d0e10; color: #f4f1ec; font-family: Inter, system-ui, sans-serif; position: relative; }
+  .glow { position: absolute; right: -120px; top: -160px; width: 760px; height: 760px; border-radius: 50%; background: radial-gradient(circle, rgba(232,182,95,.16), transparent 62%); }
+  .txt { position: absolute; left: 80px; top: 92px; width: 640px; }
+  .caps { font-size: 20px; letter-spacing: .22em; text-transform: uppercase; color: #a8a49c; }
+  h1 { margin: 26px 0 0; font-family: Fraunces, Georgia, serif; font-weight: 300; font-size: 112px; line-height: .92; letter-spacing: -.04em; }
+  h1 em { color: #e8b65f; }
+  .role { margin-top: 34px; font-family: Fraunces, Georgia, serif; font-size: 40px; color: #e6cfa8; }
+  .tags { margin-top: 26px; font-size: 22px; color: #a8a49c; }
+  .url { position: absolute; left: 80px; bottom: 56px; font-size: 22px; color: #e8b65f; letter-spacing: .02em; }
+  .photo { position: absolute; right: 96px; top: 135px; width: 360px; height: 360px; border-radius: 50%; overflow: hidden; border: 2px solid rgba(230,207,168,.35); }
+  .photo img { width: 100%; height: 100%; object-fit: cover; }
+  .orbit { position: absolute; right: 66px; top: 105px; width: 420px; height: 420px; border-radius: 50%; border: 1px solid rgba(230,207,168,.25); }
+  .dot { position: absolute; right: 116px; top: 460px; width: 16px; height: 16px; border-radius: 50%; background: #e8b65f; }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="txt">
+    <div class="caps">Portfolio · Rennes</div>
+    <h1>Adebayo<br><em>Moutalabi</em></h1>
+    <div class="role">Ingénieur Cloud, DevOps &amp; IA</div>
+    <div class="tags">Kubernetes · CI/CD · AWS · Agents IA</div>
+  </div>
+  <div class="url">adebayo-moutalabi.github.io</div>
+  <div class="orbit"></div>
+  <div class="photo"><img src="../assets/photo.webp" alt=""></div>
+  <div class="dot"></div>
+</body>
+</html>
