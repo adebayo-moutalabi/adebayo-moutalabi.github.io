@@ -26,7 +26,7 @@ const element = sel => (elements[sel] = elements[sel] || { innerHTML: '', textCo
 const ctx = { matchMedia: () => ({ matches: false }), document: { querySelector: element, querySelectorAll: () => [] } };
 ctx.window = ctx;
 vm.createContext(ctx);
-const fichiersData = ['profil', 'domaines', 'competences', 'methode', 'vignettes', 'projets', 'parcours', 'contact', 'mascotte'];
+const fichiersData = ['profil', 'domaines', 'competences', 'methode', 'vignettes', 'projets', 'parcours', 'contact', 'mascotte', 'logos'];
 ['js/utils.js', ...fichiersData.map(f => 'js/data/' + f + '.js'), 'js/render.js'].forEach(f => vm.runInContext(lire(f), ctx, { filename: f }));
 const S = ctx.Site, D = S.data, esc = S.esc;
 D.profil.site = SITE_URL;   // toutes les URL absolues générées partent de SITE_URL
@@ -178,7 +178,7 @@ const llms = [
     ...(p.probleme ? ['- Problème : ' + p.probleme] : []),
     '- Ce que j\'ai fait : ' + p.points.join(' ; '),
     ...(p.resultat ? ['- Résultat : ' + p.resultat] : []),
-    '- Stack : ' + p.techno.join(', '),
+    ...(p.techno.length ? ['- Stack : ' + p.techno.join(', ')] : []),
     ...(p.page ? ['- [Page du projet](' + P.site + p.page + ')'] : []),
     ...(p.liens || []).map(l => '- [' + l.texte + '](' + l.url + ')'),
     ''
@@ -295,18 +295,18 @@ const pageCatalogue = () => {
         breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
           { '@type': 'ListItem', position: 1, name: P.prenom + ' ' + P.nomFamille, item: P.site },
           { '@type': 'ListItem', position: 2, name: 'Projets', item: url }] },
-        mainEntity: { '@type': 'ItemList', itemListElement: L.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.titre, url: p.page ? P.site + p.page : (p.liens || [])[0].url })) } },
+        mainEntity: { '@type': 'ItemList', itemListElement: L.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.titre, url: p.page ? P.site + p.page : ((p.liens || [])[0] || {}).url })) } },
       { '@type': 'Person', '@id': ID_PERSONNE, name: P.prenom + ' ' + P.nomFamille, jobTitle: P.metier, url: P.site, sameAs: [P.github, P.linkedin] }
     ]
   };
   const ligne = (p, i) => {
-    const href = p.page ? racineRel + p.page : (p.liens || [])[0].url, externe = !p.page;
-    return '<li class="pc-l" data-c="' + esc(p.categorie) + '"><a href="' + esc(href) + '"' + (externe ? ' target="_blank" rel="noopener"' : '') + '>' +
+    const href = p.page ? racineRel + p.page : ((p.liens || [])[0] || {}).url, externe = !p.page;
+    return '<li class="pc-l" data-c="' + esc(p.categorie) + '">' + (href ? '<a href="' + esc(href) + '"' + (externe ? ' target="_blank" rel="noopener"' : '') + '>' : '<div class="pc-sans">') +
       '<span class="pc-no">' + String(i + 1).padStart(2, '0') + '</span>' +
       '<span class="pc-t"><b>' + esc(p.titre) + '</b><small>' + esc(p.resume) + '</small></span>' +
       '<span class="pc-type">' + esc(p.type) + '</span>' +
-      '<span class="pc-stack">' + p.techno.slice(0, 4).map(esc).join(' · ') + '</span>' +
-      '<span class="pc-go" aria-hidden="true">' + (externe ? '↗' : '→') + '</span></a>' +
+      '<span class="pc-stack">' + (p.techno.length ? p.techno.slice(0, 4).map(esc).join(' · ') : 'Projet d\'équipe') + '</span>' +
+      '<span class="pc-go" aria-hidden="true">' + (!href ? '' : externe ? '↗' : '→') + '</span>' + (href ? '</a>' : '</div>') +
       (p.image ? '<img class="pc-apercu" src="' + racineRel + esc(p.image) + '" alt="" loading="lazy" width="' + (p.imageTaille || [1200, 678])[0] + '" height="' + (p.imageTaille || [1200, 678])[1] + '">' : '') + '</li>';
   };
   return `<!doctype html>

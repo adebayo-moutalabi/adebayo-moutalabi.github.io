@@ -37,7 +37,7 @@
       return '<article class="sk' + (f.ia ? ' ia' : '') + '" data-f="' + esc(f.id) + '"><div class="sk-tete"><span class="sk-no">0' + (i + 1) + '</span><span class="sk-ct">' + outils.length + ' outils</span></div>' +
         '<h3>' + esc(f.nom) + '</h3><p>' + esc(f.resume) + '</p><ul class="sk-outils">' + outils.map(function (o) {
           var usages = PRJ.filter(function (p) { return (p.outils || []).indexOf(o.nom) > -1; }).map(function (p) { return p.id; });
-          return '<li class="sk-o' + (usages.length ? ' utilise' : '') + '" data-p="' + esc(usages.join(' ')) + '" title="' + esc(o.role) + '"><span>' + esc(o.nom) + '</span><small>' + esc(o.role) + '</small></li>';
+          return '<li class="sk-o' + (usages.length ? ' utilise' : '') + '" data-p="' + esc(usages.join(' ')) + '" title="' + esc(o.role) + '">' + S.icone(o.nom) + '<span>' + esc(o.nom) + '</span><small>' + esc(o.role) + '</small></li>';
         }).join('') + '</ul></article>';
     }).join('');
     S.$('#competences .wrap').innerHTML = head(C.entete) + filtre + '<div class="stack" id="stack">' + cartes + '</div>' +
@@ -63,17 +63,17 @@
     };
     var lignes = une.map(function (x, i) {
       var lien = (x.liens || [])[0];
-      return '<article class="cs' + (i % 2 ? ' inv' : '') + '" id="projet-' + esc(x.id) + '">' +
-        '<div class="cs-vis"><div class="cs-bar" aria-hidden="true"><i></i><i></i><i></i><span>' + esc(hote(x)) + '</span></div><div class="cs-img">' + visuel(x) + '</div></div>' +
-        '<div class="cs-txt"><div class="cs-meta"><span class="cs-no">0' + (i + 1) + '<small> / 0' + une.length + '</small></span><span class="caps">' + esc(x.type) + '</span></div>' +
-        '<h3>' + (x.page ? '<a href="' + esc(x.page) + '">' + esc(x.titre) + '</a>' : esc(x.titre)) + '</h3><p>' + esc(x.resume) + '</p>' + chips(x.techno.slice(0, 5)) +
+      return '<article class="cs" id="projet-' + esc(x.id) + '" style="--i:' + i + ';--c:' + esc(x.couleur || 'var(--gold)') + '"><span class="cs-ghost" aria-hidden="true">0' + (i + 1) + '</span>' +
+        '<div class="cs-txt"><div class="cs-meta"><span class="cs-no">0' + (i + 1) + '<small> / 0' + une.length + '</small></span><span class="cs-tag">' + esc(x.type) + '</span></div>' +
+        '<h3>' + (x.page ? '<a href="' + esc(x.page) + '">' + esc(x.nomCourt) + '</a>' : esc(x.nomCourt)) + '</h3><p>' + esc(x.resume) + '</p>' + chips(x.techno.slice(0, 5)) +
         '<div class="cs-act">' + (x.page ? '<a class="btn btn-gold" href="' + esc(x.page) + '">Lire l\'étude de cas →</a>' : '') +
         '<button type="button" class="cs-fiche" data-fiche="' + esc(x.id) + '" aria-haspopup="dialog">Aperçu rapide</button>' +
-        (lien ? '<a class="cs-lien" href="' + esc(lien.url) + '" target="_blank" rel="noopener">' + esc(lien.texte) + ' ↗</a>' : '') + '</div></div></article>';
+        (lien ? '<a class="cs-lien" href="' + esc(lien.url) + '" target="_blank" rel="noopener">' + esc(lien.texte) + ' ↗</a>' : '') + '</div></div>' +
+        '<div class="cs-vis"><div class="cs-bar" aria-hidden="true"><i></i><i></i><i></i><span>' + esc(hote(x)) + '</span></div><div class="cs-img">' + visuel(x) + '</div></div></article>';
     }).join('');
-    var plus = '<div class="cs-plus">' + (autres.length ? '<div class="cs-autres"><span class="caps">Aussi</span>' + autres.map(function (x) {
-      return '<button type="button" class="cs-mini" id="projet-' + esc(x.id) + '" data-fiche="' + esc(x.id) + '" aria-haspopup="dialog"><b>' + esc(x.titre) + '</b><span>' + esc(x.type) + '</span><i aria-hidden="true">→</i></button>';
-    }).join('') + '</div>' : '') + '<a class="btn cs-tous" href="projets/">Tous les projets <span>' + L.length + '</span> →</a></div>';
+    var plus = (autres.length ? '<div class="cs-autres">' + autres.map(function (x) {
+      return '<button type="button" class="cs-mini" id="projet-' + esc(x.id) + '" data-fiche="' + esc(x.id) + '" aria-haspopup="dialog"><span class="caps">' + esc(x.type.split(' · ')[0]) + '</span><b>' + esc(x.nomCourt) + '</b><span class="cs-mini-r">' + esc(x.resume) + '</span><span class="cs-mini-go">En savoir plus →</span></button>';
+    }).join('') + '</div>' : '') + '<div class="cs-plus"><a class="btn cs-tous" href="projets/">Tous les projets <span>' + L.length + '</span> →</a></div>';
     S.$('#projets .wrap').innerHTML = head(p.entete) + '<div class="cases">' + lignes + '</div>' + plus;
   }
 

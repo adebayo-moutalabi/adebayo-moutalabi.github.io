@@ -6,9 +6,22 @@ https://adebayo-moutalabi.github.io (dépôt `adebayo-moutalabi/adebayo-moutalab
 ## Règles de travail
 
 - On travaille sur une branche, puis pull request (v3.0 : branche `logo-am`).
-- Rien n'est fusionné dans `main` sans l'accord d'Adebayo (la fusion dans `main` déclenche le déploiement).
+- **Déployer au fur et à mesure** (demande d'Adebayo du 12/11/2026) : chaque lot de modifications passe par une
+  pull request, puis est fusionné dans `main` dès que la CI est verte, pour que la dernière version soit toujours en ligne.
 - Aperçu (captures) avant chaque publication.
 - Après toute modification de `js/data/` : `node scripts/generer.js` (sinon la CI échoue).
+
+## v3.2 : inspiré du site v4 d'Adebayo (12/11/2026)
+
+Source : l'archive `portfolio-v4.zip` envoyée par Adebayo (son propre essai de site).
+- **Réalisations en cartes empilées** : chaque projet à la une est une grande carte teintée (champ `couleur`) qui
+  reste collée en haut au défilement et se fait recouvrir par la suivante ; grand numéro en filigrane, capture dans
+  un cadre de navigateur légèrement incliné. Sur mobile, les cartes s'enchaînent sans effet collant.
+- **Petites cartes « En savoir plus »** pour les autres projets : Floriale, TODJUMI (nouveaux, textes repris du site
+  v4), Portfolio CI/CD.
+- **Logos des outils** dans les pastilles (compétences et projets) : `assets/outils/*.svg` (CC0, gilbarbara/logos,
+  crédits dans `assets/outils/CREDITS.json`), correspondance dans `js/data/logos.js`.
+- Non repris pour l'instant : la « boîte à outils » physique (icônes qu'on attrape et lance), le thème cobalt.
 
 ## v3.1 : la v2.0, corrigée (12/11/2026)
 
