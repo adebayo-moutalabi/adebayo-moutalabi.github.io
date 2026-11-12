@@ -13,7 +13,7 @@
       '<div class="pn-body" id="pb-' + i + '" role="region" aria-labelledby="pt-' + i + '"><div class="pn-head"><span class="caps">Couche 0' + (i + 1) + ' sur ' + N + '</span><h3>' + esc(f.nom) + '</h3><p>' + esc(f.resume) + '</p></div><div class="pt">' +
       list.map(function (o, k) {
         var used = PRJ.filter(function (p) { return (p.outils || []).indexOf(o.nom) > -1; });
-        return '<div class="tcard" style="--k:' + k + '"><h4>' + esc(o.nom) + '</h4><p>' + esc(o.role) + '</p>' + (used.length ? '<div class="used">' + used.map(function (p) { return '<button type="button" data-open="' + esc(p.id) + '">' + esc(p.nomCourt || p.titre) + '</button>'; }).join('') + '</div>' : '') + '</div>';
+        return '<div class="tcard" style="--k:' + k + '"><h3>' + esc(o.nom) + '</h3><p>' + esc(o.role) + '</p>' + (used.length ? '<div class="used">' + used.map(function (p) { return '<button type="button" data-open="' + esc(p.id) + '">' + esc(p.nomCourt || p.titre) + '</button>'; }).join('') + '</div>' : '') + '</div>';
       }).join('') + '</div></div></div>';
   }).join('');
 

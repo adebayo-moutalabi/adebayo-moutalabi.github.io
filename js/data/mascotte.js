@@ -7,7 +7,7 @@ Site.data.mascotte = {
 
   chargement: {
     actif: true,               /* false = pas d'écran de chargement du tout */
-    uneFoisParSession: false,  /* true = seulement à la première visite de l'onglet ; false = à chaque rechargement */
+    uneFoisParSession: true,   /* true = seulement à la première visite de l'onglet ; false = à chaque rechargement */
     dureeSecondes: 3,          /* durée approximative sans clic sur Atom */
     clicBonus: 5,              /* % gagnés à chaque clic sur Atom */
     commandes: [               /* [pourcentage de départ, texte affiché] */

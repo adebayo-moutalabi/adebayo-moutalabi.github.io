@@ -27,6 +27,7 @@ Site.data.competences = {
     { nom: "RBAC", famille: "cont", role: "Donner à chacun uniquement les droits dont il a besoin." },
     { nom: "HPA", famille: "cont", role: "Ajouter ou retirer des copies de l'application selon la charge." },
     { nom: "GitLab CI/CD", famille: "ci", role: "Tester, construire et déployer chaque modification automatiquement." },
+    { nom: "GitHub Actions", famille: "ci", role: "Vérifier et déployer ce portfolio à chaque modification." },
     { nom: "Git", famille: "ci", role: "Versionner le code et l'infrastructure, travailler à plusieurs." },
     { nom: "Registry", famille: "ci", role: "Stocker et distribuer les images de conteneurs." },
     { nom: "AWS EC2", famille: "cloud", role: "Des serveurs à la demande pour héberger l'application." },
@@ -34,7 +35,6 @@ Site.data.competences = {
     { nom: "S3", famille: "cloud", role: "Le stockage de fichiers, durable et bon marché." },
     { nom: "IAM", famille: "cloud", role: "Les identités et les droits sur AWS." },
     { nom: "Terraform", famille: "cloud", role: "Décrire l'infrastructure en code pour la recréer à l'identique." },
-    { nom: "Render", famille: "cloud", role: "Héberger un service sans gérer de serveur." },
     { nom: "Linux", famille: "sys", role: "Administrer les serveurs au quotidien." },
     { nom: "Bash", famille: "sys", role: "Scripter les tâches répétitives." },
     { nom: "Prometheus", famille: "sys", role: "Collecter les métriques des services." },
@@ -45,17 +45,17 @@ Site.data.competences = {
     { nom: "Wireshark", famille: "net", role: "Analyser le trafic paquet par paquet." },
     { nom: "gRPC", famille: "net", role: "Faire dialoguer des services écrits dans des langages différents." },
     { nom: "n8n", famille: "ia", role: "Des workflows qui relient les outils entre eux." },
+    { nom: "API LLM", famille: "ia", role: "Appeler un modèle de langage depuis une application : voix temps réel, appel de fonctions." },
     { nom: "Claude", famille: "ia", role: "Concevoir des agents et prototyper plus vite." },
     { nom: "MCP", famille: "ia", role: "Brancher un agent sur les outils et les données." },
-    { nom: "Mistral AI", famille: "ia", role: "Un modèle de langage au cœur de BoursIA." },
+    { nom: "Mistral AI", famille: "ia", role: "Un modèle de langage européen, utilisable en auto-hébergement." },
     { nom: "Python", famille: "ia", role: "Le langage des agents et des scripts." },
     { nom: "Supabase", famille: "ia", role: "Une base PostgreSQL prête à l'emploi." },
     { nom: "RAG", famille: "ia", role: "Faire répondre un agent uniquement à partir de sources fiables." },
     { nom: "Next.js", famille: "web", role: "Des sites rapides et bien référencés." },
     { nom: "Payload CMS", famille: "web", role: "Un CMS pour que l'équipe édite le contenu." },
     { nom: "TypeScript", famille: "web", role: "Du JavaScript typé, plus sûr." },
-    { nom: "Laravel", famille: "web", role: "Des applications web en PHP." },
-    { nom: "WordPress", famille: "web", role: "Des sites vitrines que le client gère seul." },
-    { nom: "Flutter", famille: "web", role: "Des applications mobiles multiplateformes." }
+    { nom: "WordPress", famille: "web", role: "Des sites vitrines que le client met à jour seul." },
+    { nom: "Electron", famille: "web", role: "Des applications de bureau en JavaScript, comme Nox." }
   ]
 };

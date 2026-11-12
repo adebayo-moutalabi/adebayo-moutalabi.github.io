@@ -8,7 +8,7 @@
   var grid = $('#pgrid'), filter = 'all';
   function drawP() {
     grid.innerHTML = P.filter(function (p) { return filter === 'all' || p.categorie === filter; }).map(function (p) {
-      return '<button type="button" class="pcard' + (p.large && filter === 'all' ? ' wide' : '') + '" data-id="' + esc(p.id) + '" aria-haspopup="dialog">' +
+      return '<button type="button" class="pcard' + (p.large && filter === 'all' ? ' wide' : '') + '" id="projet-' + esc(p.id) + '" data-id="' + esc(p.id) + '" aria-haspopup="dialog">' +
         '<div class="pthumb" aria-hidden="true">' + (ART[p.vignette] || '') + '</div><div class="pbody"><span class="caps">' + esc(p.type) + '</span><h3>' + esc(p.titre) + '</h3><p>' + esc(p.resume) + '</p><span class="pmore">Voir la fiche →</span></div></button>';
     }).join('');
   }
@@ -26,9 +26,12 @@
     lastF = document.activeElement;
     sheet.innerHTML = '<span class="grab"></span><div class="sheet-top"><span class="caps">' + esc(p.type) + '</span><button type="button" class="x" id="sh-x" aria-label="Fermer la fiche">✕</button></div>' +
       '<div class="pthumb" style="border-radius:20px;border:1px solid var(--hair)" aria-hidden="true">' + (ART[p.vignette] || '') + '</div>' +
-      '<h3 id="sh-title">' + esc(p.titre) + '</h3><p class="lead">' + esc(p.intro) + '</p><ul>' + p.points.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' +
+      '<h3 id="sh-title">' + esc(p.titre) + '</h3><p class="lead">' + esc(p.intro) + '</p>' +
+      (p.probleme ? '<span class="caps">Problème</span><p>' + esc(p.probleme) + '</p><span class="caps">Ce que j\'ai fait</span>' : '') +
+      '<ul>' + p.points.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' +
+      (p.resultat ? '<span class="caps">Résultat</span><p>' + esc(p.resultat) + '</p>' : '') +
       '<div class="chips">' + p.techno.map(function (t) { return '<span class="chip">' + esc(t) + '</span>'; }).join('') + '</div>' +
-      (p.liens ? '<div style="display:grid;gap:10px">' + p.liens.map(function (l) { return '<a class="btn btn-gold" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.texte) + ' ↗</a>'; }).join('') + '</div>' : '');
+      ((p.liens || p.page) ? '<div style="display:grid;gap:10px">' + (p.page ? '<a class="btn" href="' + esc(p.page) + '">Page complète du projet →</a>' : '') + (p.liens || []).map(function (l) { return '<a class="btn btn-gold" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.texte) + ' ↗</a>'; }).join('') + '</div>' : '');
     sheetBg.hidden = false; document.body.style.overflow = 'hidden';
     $('#sh-x').focus();
   }
