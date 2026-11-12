@@ -24,17 +24,21 @@ https://adebayo-moutalabi.github.io (dépôt `adebayo-moutalabi/adebayo-moutalab
 
 - Stage Le Casier Français (janv.–juin 2027) : **pas affiché pour l'instant**.
 - Projets : seules les réalisations en ligne et vérifiables. Aujourd'hui, dans l'ordre : **Nox** (réalisation
-  principale, page dédiée `/projets/nox/`), **ExpoIA** et **ce portfolio** (pipeline CI/CD public).
+  principale, page `/projets/nox/`), **Continental IT** (page `/projets/continental-it/`), **ExpoIA** et
+  **ce portfolio** (pipeline CI/CD public).
+- Continental IT : site officiel https://continentalit.org (WordPress 7 + Elementor). Contexte et résultat tirés du
+  site ; « ce que j'ai fait » repris de l'ancienne fiche du portfolio (le site ne crédite pas son auteur) : à
+  confirmer par Adebayo.
 - Nox : fiche écrite uniquement à partir du dépôt `adebayo-moutalabi/nox` (README, CHANGELOG, docs) et de
   get-nox.github.io. Points à garder en tête : le README cite le modèle `gpt-realtime-2.1` pour la voix ; le nombre
   de tests diffère selon les documents (26 dans le README, 52 dans docs/SUBMISSION.md), donc le site dit seulement
   « tests de bout en bout automatisés » ; version 1.4.0 d'après package.json et CHANGELOG ; aucun résultat du
   hackathon n'est affiché (non documenté).
 - Retirés : Sock Shop, n8n auto-hébergé, BoursIA, AWS hybride, VirtuStage, LogiScout,
-  gRPC, multi-VLAN, Continental IT, StageBenin. Adebayo va construire de nouveaux projets de zéro.
+  gRPC, multi-VLAN, StageBenin. Adebayo va construire de nouveaux projets de zéro.
 - Recherche affichée : alternance M2 à partir de septembre 2027, mobile partout en France.
 - Écran de chargement : une fois par visite (onglet).
-- Stack : ajout de GitHub Actions et API LLM ; retrait de Render, Laravel, WordPress, Flutter (hors positionnement).
+- Stack : ajout de GitHub Actions, API LLM, Electron ; WordPress gardé (Continental IT) ; retrait de Render, Laravel, Flutter.
 - Les entrées du parcours sont inchangées.
 
 ## État (12/11/2026, branche `claude/portfolio-seo-audit-ct0caq`)
@@ -52,11 +56,11 @@ Fait sur la branche (pull request à valider) :
   hors sitemap, contrôlé par `scripts/verifier.js`). Procédure dans `docs/SEARCH-CONSOLE.md`.
 - Page projet générée : `projets/nox/index.html` (JSON-LD WebPage + SoftwareApplication + fil d'Ariane),
   ajoutée au sitemap, à llms.txt, au JSON-LD de l'accueil et aux contrôles CI (html-validate, lychee, Lighthouse).
-- Lighthouse local : accueil 99/100/100/100, page Nox 100/100/100/100.
+- Lighthouse local : accueil 99/100/100/100, pages Nox et Continental IT 100/100/100/100.
 
 ## Prochaines étapes
 
-1. Adebayo relit l'aperçu et la pull request #1, puis fusionne.
+1. PR #1 : relecture complète faite ; fusion autorisée par Adebayo (12/11/2026), faite par Claude une fois la CI verte.
 2. Après déploiement : Search Console → valider avec le fichier HTML, envoyer le sitemap, inspecter `/` et `/projets/nox/`.
 3. À la main sur github.com : épingler `nox`, descriptions et topics (portfolio et nox), ajouter Nox au README de profil.
 4. Nouveaux projets : chaque projet aura une fiche (problème, stack, résultat, lien) ; avec plusieurs projets,
@@ -70,3 +74,4 @@ Fait sur la branche (pull request à valider) :
 - 12/11/2026 : missions 2 (SEO/GEO), 3 (GitHub, préparé) et 4 (CI) réalisées sur la branche ; PR #1 ouverte, CI verte.
 - 12/11/2026 : profil GitHub fait par Adebayo ; ajout du fichier Google Search Console ; Nox en réalisation
   principale avec page `/projets/nox/`.
+- 12/11/2026 : Continental IT ajouté en 2e réalisation (`/projets/continental-it/`) ; relecture complète avant fusion.
