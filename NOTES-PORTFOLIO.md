@@ -11,6 +11,12 @@ https://adebayo-moutalabi.github.io (dépôt `adebayo-moutalabi/adebayo-moutalab
 - Aperçu (captures) avant chaque publication.
 - Après toute modification de `js/data/` : `node scripts/generer.js` (sinon la CI échoue).
 
+## v3.5.1 : correctif Parcours (12/11/2026)
+
+- En remplaçant les styles de la stack (v3.5), le bloc CSS de la section **Parcours** (historique Git) avait été
+  supprimé par erreur : la section s'affichait sans mise en forme. Bloc restauré à l'identique ; vérifié que
+  plus aucune autre règle n'avait disparu (seules manquent celles des anciens designs retirés volontairement).
+
 ## v3.5 : stack « suivie à la trace », nouvel en-tête et pied des pages de projet (12/11/2026)
 
 - **Compétences** : la pile 3D (jugée peu fiable) est remplacée par une **carte de l'infrastructure** : un visiteur →
