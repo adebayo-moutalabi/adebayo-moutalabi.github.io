@@ -10,6 +10,24 @@ https://adebayo-moutalabi.github.io (dépôt `adebayo-moutalabi/adebayo-moutalab
 - Aperçu (captures) avant chaque publication.
 - Après toute modification de `js/data/` : `node scripts/generer.js` (sinon la CI échoue).
 
+## v3.1 : la v2.0, corrigée (12/11/2026)
+
+Base : le site de la v2.0 (hero banner gardé), avec :
+- **Logo AM** (le M à l'orbite) : en-tête, pied de page, favicon et icônes, manifest, image de partage, JSON-LD.
+- **Écran de chargement : le logo AM animé** remplace le robot Atom (l'orbite se trace au rythme du chargement,
+  le logo s'incline vers la souris, pulse au clic, la coche s'allume à 100 %). Le logo parcourt aussi la barre
+  de progression (orbite qui pivote au défilement, coche qui pulse en bas de page). Atom est retiré partout.
+- **Marque personnelle** : intitulé « Cloud, DevOps & IA », aucune étiquette candidat / indépendant ; accroche
+  « Je construis, j'automatise, je livre. » ; contact « Un projet, une mission ou une opportunité ? Écrivez-moi. »
+  avec « Ouvert aux missions ponctuelles et à une alternance M2 en 2027. »
+- **Nouvelle section « Ce que je fais »** : 3 domaines (infrastructure et déploiement, web, agents IA et automatisations).
+- **Copywriting revu** : Par où commencer, Labo, Compétences (« Ma stack, couche par couche »), Méthode,
+  Réalisations (« Des projets en ligne, du besoin au résultat » au lieu de « Peu de projets, mais vérifiables »),
+  résumés des projets. Vraies captures dans les cartes de projets ; page `/projets/expoia/`.
+- **Bugs de l'audit corrigés** : titres de section qui s'arrêtent sous la barre de progression ; indicateur de
+  section exact (section qui traverse le milieu de l'écran).
+- Lighthouse local : accueil 97/100/100/100, pages de projet 99-100/100/100/100.
+
 ## ⚠️ Retour à la v2.0 (12/11/2026)
 
 Après mise en ligne, Adebayo n'a pas accroché avec la v3.0 (marque personnelle, nouveau design) : **retour au site
@@ -190,3 +208,4 @@ Démarche complète dans `docs/NOM-DE-DOMAINE.md`. En bref :
 - 12/11/2026 : décision « marque personnelle » ; refonte v3.0 sur la base du design v1.0 (en-tête éditorial, frise git,
   cartes visuelles) ; architecture : pages entièrement générées, un seul script léger ; réglage Pages = GitHub Actions.
 - 12/11/2026 : v3.0 publiée puis non retenue ; retour au site v2.0 (republication immédiate + PR de retour du code).
+- 12/11/2026 : v3.1 = v2.0 + logo AM animé (chargement, barre), marque personnelle, « Ce que je fais », copywriting, bugs de la barre corrigés.

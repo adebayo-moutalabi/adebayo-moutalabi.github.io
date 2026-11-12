@@ -56,7 +56,8 @@ portfolio-adebayo/
 │   │   ├── vignettes.js      petits dessins des projets
 │   │   ├── parcours.js       expériences, formations, langues, distinctions
 │   │   ├── contact.js        e-mail, LinkedIn, fiche de statut
-│   │   └── mascotte.js       textes de Atom et réglages du chargement
+│   │   ├── domaines.js       « Ce que je fais » : les 3 domaines
+│   │   └── mascotte.js       écran de chargement (logo AM animé)
 │   ├── render.js           ← fabrique le HTML à partir des données
 │   ├── hero.js, labo.js, competences.js, methode.js, projets.js,
 │   │   parcours.js, contact.js, navigation.js, fond.js, atom.js
@@ -66,9 +67,10 @@ portfolio-adebayo/
 ├── assets/
 │   ├── photo.webp          ← ta photo (carrée, 640 px conseillé)
 │   ├── partage.png         ← image d'aperçu lors d'un partage (1200 × 630)
-│   ├── favicon.svg         ← icône de l'onglet
+│   ├── favicon.svg         ← icône de l'onglet (générée)
+│   ├── icones/             ← apple-touch-icon, icônes 192 et 512 px (générées)
+│   ├── logo/               ← logo AM (sombre, clair, PNG 512 px)
 │   ├── projets/            ← captures et images de partage des projets
-│   └── atom.svg            ← dessin de la mascotte
 ├── robots.txt, sitemap.xml, llms.txt   ← référencement (voir §3)
 ├── projets/nox/index.html  ← page du projet Nox (générée)
 ├── google2f457726f419ac07.html   ← vérification Google, ne pas supprimer
@@ -79,7 +81,6 @@ portfolio-adebayo/
 ├── .github/workflows/deploy.yml   ← pipeline CI/CD (voir §5)
 ├── .htmlvalidate.json, lychee.toml, lighthouserc.json   ← réglages des contrôles
 ├── docs/
-│   ├── ATOM-persona.md     ← fiche persona de la mascotte
 │   ├── SEARCH-CONSOLE.md   ← étapes Google Search Console, Bing, LinkedIn
 │   └── github/             ← README de profil GitHub et réglages à faire à la main
 ├── outils/
@@ -108,10 +109,20 @@ Si vous oubliez de lancer le script, la CI échoue avec le message « index.html
 |---|---|---|
 | `index.html` (`<head>`) | Titre, description, Open Graph (aperçu de partage), URL canonique | À la main |
 | `assets/partage.png` | Image d'aperçu 1200 × 630 | `node outils/generer-image-partage.js` (modèle : `outils/image-partage.html`) |
-| `robots.txt` | Autoriser les robots | À la main |
 | `sitemap.xml`, `llms.txt`, JSON-LD | Liste des pages, résumé pour les moteurs IA, fiche Google | `node scripts/generer.js` |
 | `projets/<id>/index.html` | Page dédiée d'un projet (URL propre, ex. `/projets/nox/`) | `node scripts/generer.js`, pour chaque projet qui a un champ `page` |
 | `google2f457726f419ac07.html` | Vérification Google Search Console | **Ne pas supprimer** |
+| `robots.txt`, `site.webmanifest`, balises du `<head>` de l'accueil | Robots, icônes d'application, URL canonique, Open Graph | `node scripts/generer.js` |
+| `favicon.ico`, `assets/favicon.svg`, `assets/icones/*` | Icônes (onglet, iPhone, Android) | `node outils/generer-icones.js` (à partir du logo) |
+
+**Adresse du site** : une seule variable, `SITE_URL`, en haut de `scripts/generer.js`. Pour un nom de domaine
+personnel, voir `docs/NOM-DE-DOMAINE.md`.
+
+### Le logo
+
+`assets/logo/logo-am.svg` (fonds sombres) et `assets/logo/logo-am-clair.svg` (fonds clairs) : la bonne version
+s'affiche selon le thème. Après une modification du logo, relancez `node outils/generer-icones.js`,
+`node outils/generer-image-partage.js` puis `node scripts/generer.js`.
 
 ---
 
@@ -177,11 +188,11 @@ Pour une nouvelle catégorie de filtre : ajoutez-la dans `categories` du même f
 - `js/data/contact.js` : e-mail, lien LinkedIn, fiche (statut, lieu…), boutons de choix du message.
 - `js/data/visiteurs.js` : les 3 cartes « Par où commencer ? ».
 
-### Régler l'écran de chargement et la mascotte
+### Régler l'écran de chargement (logo AM animé)
 `js/data/mascotte.js` :
 - `actif: false` → plus d'écran de chargement du tout ;
 - `uneFoisParSession: true` → seulement à la première visite de l'onglet (actuellement : **à chaque rechargement**) ;
-- `dureeSecondes`, `clicBonus`, les commandes affichées, les phrases de Atom.
+- `dureeSecondes`, `clicBonus`, les commandes affichées et les textes. Le logo est dessiné par `js/logo.js` (généré à partir de `assets/logo/logo-am.svg`) ; ses animations sont dans `css/mascotte.css`.
 
 ### Changer les couleurs
 `css/base.css`, tout début : les blocs `:root` (thème sombre) et `:root[data-theme="light"]` / `@media (prefers-color-scheme: light)` (thème clair). Principales variables : `--gold` (or, accent), `--blue` (bleu « IA »), `--ground` (fond), `--surface` (cartes), `--ink` (texte).
@@ -232,7 +243,7 @@ Rien à faire : toutes les sections se réorganisent automatiquement. Les listes
 | Ajouter une commande au terminal (Cmd/Ctrl+K) | `js/navigation.js`, liste `CMDS` |
 | Ajouter une section entière | 1) `<section id="…">` dans `index.html` ; 2) une fonction de rendu dans `js/render.js` ; 3) son id dans `navigation` de `profil.js` ; 4) son lien dans le dock de `index.html` |
 | Créer un nouveau type de démo dans le labo | `render.js` (fonction `labo`) + `js/labo.js` + `data/labo.js` |
-| Modifier le dessin ou les animations de Atom | `js/atom.js` (`botSVG`) + `css/mascotte.css` |
+| Modifier les animations du logo (chargement, barre de progression) | `js/atom.js` + `js/logo.js` + `css/mascotte.css` |
 | Changer la forme du fond selon la section | attribut `data-shape` des sections dans `index.html` (formes : sphere, ring, cube, galaxy, helix, wave, torus) |
 
 **Ordre de chargement** (voir la fin de `index.html`) : données → `render.js` (construit le HTML) → modules d'interaction → `atom.js` → `verifier.js` → `main.js`. Chaque module est isolé et communique via l'objet global `Site`.
