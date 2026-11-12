@@ -6,5 +6,5 @@ cd "$(dirname "$0")/.."
 rm -rf _site
 mkdir _site
 # google2f457726f419ac07.html : vérification Google Search Console, ne pas supprimer.
-cp -r index.html robots.txt sitemap.xml llms.txt google2f457726f419ac07.html projets css js assets _site/
+cp -r index.html robots.txt sitemap.xml llms.txt favicon.ico site.webmanifest google2f457726f419ac07.html projets css js assets _site/
 echo "✓ _site construit ($(find _site -type f | wc -l) fichiers)"

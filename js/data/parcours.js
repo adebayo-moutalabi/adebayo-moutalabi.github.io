@@ -13,7 +13,7 @@
    ===================================================================== */
 
 Site.data.parcours = {
-  entete: { etiquette: "Parcours", titre: "Mon historique,", accent: "commit par commit.", texte: "Expériences et formations, versionnées comme un dépôt Git. Choisissez une branche, puis ouvrez un commit pour voir ce qu'il a apporté." },
+  entete: { etiquette: "Parcours", titre: "Mon historique,", accent: "commit par commit.", texte: "Expériences et formations, de la plus récente à la plus ancienne." },
   auteur: "Adebayo Moutalabi",
   branches: [
     { id: "all", libelle: "Tout" },

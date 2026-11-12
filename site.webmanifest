@@ -1,0 +1,27 @@
+{
+  "name": "Adebayo Moutalabi · Cloud, DevOps & IA",
+  "short_name": "Adebayo Moutalabi",
+  "description": "Je construis et j'automatise des infrastructures, des pipelines et des agents IA.",
+  "lang": "fr",
+  "start_url": "./",
+  "display": "browser",
+  "background_color": "#0d0e10",
+  "theme_color": "#0d0e10",
+  "icons": [
+    {
+      "src": "assets/icones/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icones/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

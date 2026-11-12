@@ -8,6 +8,10 @@
 #   html ──────┼──► deployer (main seulement)
 #   liens ─────┤
 #   lighthouse ┘
+#
+# Retour à une ancienne version (sans toucher au code) : Actions → « Vérifier et déployer »
+# → Run workflow → version = v2.0 (ou : gh workflow run deploy.yml -f version=v2.0).
+# Les contrôles sont alors sautés (la version a déjà été vérifiée) et ce tag est republié tel quel.
 # ------------------------------------------------------------------------------------------
 name: Vérifier et déployer
 
@@ -16,6 +20,11 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Remettre en ligne une version existante (ex. v2.0). Vide = déployer main après les contrôles."
+        required: false
+        default: ""
 
 # Droits minimaux par défaut : lire le code. Le job de déploiement demande les siens.
 permissions:
@@ -29,6 +38,7 @@ concurrency:
 jobs:
   coherence:
     name: Cohérence des données et contenu généré
+    if: inputs.version == ''
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -42,6 +52,7 @@ jobs:
 
   html:
     name: Validation HTML
+    if: inputs.version == ''
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -53,6 +64,7 @@ jobs:
 
   liens:
     name: Liens cassés
+    if: inputs.version == ''
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -66,6 +78,7 @@ jobs:
 
   lighthouse:
     name: Audit Lighthouse
+    if: inputs.version == ''
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -80,7 +93,8 @@ jobs:
   deployer:
     name: Déployer sur GitHub Pages
     needs: [coherence, html, liens, lighthouse]
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    # Après des contrôles verts, ou contrôles sautés quand on republie une version existante
+    if: always() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled')
     runs-on: ubuntu-latest
     permissions:
       pages: write
@@ -90,8 +104,13 @@ jobs:
       url: ${{ steps.deploiement.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.version || github.sha }}
       - name: Ne publier que le site (sans docs, outils, scripts)
-        run: bash scripts/construire.sh
+        # Les très anciennes versions (v1.0) n'ont pas scripts/construire.sh : copie minimale
+        run: |
+          if [ -f scripts/construire.sh ]; then bash scripts/construire.sh
+          else mkdir _site && cp -r index.html css js assets _site/; fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

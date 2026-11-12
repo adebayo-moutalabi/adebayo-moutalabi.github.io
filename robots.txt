@@ -1,4 +1,5 @@
 # Tous les robots (moteurs de recherche et moteurs IA) peuvent lire tout le site.
+# Fichier généré par scripts/generer.js.
 User-agent: *
 Allow: /
 
