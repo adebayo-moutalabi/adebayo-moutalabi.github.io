@@ -1,25 +1,13 @@
 /* =====================================================================
-   PROJETS : grille filtrable + fiche détaillée (tiroir latéral / bottom sheet sur mobile)
+   PROJETS : fiche « Aperçu rapide » (tiroir latéral / bottom sheet sur mobile).
+   Les lignes de la section sont produites par js/render.js
    Contenu : data/projets.js et data/vignettes.js
    ===================================================================== */
 (function (S) {
   var $ = S.$, $$ = S.$$, esc = S.esc, D = S.data.projets, ART = S.data.vignettes, P = D.liste;
 
-  var grid = $('#pgrid'), filter = 'all';
   /* Vraie capture d'écran du projet si elle existe (champ « image »), sinon le dessin de vignettes.js */
   function vignette(p) { return p.image ? '<img src="' + esc(p.image) + '" alt="" loading="lazy" width="' + (p.imageTaille || [1200, 678])[0] + '" height="' + (p.imageTaille || [1200, 678])[1] + '">' : (ART[p.vignette] || ''); }
-  function drawP() {
-    grid.innerHTML = P.filter(function (p) { return filter === 'all' || p.categorie === filter; }).map(function (p) {
-      return '<button type="button" class="pcard' + (p.large && filter === 'all' ? ' wide' : '') + '" id="projet-' + esc(p.id) + '" data-id="' + esc(p.id) + '" aria-haspopup="dialog">' +
-        '<div class="pthumb' + (p.image ? ' shot' : '') + '" aria-hidden="true">' + vignette(p) + '</div><div class="pbody"><span class="caps">' + esc(p.type) + '</span><h3>' + esc(p.titre) + '</h3><p>' + esc(p.resume) + '</p><span class="pmore">Voir la fiche →</span></div></button>';
-    }).join('');
-  }
-  drawP();
-  $$('.filters button').forEach(function (b) { b.addEventListener('click', function () { filter = b.dataset.f; $$('.filters button').forEach(function (o) { o.setAttribute('aria-pressed', o === b); }); drawP(); }); });
-  grid.addEventListener('mousemove', function (e) {   /* halo qui suit la souris */
-    var c = e.target.closest('.pcard'); if (!c) return; var r = c.getBoundingClientRect();
-    c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
-  });
 
   /* ----- fiche détaillée ----- */
   var sheetBg = $('#sheet-bg'), sheet = $('#sheet'), lastF = null;
@@ -38,7 +26,7 @@
     $('#sh-x').focus();
   }
   function closeSheet() { sheetBg.hidden = true; document.body.style.overflow = ''; if (lastF) lastF.focus(); }
-  grid.addEventListener('click', function (e) { var c = e.target.closest('.pcard'); if (c) openSheet(c.dataset.id); });
+  document.addEventListener('click', function (e) { var c = e.target.closest('[data-fiche]'); if (c) openSheet(c.dataset.fiche); });
   sheetBg.addEventListener('click', function (e) { if (e.target === sheetBg || e.target.closest('#sh-x')) closeSheet(); });
 
   /* glisser vers le bas pour fermer (mobile) */

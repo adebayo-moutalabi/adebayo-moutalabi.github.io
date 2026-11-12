@@ -32,15 +32,15 @@ Site.data.profil = {
     defiler: "Faites défiler"
   },
 
-  /* Sections affichées sur la barre de progression (dans l'ordre de la page) */
+  /* Sections affichées sur la barre de progression (dans l'ordre de la page).
+     « bulle » = phrase dite par Atom, la mascotte, quand elle y arrive (facultatif). */
   navigation: [
     { id: "intro", nom: "Accueil" },
-    { id: "domaines", nom: "Ce que je fais" },
-    { id: "labo", nom: "Labo" },
-    { id: "competences", nom: "Compétences" },
-    { id: "methode", nom: "Méthode" },
-    { id: "projets", nom: "Réalisations" },
-    { id: "parcours", nom: "Parcours" },
-    { id: "contact", nom: "Contact" }
+    { id: "domaines", nom: "Ce que je fais", bulle: "Ce que je fais" },
+    { id: "competences", nom: "Compétences", bulle: "Ma stack" },
+    { id: "methode", nom: "Méthode", bulle: "La méthode" },
+    { id: "projets", nom: "Réalisations", bulle: "Mes projets" },
+    { id: "parcours", nom: "Parcours", bulle: "Mon parcours" },
+    { id: "contact", nom: "Contact", bulle: "Écrivez-moi !" }
   ]
 };

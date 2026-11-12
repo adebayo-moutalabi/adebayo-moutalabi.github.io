@@ -48,18 +48,16 @@ portfolio-adebayo/
 ├── js/
 │   ├── data/               ← ★ VOTRE CONTENU : c'est ici que vous modifiez ★
 │   │   ├── profil.js         nom, photo, accroche, liste des sections
-│   │   ├── visiteurs.js      « Par où commencer ? » (3 profils)
-│   │   ├── labo.js           les 4 démos interactives
 │   │   ├── competences.js    familles d'outils et outils
 │   │   ├── methode.js        les étapes de la méthode
-│   │   ├── projets.js        les projets (+ catégories)
+│   │   ├── projets.js        les projets (+ catégories, page « Tous les projets »)
 │   │   ├── vignettes.js      petits dessins des projets
 │   │   ├── parcours.js       expériences, formations, langues, distinctions
 │   │   ├── contact.js        e-mail, LinkedIn, fiche de statut
 │   │   ├── domaines.js       « Ce que je fais » : les 3 domaines
-│   │   └── mascotte.js       écran de chargement (logo AM animé)
+│   │   └── mascotte.js       Atom : écran de chargement et bulles au défilement
 │   ├── render.js           ← fabrique le HTML à partir des données
-│   ├── hero.js, labo.js, competences.js, methode.js, projets.js,
+│   ├── hero.js, competences.js, catalogue.js, methode.js, projets.js,
 │   │   parcours.js, contact.js, navigation.js, fond.js, atom.js
 │   │                       ← le comportement (animations, interactions)
 │   ├── verifier.js         ← contrôle de cohérence (?debug)
@@ -168,31 +166,21 @@ Options : `fusion: true` pour une étape où formation et expérience se rejoign
 `sceau` est le court texte qui tourne autour du médaillon.
 
 ### Ajouter, modifier ou retirer un projet
-`js/data/projets.js`, liste `liste` : copiez un bloc, changez `id` (unique, sans espace), `categorie` (`cloud`, `ia` ou `web`), les textes, `probleme`, `points` et `resultat`. Écrivez des phrases **factuelles et vérifiables** (problème, stack, résultat avec un lien) : ce sont elles que Google et les moteurs IA citent. Avec plusieurs projets, remettez `filtres: true` pour afficher les boutons de filtre. Pour donner une page dédiée à un projet, ajoutez `page: "projets/<id>/"` (plus `image`, `imageAlt`, `partage`) : `node scripts/generer.js` crée la page et l'ajoute au sitemap, à `llms.txt` et aux données Google. Ajoutez alors aussi l'URL dans `lighthouserc.json` (`collect.url`). Le champ `vignette` choisit le dessin (voir `vignettes.js`). `outils` doit contenir des noms **exactement identiques** à ceux de `competences.js` : c'est ce qui relie le projet à la stack. Pour retirer : supprimez le bloc.
+`js/data/projets.js`, liste `liste` : copiez un bloc, changez `id` (unique, sans espace), `categorie` (`cloud`, `ia` ou `web`), les textes, `probleme`, `points` et `resultat`. Écrivez des phrases **factuelles et vérifiables** (problème, stack, résultat avec un lien) : ce sont elles que Google et les moteurs IA citent. `une: true` met le projet en grande ligne sur l'accueil ; sans, il apparaît sous « Aussi ». Tous les projets figurent sur la page `projets/` (filtres par catégorie, générée automatiquement). Pour donner une page dédiée à un projet, ajoutez `page: "projets/<id>/"` (plus `image`, `imageAlt`, `partage`) : `node scripts/generer.js` crée la page et l'ajoute au sitemap, à `llms.txt` et aux données Google. Ajoutez alors aussi l'URL dans `lighthouserc.json` (`collect.url`). Le champ `vignette` choisit le dessin (voir `vignettes.js`). `outils` doit contenir des noms **exactement identiques** à ceux de `competences.js` : c'est ce qui relie le projet à la stack. Pour retirer : supprimez le bloc.
 Pour une nouvelle catégorie de filtre : ajoutez-la dans `categories` du même fichier.
 
 ### Ajouter ou retirer une compétence
-`js/data/competences.js`, liste `outils` : `{ nom: "Ansible", famille: "sys", role: "Automatiser la configuration des serveurs." },`. `famille` est l'identifiant d'une famille de la liste `familles` (`ci`, `cont`, `cloud`, `sys`, `net`, `ia`, `web`). Pour une nouvelle famille (nouveau panneau), ajoutez un bloc dans `familles` avec un `id` unique. Les boutons de projets sur chaque carte se calculent seuls à partir des projets qui citent l'outil.
+`js/data/competences.js`, liste `outils` : `{ nom: "Ansible", famille: "sys", role: "Automatiser la configuration des serveurs." },`. `famille` est l'identifiant d'une famille de la liste `familles` (`ci`, `cont`, `cloud`, `sys`, `net`, `ia`, `web`). Pour une nouvelle famille (nouvelle carte), ajoutez un bloc dans `familles` avec un `id` unique. Le point doré et le filtre « Utilisés dans » se calculent seuls à partir des projets qui citent l'outil.
 
-### Modifier le labo
-`js/data/labo.js` :
-- **Textes, pastilles d'outils** : champs `titre`, `texte`, `outils`.
-- **Pipeline CI/CD** : liste `etapes` (ajoutez ou retirez des étapes avec leur durée).
-- **Agent IA** : liste `questions` (`question` + `reponse`, le `<b>gras</b>` est accepté).
-- **Architecture AWS** : liste `briques` (`actif: true` = déjà activée au départ).
-- Les curseurs et animations se mettent à jour tout seuls.
-> Ajouter une **cinquième démo d'un type nouveau** demande d'écrire du code : voir §7.
-
-### Modifier la méthode, le contact, le choix de visiteur
+### Modifier la méthode, le contact
 - `js/data/methode.js` : étapes (la numérotation est automatique).
 - `js/data/contact.js` : e-mail, lien LinkedIn, fiche (statut, lieu…), boutons de choix du message.
-- `js/data/visiteurs.js` : les 3 cartes « Par où commencer ? ».
 
-### Régler l'écran de chargement (logo AM animé)
+### Régler l'écran de chargement (Atom, la mascotte)
 `js/data/mascotte.js` :
 - `actif: false` → plus d'écran de chargement du tout ;
 - `uneFoisParSession: true` → seulement à la première visite de l'onglet (actuellement : **à chaque rechargement**) ;
-- `dureeSecondes`, `clicBonus`, les commandes affichées et les textes. Le logo est dessiné par `js/logo.js` (généré à partir de `assets/logo/logo-am.svg`) ; ses animations sont dans `css/mascotte.css`.
+- `dureeSecondes`, `clicBonus`, les commandes affichées et les textes. Les animations d'Atom sont dans `js/atom.js` et `css/mascotte.css`.
 
 ### Changer les couleurs
 `css/base.css`, tout début : les blocs `:root` (thème sombre) et `:root[data-theme="light"]` / `@media (prefers-color-scheme: light)` (thème clair). Principales variables : `--gold` (or, accent), `--blue` (bleu « IA »), `--ground` (fond), `--surface` (cartes), `--ink` (texte).
@@ -242,8 +230,7 @@ Rien à faire : toutes les sections se réorganisent automatiquement. Les listes
 | Changer l'effet d'ouverture de la photo | `js/hero.js` + `css/base.css` |
 | Ajouter une commande au terminal (Cmd/Ctrl+K) | `js/navigation.js`, liste `CMDS` |
 | Ajouter une section entière | 1) `<section id="…">` dans `index.html` ; 2) une fonction de rendu dans `js/render.js` ; 3) son id dans `navigation` de `profil.js` ; 4) son lien dans le dock de `index.html` |
-| Créer un nouveau type de démo dans le labo | `render.js` (fonction `labo`) + `js/labo.js` + `data/labo.js` |
-| Modifier les animations du logo (chargement, barre de progression) | `js/atom.js` + `js/logo.js` + `css/mascotte.css` |
+| Modifier les animations d'Atom (chargement, barre de progression) | `js/atom.js` + `css/mascotte.css` |
 | Changer la forme du fond selon la section | attribut `data-shape` des sections dans `index.html` (formes : sphere, ring, cube, galaxy, helix, wave, torus) |
 
 **Ordre de chargement** (voir la fin de `index.html`) : données → `render.js` (construit le HTML) → modules d'interaction → `atom.js` → `verifier.js` → `main.js`. Chaque module est isolé et communique via l'objet global `Site`.

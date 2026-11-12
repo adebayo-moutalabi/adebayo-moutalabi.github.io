@@ -6,7 +6,7 @@
   S.reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;   /* visiteur qui réduit les animations */
   S.fine = matchMedia('(pointer: fine)').matches;                       /* souris (et non tactile) */
   S.$ = function (s) { return document.querySelector(s); };
-  S.$$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  S.$$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
   S.esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); };
   S.clamp = function (v) { return Math.max(0, Math.min(1, v)); };
   S.toast = function (t) {

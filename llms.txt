@@ -92,14 +92,6 @@ Le site que vous lisez est aussi une démonstration : son code source est public
 - 2023 : Huawei Seeds for the Future. Participant au programme. Notre projet d'équipe TODJUMI, une plateforme de suivi des patients pour les médecins béninois, a été sélectionné.
 - 2026 : Statut étudiant-entrepreneur. Obtenu via Pépite Bretagne pour le projet VirtuStage.
 
-## Questions fréquentes
-
-- Que sais-tu faire ? Adebayo travaille d'abord en Cloud &amp; DevOps : Linux, Docker, Kubernetes, pipelines GitLab CI/CD et GitHub Actions, AWS et supervision Prometheus/Grafana. Il conçoit aussi des agents IA et des automatisations (n8n, API de LLM, RAG) qui répondent à des besoins métier précis.
-- Ta réalisation phare ? Nox, un compagnon de bureau pour les personnes TDAH, réalisé pour l'OpenAI DevDay Community Hackathon Paris : voix temps réel avec l'API Realtime d'OpenAI, micro-étapes de 2 à 10 minutes, intégrations Agenda, Gmail et Telegram. Ensuite, le site ExpoIA du Musée des Transmissions, et ce portfolio, déployé par un pipeline GitHub Actions.
-- Comment travailles-tu ? Il part d'un problème réel, rédige le cahier des charges, puis livre un prototype qui fonctionne. Il se décrit comme résilient, curieux et minutieux.
-- Quelle formation ? Master 1 Cloud &amp; Réseaux à l'ISTIC (Université de Rennes), après une Licence 3 Informatique à l'ISTIC et une Licence Informatique de gestion à l'ENEAM (Université d'Abomey-Calavi).
-- Comment te contacter ? Le plus simple : un message sur LinkedIn. Le lien est dans la section Contact, en bas de page.
-
 ## Liens
 
 - [Portfolio](https://adebayo-moutalabi.github.io/)

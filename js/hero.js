@@ -1,6 +1,6 @@
 /* =====================================================================
    OUVERTURE : lettres qui réagissent à la souris, photo en « lentille »
-   qui s'agrandit au défilement, et choix du profil de visite.
+   qui s'agrandit au défilement.
    ===================================================================== */
 (function (S) {
   var $ = S.$, $$ = S.$$, esc = S.esc, clamp = S.clamp, reduce = S.reduce, fine = S.fine;
@@ -46,16 +46,4 @@
   }
   S.frames.push(frameIntro);
 
-  /* ----- choix du profil de visite (mémorisé dans le navigateur) ----- */
-  var byId = {}; S.data.visiteurs.profils.forEach(function (p) { byId[p.id] = p; });
-  function setVisitor(v, scroll) {
-    var c = byId[v]; if (!c) return;
-    $$('.choice').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.v === v); });
-    $('#choice-out').textContent = c.message;
-    $('#c-title').innerHTML = S.fr(esc(c.contactTitre)) + ' <span class="it">' + esc(c.contactAccent) + '</span>';
-    try { localStorage.setItem('site-visiteur', v); } catch (e) {}
-    if (scroll) setTimeout(function () { S.go(c.cible); }, 350);
-  }
-  $$('.choice').forEach(function (b) { b.addEventListener('click', function () { setVisitor(b.dataset.v, true); }); });
-  try { var sv = localStorage.getItem('site-visiteur'); if (byId[sv]) setVisitor(sv, false); } catch (e) {}
 })(window.Site);

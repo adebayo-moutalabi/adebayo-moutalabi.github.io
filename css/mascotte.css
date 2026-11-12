@@ -1,28 +1,23 @@
-/* Logo AM animé (écran de chargement, barre de progression) — voir js/logo.js et js/atom.js */
-/* ===== logo AM : couleurs selon le thème ===== */
-.lg { display: block; width: 100%; height: 100%; overflow: visible; transition: transform .25s ease-out; }
-.lg-dos { fill: none; stroke: var(--line-art); stroke-opacity: .75; stroke-width: 1.1; }
-.lg-noeud { fill: var(--ground); stroke: var(--line-art); stroke-width: 1; }
-.lg-lettres path { stroke: var(--ground); stroke-width: 2.4; paint-order: stroke; }
-.lg-avant-fond { fill: none; stroke: var(--ground); stroke-width: 4.4; }
-.lg-avant { fill: none; stroke: var(--sand); stroke-width: 1.1; }
-.lg-coche circle { fill: var(--gold); }
-.lg-coche path { fill: none; stroke: var(--on-gold); stroke-width: 1.61; stroke-linecap: round; stroke-linejoin: round; }
-.lg-orbite, .lg-coche { transform-origin: 60px 64px; }
-/* Écran de chargement : l'orbite se trace avec la progression (--p), la coche s'allume à la fin */
-.pre-bot .lg-dos, .pre-bot .lg-avant, .pre-bot .lg-avant-fond { stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--p, 0)); }
-.pre-bot .lg-noeud { opacity: calc(var(--p, 0) * 3 - .6); }
-.pre-bot .lg-coche { transform: scale(0); transition: transform .5s cubic-bezier(.3, 1.6, .5, 1); transform-box: fill-box; transform-origin: center; }
-.pre-bot.ok .lg-coche, .fly .lg-coche { transform: scale(1); }
-.pre-bot .lg-lettres { animation: lettres 1.1s var(--ease) both; }
-@keyframes lettres { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-/* Barre de progression : l'orbite pivote quand on défile, la coche pulse en bas de page */
-.rail-bot .lg-orbite { transition: transform .5s var(--ease); }
-.rail-bot.walk .lg-orbite { transform: rotate(-8deg); }
-.rail-bot .wave .lg-coche { animation: pulse 1.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
-@keyframes pulse { 50% { transform: scale(1.35); } }
-.hop { animation: hop .6s cubic-bezier(.3, 1.5, .5, 1); }
-@keyframes hop { 0% { transform: scale(1); } 30% { transform: scale(.88); } 65% { transform: scale(1.12); } 100% { transform: scale(1); } }
+/* Mascotte Atom, écran de chargement, barre de progression (voir aussi les autres fichiers du dossier css/) */
+/* ===== mascotte Atom ===== */
+.bot { display: block; width: 100%; height: 100%; overflow: visible; }
+.bot .b-head { fill: var(--gold); } .bot .b-body { fill: color-mix(in srgb, var(--gold) 82%, #000); }
+.bot .b-face { fill: #15171a; } .bot .b-eye { fill: var(--blue); } .bot .b-ant { fill: var(--blue); }
+.bot .b-line { stroke: color-mix(in srgb, var(--gold) 70%, #000); stroke-width: 2.4; stroke-linecap: round; fill: none; }
+.bot .b-mouth { stroke: var(--blue); stroke-width: 2.2; stroke-linecap: round; fill: none; }
+.bot .b-eyes { transition: transform .12s linear; }
+.bot .b-eye { transform-box: fill-box; transform-origin: center; animation: blink 4.6s infinite; }
+@keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+.bot .b-ant { animation: glow 1.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes glow { 50% { opacity: .45; transform: scale(.8); } }
+.bot .b-leg, .bot .b-arm { transform-box: fill-box; transform-origin: 50% 0; }
+.walk .b-leg.l { animation: legA .42s ease-in-out infinite alternate; } .walk .b-leg.r { animation: legA .42s ease-in-out infinite alternate-reverse; }
+@keyframes legA { from { transform: rotate(-26deg); } to { transform: rotate(26deg); } }
+.walk .b-arm.l { animation: legA .42s ease-in-out infinite alternate-reverse; } .walk .b-arm.r { animation: legA .42s ease-in-out infinite alternate; }
+.wave .b-arm.r { animation: wv .5s ease-in-out infinite alternate; transform-origin: 50% 90%; }
+@keyframes wv { from { transform: rotate(-150deg); } to { transform: rotate(-95deg); } }
+.hop { animation: hop .7s cubic-bezier(.3, 1.5, .5, 1); }
+@keyframes hop { 0% { transform: translateY(0) scale(1, 1); } 25% { transform: translateY(6px) scale(1.08, .88); } 55% { transform: translateY(-34px) scale(.94, 1.1); } 100% { transform: translateY(0) scale(1, 1); } }
 
 /* ===== preloader ===== */
 .pre-boot { position: fixed; inset: 0; z-index: 199; background: var(--ground); animation: bootout .01s 6s forwards; }  /* écran uni affiché avant que le JS démarre ; disparaît seul au bout de 6 s si le JS ne répond pas */
@@ -31,7 +26,7 @@
 .pre::before { content: ""; position: absolute; width: 120vmax; height: 120vmax; left: 50%; top: 50%; transform: translate(-50%, -50%); background: radial-gradient(closest-side, var(--halo), transparent 70%); pointer-events: none; }
 .pre canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .pre-c { position: relative; z-index: 2; display: grid; justify-items: center; gap: 16px; padding: 24px; width: min(440px, 100%); text-align: center; }
-.pre-bot { width: 132px; height: 132px; cursor: pointer; animation: bob 3.2s ease-in-out infinite; -webkit-tap-highlight-color: transparent; }
+.pre-bot { width: 116px; height: 116px; cursor: pointer; animation: bob 2.6s ease-in-out infinite; -webkit-tap-highlight-color: transparent; }
 @keyframes bob { 50% { transform: translateY(-9px); } }
 .pre-bot:active { transform: scale(.94); }
 .pre-n { font-family: var(--display); font-weight: 300; font-size: clamp(72px, 14vw, 118px); line-height: .9; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
@@ -67,12 +62,12 @@
 .rail.show .rail-bot { visibility: visible; }
 .rail-bot .flip { width: 100%; height: 100%; transition: transform .3s var(--ease); }
 .rail-bot .bob { width: 100%; height: 100%; }
-.rail-bot.walk .bob { animation: stepb .5s ease-in-out infinite alternate; }
-@keyframes stepb { from { transform: translateY(0); } to { transform: translateY(-2px); } }
+.rail-bot.walk .bob { animation: stepb .42s ease-in-out infinite alternate; }
+@keyframes stepb { from { transform: translateY(0) rotate(-3deg); } to { transform: translateY(-2.5px) rotate(3deg); } }
 .rail-say { position: absolute; bottom: 100%; left: 50%; transform: translate(-50%, 6px) scale(.9); margin-bottom: 4px; padding: 5px 11px; border-radius: 12px; background: var(--ink); color: var(--ground); font-size: 12px; font-weight: 500; white-space: nowrap; opacity: 0; transition: all .3s var(--ease); pointer-events: none; }
 .rail-say::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -5px; border: 5px solid transparent; border-top-color: var(--ink); }
 .rail-say.on { opacity: 1; transform: translate(-50%, 0) scale(1); }
 .rail-now { position: absolute; right: clamp(16px, 3vw, 40px); top: 50px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-muted); font-variant-numeric: tabular-nums; pointer-events: none; opacity: 0; }
 @media (min-width: 701px) { .rail-now { opacity: 1; } }
 @media (max-width: 700px) { .rail { height: 46px; } .rail-track { top: 36px; } .rail-mk { top: 36px; } .rail-bot { width: 32px; height: 34px; margin-left: -16px; } }
-@media (prefers-reduced-motion: reduce) { .pre-bot, .pre-bot .lg-lettres, .rail-bot.walk .bob, .rail-bot .wave .lg-coche { animation: none; } .lg, .rail-bot .lg-orbite { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .bot .b-eye, .bot .b-ant, .pre-bot, .rail-bot.walk .bob { animation: none; } }

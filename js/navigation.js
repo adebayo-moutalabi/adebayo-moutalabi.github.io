@@ -18,8 +18,7 @@
   function activeSec() {
     var cur = 'intro';
     secs.forEach(function (id) { var el = document.getElementById(id); if (el && el.getBoundingClientRect().top < innerHeight * .45) cur = id; });
-    if (document.getElementById('choix').getBoundingClientRect().top < innerHeight * .45 && cur === 'intro') cur = 'intro';
-    $$('.dock a.dk').forEach(function (a) { var m = { competences: 'labo', methode: 'labo' }[cur] || cur; a.classList.toggle('on', a.dataset.s === m); if (a.dataset.s === m) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+    $$('.dock a.dk').forEach(function (a) { var m = { domaines: 'competences', methode: 'competences' }[cur] || cur; a.classList.toggle('on', a.dataset.s === m); if (a.dataset.s === m) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
   }
   $('#dk-theme').addEventListener('click', function () {
     var root = document.documentElement, cur = root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
@@ -31,14 +30,13 @@
   var bg = $('#pal-bg'), inp = $('#pal-in'), list = $('#pal-list'), sel = 0, lastP = null;
   var CMDS = [
     { k: 'deploy', l: 'Lancer un déploiement', h: 'git push origin main', r: deploy },
-    { k: 'labo demo', l: 'Ouvrir le labo', h: 'section', r: function () { go('#labo'); } },
     { k: 'projets', l: 'Voir les projets', h: 'section', r: function () { go('#projets'); } },
     { k: 'parcours formations', l: 'Voir le parcours', h: 'section', r: function () { go('#parcours'); } },
-    { k: 'competences stack orbite', l: 'Explorer les compétences', h: 'section', r: function () { go('#competences'); } },
+    { k: 'competences stack outils', l: 'Explorer les compétences', h: 'section', r: function () { go('#competences'); } },
     { k: 'methode', l: 'Voir ma méthode', h: 'section', r: function () { go('#methode'); } },
     { k: 'contact email mail linkedin', l: 'Me contacter', h: 'section', r: function () { go('#contact'); } },
     { k: 'theme sombre clair', l: 'Changer de thème', h: 'apparence', r: function () { $('#dk-theme').click(); } },
-    { k: 'intro preloader chargement rejouer logo', l: 'Rejouer le chargement', h: 'le logo AM se déploie', r: function () { S.atom && S.atom.replay(); } },
+    { k: 'intro preloader chargement rejouer atom mascotte', l: 'Rejouer le chargement', h: 'avec Atom, la mascotte', r: function () { S.atom && S.atom.replay(); } },
     { k: 'whoami', l: 'whoami', h: 'qui est derrière ce site ?', r: function () { toast(S.data.profil.nomComplet + ' · ' + S.data.profil.accroche.pied); } }
   ];
   function fl() { var q = inp.value.trim().toLowerCase(); return CMDS.filter(function (c) { return !q || (c.k + ' ' + c.l).toLowerCase().indexOf(q) > -1; }); }

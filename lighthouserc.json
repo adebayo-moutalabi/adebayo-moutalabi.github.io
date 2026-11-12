@@ -8,6 +8,7 @@
       },
       "url": [
         "http://localhost/index.html",
+        "http://localhost/projets/index.html",
         "http://localhost/projets/nox/index.html",
         "http://localhost/projets/continental-it/index.html",
         "http://localhost/projets/expoia/index.html"

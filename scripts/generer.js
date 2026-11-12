@@ -26,7 +26,7 @@ const element = sel => (elements[sel] = elements[sel] || { innerHTML: '', textCo
 const ctx = { matchMedia: () => ({ matches: false }), document: { querySelector: element, querySelectorAll: () => [] } };
 ctx.window = ctx;
 vm.createContext(ctx);
-const fichiersData = ['profil', 'visiteurs', 'domaines', 'labo', 'competences', 'methode', 'vignettes', 'projets', 'parcours', 'contact', 'mascotte'];
+const fichiersData = ['profil', 'domaines', 'competences', 'methode', 'vignettes', 'projets', 'parcours', 'contact', 'mascotte'];
 ['js/utils.js', ...fichiersData.map(f => 'js/data/' + f + '.js'), 'js/render.js'].forEach(f => vm.runInContext(lire(f), ctx, { filename: f }));
 const S = ctx.Site, D = S.data, esc = S.esc;
 D.profil.site = SITE_URL;   // toutes les URL absolues générées partent de SITE_URL
@@ -35,30 +35,10 @@ const html = sel => element(sel).innerHTML;
 // ---------- 2. Compléter les zones remplies d'habitude par les modules interactifs ----------
 const liste = arr => '<ul>' + arr.map(t => '<li>' + esc(t) + '</li>').join('') + '</ul>';
 
-// Compétences : une famille = un titre + la liste des outils et leur rôle
-const competences = D.competences.familles.map(f =>
-  '<div class="pn-statique"><h3>' + esc(f.nom) + '</h3><p>' + esc(f.resume) + '</p><ul>' +
-  D.competences.outils.filter(o => o.famille === f.id).map(o => '<li><b>' + esc(o.nom) + '</b> : ' + esc(o.role) + '</li>').join('') +
-  '</ul></div>').join('');
-
-// Projets : la fiche complète (problème, ce que j'ai fait, résultat, stack, liens)
-const projets = D.projets.liste.map(p =>
-  '<article class="p-statique" id="projet-' + esc(p.id) + '">' + (p.image ? '<img src="' + esc(p.image) + '" alt="' + esc(p.imageAlt || '') + '" width="' + (p.imageTaille || [1200, 678])[0] + '" height="' + (p.imageTaille || [1200, 678])[1] + '" loading="lazy">' : '') + '<span class="caps">' + esc(p.type) + '</span><h3>' + esc(p.titre) + '</h3>' +
-  '<p>' + esc(p.intro) + '</p>' +
-  (p.probleme ? '<h4>Problème</h4><p>' + esc(p.probleme) + '</p>' : '') +
-  '<h4>Ce que j\'ai fait</h4>' + liste(p.points) +
-  (p.resultat ? '<h4>Résultat</h4><p>' + esc(p.resultat) + '</p>' : '') +
-  '<p><b>Stack :</b> ' + p.techno.map(esc).join(', ') + '</p>' +
-  (p.liens ? '<p>' + p.liens.map(l => '<a href="' + esc(l.url) + '">' + esc(l.texte) + '</a>').join(' · ') + '</p>' : '') +
-  (p.page ? '<p><a href="' + esc(p.page) + '">Page du projet ' + esc(p.nomCourt) + '</a></p>' : '') +
-  '</article>').join('');
 
 // Parcours : chaque étape avec son détail
 const parcours = D.parcours.liste.map(c =>
   '<li class="cm-statique"><h3>' + esc(c.titre) + '</h3><p>' + esc(c.lieu) + ' · ' + esc(c.date) + ' · ' + esc(c.type) + '</p><p>' + esc(c.resume) + '</p>' + liste(c.points) + '</li>').join('');
-
-// Labo : les questions/réponses de l'agent de démo
-const qr = '<dl>' + D.labo.ia.questions.map(q => '<dt>' + esc(q.question) + '</dt><dd>' + q.reponse + '</dd>').join('') + '</dl>';
 
 const remplir = (h, id, contenu) => {
   const vide = 'id="' + id + '"></';
@@ -72,12 +52,10 @@ const sections = {
   r2: esc(element('#r2').textContent),
   over: html('#over .wrap'),
   foot: html('#foot'),
-  choix: html('#choix .wrap'),
   domaines: html('#domaines .wrap'),
-  labo: remplir(html('#labo .wrap'), 'qs', qr),
-  competences: remplir(html('#competences .wrap'), 'panels', competences),
+  competences: html('#competences .wrap'),
   methode: html('#methode .wrap'),
-  projets: remplir(html('#projets .wrap'), 'pgrid', projets),
+  projets: html('#projets .wrap'),
   parcours: remplir(html('#parcours .wrap'), 'glog', parcours),
   contact: html('#contact .wrap')
 };
@@ -213,10 +191,6 @@ const llms = [
   '',
   ...D.parcours.distinctions.map(d => '- ' + d.annee + ' : ' + d.titre + '. ' + d.texte),
   '',
-  '## Questions fréquentes',
-  '',
-  ...D.labo.ia.questions.flatMap(q => ['- ' + q.question + ' ' + txt(q.reponse)]),
-  '',
   '## Liens',
   '',
   '- [Portfolio](' + P.site + ')',
@@ -237,7 +211,7 @@ const pageProjet = p => {
         isPartOf: { '@id': P.site + '#page' }, about: { '@id': url + '#realisation' }, author: { '@id': ID_PERSONNE },
         breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
           { '@type': 'ListItem', position: 1, name: P.prenom + ' ' + P.nomFamille, item: P.site },
-          { '@type': 'ListItem', position: 2, name: 'Réalisations', item: P.site + '#projets' },
+          { '@type': 'ListItem', position: 2, name: 'Projets', item: P.site + 'projets/' },
           { '@type': 'ListItem', position: 3, name: p.nomCourt, item: url }] } },
       realisation(p),
       { '@type': 'Person', '@id': ID_PERSONNE, name: P.prenom + ' ' + P.nomFamille, jobTitle: P.metier, url: P.site, sameAs: [P.github, P.linkedin] }
@@ -278,7 +252,7 @@ ${ldJSON(ld).trim()}
 <header class="pp-top gut">
   <div class="wrap pp-marque"><a class="pp-logo" href="${racineRel}">${S.logo(40, racineRel)}</a></div>
   <nav class="wrap pp-nav" aria-label="Fil d'Ariane">
-    <a href="${racineRel}">${esc(P.prenom + ' ' + P.nomFamille)}</a><span aria-hidden="true">/</span><a href="${racineRel}#projets">Réalisations</a><span aria-hidden="true">/</span><span aria-current="page">${esc(p.nomCourt)}</span>
+    <a href="${racineRel}">${esc(P.prenom + ' ' + P.nomFamille)}</a><span aria-hidden="true">/</span><a href="${racineRel}projets/">Projets</a><span aria-hidden="true">/</span><span aria-current="page">${esc(p.nomCourt)}</span>
   </nav>
 </header>
 <main id="contenu" class="gut">
@@ -307,9 +281,104 @@ ${ldJSON(ld).trim()}
 `;
 };
 
+// ---------- 5 bis. Page « Tous les projets » (projets/index.html) ----------
+const pageCatalogue = () => {
+  const K = D.projets.catalogue, L = D.projets.liste, url = P.site + 'projets/', racineRel = '../';
+  const titre = K.titre + ' · ' + P.prenom + ' ' + P.nomFamille;
+  const cats = D.projets.categories.filter(c => c.id === 'all' || L.some(p => p.categorie === c.id));
+  const nb = c => c.id === 'all' ? L.length : L.filter(p => p.categorie === c.id).length;
+  const ld = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { '@type': 'CollectionPage', '@id': url, url, name: titre, description: K.description, inLanguage: 'fr',
+        isPartOf: { '@id': P.site + '#page' }, author: { '@id': ID_PERSONNE },
+        breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
+          { '@type': 'ListItem', position: 1, name: P.prenom + ' ' + P.nomFamille, item: P.site },
+          { '@type': 'ListItem', position: 2, name: 'Projets', item: url }] },
+        mainEntity: { '@type': 'ItemList', itemListElement: L.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.titre, url: p.page ? P.site + p.page : (p.liens || [])[0].url })) } },
+      { '@type': 'Person', '@id': ID_PERSONNE, name: P.prenom + ' ' + P.nomFamille, jobTitle: P.metier, url: P.site, sameAs: [P.github, P.linkedin] }
+    ]
+  };
+  const ligne = (p, i) => {
+    const href = p.page ? racineRel + p.page : (p.liens || [])[0].url, externe = !p.page;
+    return '<li class="pc-l" data-c="' + esc(p.categorie) + '"><a href="' + esc(href) + '"' + (externe ? ' target="_blank" rel="noopener"' : '') + '>' +
+      '<span class="pc-no">' + String(i + 1).padStart(2, '0') + '</span>' +
+      '<span class="pc-t"><b>' + esc(p.titre) + '</b><small>' + esc(p.resume) + '</small></span>' +
+      '<span class="pc-type">' + esc(p.type) + '</span>' +
+      '<span class="pc-stack">' + p.techno.slice(0, 4).map(esc).join(' · ') + '</span>' +
+      '<span class="pc-go" aria-hidden="true">' + (externe ? '↗' : '→') + '</span></a>' +
+      (p.image ? '<img class="pc-apercu" src="' + racineRel + esc(p.image) + '" alt="" loading="lazy" width="' + (p.imageTaille || [1200, 678])[0] + '" height="' + (p.imageTaille || [1200, 678])[1] + '">' : '') + '</li>';
+  };
+  return `<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Page générée par scripts/generer.js à partir de js/data/projets.js : ne pas modifier à la main. -->
+<title>${esc(titre)}</title>
+<meta name="description" content="${esc(K.description)}">
+<meta name="author" content="${esc(P.prenom + ' ' + P.nomFamille)}">
+<meta name="theme-color" content="#0d0e10">
+<link rel="canonical" href="${url}">
+${iconesHTML(racineRel)}
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="${esc(P.prenom + ' ' + P.nomFamille)}">
+<meta property="og:url" content="${url}">
+<meta property="og:title" content="${esc(titre)}">
+<meta property="og:description" content="${esc(K.description)}">
+<meta property="og:image" content="${P.site}assets/partage.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${esc(P.prenom + ' ' + P.nomFamille + ', ' + P.metier)}">
+<meta name="twitter:card" content="summary_large_image">
+${ldJSON(ld).trim()}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..700;1,9..144,200..700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="${racineRel}css/base.css">
+<link rel="stylesheet" href="${racineRel}css/page.css">
+</head>
+<body class="page-projet">
+<a class="skip" href="#contenu">Aller au contenu</a>
+<header class="pp-top gut">
+  <div class="wrap pp-marque"><a class="pp-logo" href="${racineRel}">${S.logo(40, racineRel)}</a></div>
+  <nav class="wrap pp-nav" aria-label="Fil d'Ariane">
+    <a href="${racineRel}">${esc(P.prenom + ' ' + P.nomFamille)}</a><span aria-hidden="true">/</span><span aria-current="page">Projets</span>
+  </nav>
+</header>
+<main id="contenu" class="gut">
+  <div class="wrap pc">
+    <span class="caps">Réalisations · ${L.length} projets</span>
+    <h1>${esc(K.titre)}</h1>
+    <p class="pp-lead">${esc(K.texte)}</p>
+    <div class="pc-filtres" role="group" aria-label="Filtrer les projets">${cats.map((c, i) => '<button type="button" data-f="' + esc(c.id) + '" aria-pressed="' + (i === 0) + '">' + esc(c.libelle) + ' <span>' + nb(c) + '</span></button>').join('')}</div>
+    <div class="pc-tete" aria-hidden="true"><span>N°</span><span>Projet</span><span>Type</span><span>Stack</span></div>
+    <ol class="pc-liste">
+${L.map(ligne).join('\n')}
+    </ol>
+    <aside class="pc-fin">
+      <p>Un projet en tête, une mission ou une alternance ?</p>
+      <a class="pp-btn or" href="${racineRel}#contact">Écrivez-moi →</a>
+    </aside>
+  </div>
+</main>
+<footer class="gut pp-pied">
+  <div class="wrap">
+    <a class="pp-logo" href="${racineRel}">${S.logo(32, racineRel)}</a>
+    <p>Réalisé par <a href="${racineRel}">${esc(P.prenom + ' ' + P.nomFamille)}</a>, ${esc(P.metier.charAt(0).toLowerCase() + P.metier.slice(1))}, basé à Rennes.</p>
+    <p><a href="${racineRel}">Portfolio</a> · <a href="${P.github}" rel="me">GitHub</a> · <a href="${P.linkedin}" rel="me">LinkedIn</a> · <a href="${racineRel}#contact">Contact</a></p>
+  </div>
+</footer>
+<script src="${racineRel}js/catalogue.js" defer></script>
+</body>
+</html>
+`;
+};
+
 // ---------- 6. sitemap.xml (le fichier de vérification Google n'y figure pas) ----------
 const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-  [P.site, ...avecPage.map(p => P.site + p.page)].map(u => '  <url>\n    <loc>' + u + '</loc>\n  </url>\n').join('') + '</urlset>\n';
+  [P.site, P.site + 'projets/', ...avecPage.map(p => P.site + p.page)].map(u => '  <url>\n    <loc>' + u + '</loc>\n  </url>\n').join('') + '</urlset>\n';
 
 const robots = '# Tous les robots (moteurs de recherche et moteurs IA) peuvent lire tout le site.\n' +
   '# Fichier généré par scripts/generer.js.\nUser-agent: *\nAllow: /\n\nSitemap: ' + P.site + 'sitemap.xml\n';
@@ -338,6 +407,7 @@ for (const [id, contenu] of Object.entries(sections)) {
 }
 const sorties = { 'index.html': index, 'llms.txt': llms, 'sitemap.xml': sitemap, 'robots.txt': robots, 'site.webmanifest': manifest };
 avecPage.forEach(p => { sorties[p.page + 'index.html'] = pageProjet(p); });
+sorties['projets/index.html'] = pageCatalogue();
 let aJour = true;
 for (const [f, contenu] of Object.entries(sorties)) {
   const actuel = fs.existsSync(path.join(racine, f)) ? lire(f) : '';

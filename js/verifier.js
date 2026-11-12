@@ -26,7 +26,6 @@
     chk(c.branche === 'experience' || c.branche === 'formation', 'Parcours : l\'entrée n°' + (i + 1) + ' (« ' + c.titre + ' ») doit avoir branche: "experience" ou "formation".');
     ['date', 'titre', 'lieu', 'type', 'resume', 'points'].forEach(function (k) { chk(c[k], 'Parcours : « ' + (c.titre || 'entrée ' + (i + 1)) + ' » : le champ « ' + k + ' » est manquant.'); });
   });
-  D.visiteurs.profils.forEach(function (v) { chk(document.querySelector(v.cible), 'Visiteurs : la cible « ' + v.cible + ' » de « ' + v.titre + ' » n\'existe pas sur la page.'); });
   D.profil.navigation.forEach(function (n) { chk(document.getElementById(n.id), 'Profil : la section « ' + n.id + ' » (navigation) n\'existe pas dans index.html.'); });
 
   if (bad.length) {

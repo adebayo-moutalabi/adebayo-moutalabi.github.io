@@ -15,14 +15,6 @@
     S.$('#foot').innerHTML = '<p class="tag">' + esc(a.pied) + '</p><span class="hint"><i></i>' + esc(a.defiler) + '</span>';
   }
 
-  /* ---------- « Par où commencer ? » ---------- */
-  function choix() {
-    var v = D.visiteurs;
-    S.$('#choix .wrap').innerHTML = head(v.entete) + '<div class="choices" role="group" aria-label="Profil de visite">' + v.profils.map(function (c) {
-      return '<button type="button" class="choice" data-v="' + esc(c.id) + '" aria-pressed="false"><span class="go">→</span><span class="caps">' + esc(c.etiquette) + '</span><span class="ct">' + esc(c.titre) + '</span><span class="cp">' + esc(c.texte) + '</span></button>';
-    }).join('') + '</div><p class="choice-out" id="choice-out" aria-live="polite"></p>';
-  }
-
   /* ---------- Ce que je fais : trois domaines ---------- */
   function domaines() {
     var Dm = D.domaines, ART = D.vignettes;
@@ -33,22 +25,24 @@
     }).join('') + '</div>';
   }
 
-  /* ---------- Labo ---------- */
-  function labo() {
-    var L = D.labo, ids = ['k8s', 'ci', 'ia', 'aws'];
-    function txt(d) { return '<div class="lab-txt"><span class="caps">' + esc(d.etiquette) + '</span><h3>' + esc(d.titre) + ' <span class="it">' + esc(d.accent) + '</span></h3><p>' + esc(d.texte) + '</p>' + chips(d.outils) + '</div>'; }
-    function panel(id, inner, hidden) { return '<div class="lab" id="p-' + id + '" role="tabpanel" aria-labelledby="t-' + id + '"' + (hidden ? ' hidden' : '') + '>' + inner + '</div>'; }
-    var k = L.k8s, c = L.ci, i = L.ia, a = L.aws;
-    S.$('#labo .wrap').innerHTML = head(L.entete) +
-      '<div class="lab-tabs" role="tablist" aria-label="Démos">' + ids.map(function (id, n) { return '<button type="button" role="tab" id="t-' + id + '" aria-selected="' + (n === 0) + '" data-p="' + id + '">' + esc(L[id].onglet) + '</button>'; }).join('') + '</div>' +
-      panel('k8s', txt(k) + '<div class="lab-demo"><div class="demo-label"><span>' + esc(k.libelleCharge) + '</span><b id="cpu-v">35 %</b></div><input type="range" id="cpu" min="5" max="100" value="35" aria-label="' + esc(k.libelleCharge) + '"><div class="pods" id="pods"></div><div class="demo-label"><span>' + esc(k.libelleCible) + '</span><b id="pods-v">2 pods</b></div><p class="note">' + esc(k.note) + '</p></div>') +
-      panel('ci', txt(c) + '<div class="lab-demo"><div class="pipe" id="pipe"></div><div class="pbar"><i id="pbar"></i></div><button type="button" class="btn btn-gold" id="run-ci">' + esc(c.bouton) + '</button></div>', true) +
-      panel('ia', txt(i) + '<div class="lab-demo"><div class="chat" id="chat" aria-live="polite"><div class="msg bot">' + esc(i.bonjour) + '</div></div><div class="qs" id="qs"></div><p class="note">' + esc(i.note) + '</p></div>', true) +
-      panel('aws', txt(a) + '<div class="lab-demo"><div class="layers" id="layers"></div><p class="arch" id="arch"></p></div>', true);
+  /* ---------- Compétences : la stack en grille « bento », avec un filtre par réalisation ----------
+     Point doré = outil utilisé dans une réalisation en ligne ; le filtre allume les outils d'un projet. */
+  function competences() {
+    var C = D.competences, PRJ = D.projets.liste;
+    var filtre = '<div class="stack-filtre" role="group" aria-label="Voir les outils d\'une réalisation"><span class="caps">Utilisés dans</span>' +
+      '<button type="button" data-p="" aria-pressed="true">Tout</button>' +
+      PRJ.filter(function (p) { return (p.outils || []).length; }).map(function (p) { return '<button type="button" data-p="' + esc(p.id) + '" aria-pressed="false">' + esc(p.nomCourt) + '</button>'; }).join('') + '</div>';
+    var cartes = C.familles.map(function (f, i) {
+      var outils = C.outils.filter(function (o) { return o.famille === f.id; });
+      return '<article class="sk' + (f.ia ? ' ia' : '') + '" data-f="' + esc(f.id) + '"><div class="sk-tete"><span class="sk-no">0' + (i + 1) + '</span><span class="sk-ct">' + outils.length + ' outils</span></div>' +
+        '<h3>' + esc(f.nom) + '</h3><p>' + esc(f.resume) + '</p><ul class="sk-outils">' + outils.map(function (o) {
+          var usages = PRJ.filter(function (p) { return (p.outils || []).indexOf(o.nom) > -1; }).map(function (p) { return p.id; });
+          return '<li class="sk-o' + (usages.length ? ' utilise' : '') + '" data-p="' + esc(usages.join(' ')) + '" title="' + esc(o.role) + '"><span>' + esc(o.nom) + '</span><small>' + esc(o.role) + '</small></li>';
+        }).join('') + '</ul></article>';
+    }).join('');
+    S.$('#competences .wrap').innerHTML = head(C.entete) + filtre + '<div class="stack" id="stack">' + cartes + '</div>' +
+      '<p class="sk-legende"><i></i>Utilisé dans une réalisation en ligne · survolez un outil pour voir son rôle</p>';
   }
-
-  /* ---------- Compétences (le contenu des panneaux est fait dans competences.js) ---------- */
-  function competences() { S.$('#competences .wrap').innerHTML = head(D.competences.entete) + '<div class="panels" id="panels"></div>'; }
 
   /* ---------- Méthode ---------- */
   function methode() {
@@ -60,9 +54,27 @@
 
   /* ---------- Projets ---------- */
   function projets() {
-    var p = D.projets;
-    var filtres = p.filtres === false ? '' : '<div class="filters" role="group" aria-label="Filtrer les projets">' + p.categories.map(function (c, i) { return '<button type="button" data-f="' + esc(c.id) + '" aria-pressed="' + (i === 0) + '">' + esc(c.libelle) + '</button>'; }).join('') + '</div>';
-    S.$('#projets .wrap').innerHTML = head(p.entete) + filtres + '<div class="pgrid" id="pgrid"></div>';
+    var p = D.projets, L = p.liste, ART = D.vignettes;
+    var une = L.filter(function (x) { return x.une; }), autres = L.filter(function (x) { return !x.une; });
+    var hote = function (x) { var u = (x.liens || [])[0]; return u ? u.url.replace(/^https?:\/\//, '').replace(/\/.*$/, '') : x.nomCourt; };
+    var visuel = function (x) {
+      return x.image ? '<img src="' + esc(x.image) + '" alt="' + esc(x.imageAlt || '') + '" loading="lazy" width="' + (x.imageTaille || [1200, 678])[0] + '" height="' + (x.imageTaille || [1200, 678])[1] + '">'
+        : '<div class="cs-art" aria-hidden="true">' + (ART[x.vignette] || '') + '</div>';
+    };
+    var lignes = une.map(function (x, i) {
+      var lien = (x.liens || [])[0];
+      return '<article class="cs' + (i % 2 ? ' inv' : '') + '" id="projet-' + esc(x.id) + '">' +
+        '<div class="cs-vis"><div class="cs-bar" aria-hidden="true"><i></i><i></i><i></i><span>' + esc(hote(x)) + '</span></div><div class="cs-img">' + visuel(x) + '</div></div>' +
+        '<div class="cs-txt"><div class="cs-meta"><span class="cs-no">0' + (i + 1) + '<small> / 0' + une.length + '</small></span><span class="caps">' + esc(x.type) + '</span></div>' +
+        '<h3>' + (x.page ? '<a href="' + esc(x.page) + '">' + esc(x.titre) + '</a>' : esc(x.titre)) + '</h3><p>' + esc(x.resume) + '</p>' + chips(x.techno.slice(0, 5)) +
+        '<div class="cs-act">' + (x.page ? '<a class="btn btn-gold" href="' + esc(x.page) + '">Lire l\'étude de cas →</a>' : '') +
+        '<button type="button" class="cs-fiche" data-fiche="' + esc(x.id) + '" aria-haspopup="dialog">Aperçu rapide</button>' +
+        (lien ? '<a class="cs-lien" href="' + esc(lien.url) + '" target="_blank" rel="noopener">' + esc(lien.texte) + ' ↗</a>' : '') + '</div></div></article>';
+    }).join('');
+    var plus = '<div class="cs-plus">' + (autres.length ? '<div class="cs-autres"><span class="caps">Aussi</span>' + autres.map(function (x) {
+      return '<button type="button" class="cs-mini" id="projet-' + esc(x.id) + '" data-fiche="' + esc(x.id) + '" aria-haspopup="dialog"><b>' + esc(x.titre) + '</b><span>' + esc(x.type) + '</span><i aria-hidden="true">→</i></button>';
+    }).join('') + '</div>' : '') + '<a class="btn cs-tous" href="projets/">Tous les projets <span>' + L.length + '</span> →</a></div>';
+    S.$('#projets .wrap').innerHTML = head(p.entete) + '<div class="cases">' + lignes + '</div>' + plus;
   }
 
   /* ---------- Parcours + langues + distinctions ---------- */
@@ -101,5 +113,5 @@
       '<div class="legal"><span class="legal-id">' + S.logo(28) + '<span>© ' + D.profil.annee + ' ' + esc(D.profil.nomComplet) + ' · ' + esc(D.profil.metier) + '</span></span><span>' + esc(D.profil.ville) + '</span></div>';
   }
 
-  hero(); choix(); domaines(); labo(); competences(); methode(); projets(); parcours(); contact();
+  hero(); domaines(); competences(); methode(); projets(); parcours(); contact();
 })(window.Site);

@@ -5,7 +5,8 @@
    
    id          identifiant unique, sans espace ni accent (ex. "monprojet")
    categorie   "cloud", "ia" ou "web" (voir la liste « categories » plus bas)
-   large       true = grande carte sur la première ligne (facultatif)
+   une         true = projet « à la une » sur l'accueil (grande ligne avec capture). Les autres
+               apparaissent en petit sous la sélection. Tous figurent sur la page projets/.
    vignette    nom du dessin dans js/data/vignettes.js (expo, k8s, aws, net, bot, flow, web, shield, elo)
    type        petit texte au-dessus du titre
    nomCourt    nom court (boutons dans la section Compétences)
@@ -28,8 +29,13 @@
 
 Site.data.projets = {
   entete: { etiquette: "Réalisations", titre: "Des projets en ligne,", accent: "du besoin au résultat.", texte: "Chaque fiche raconte un projet : le problème de départ, ce que j'ai construit, et ce qui tourne aujourd'hui." },
-  /* filtres: false = pas de boutons de filtre (inutiles avec peu de projets). Remettez true quand il y en aura plus. */
-  filtres: false,
+  /* Page « Tous les projets » (projets/index.html, générée par scripts/generer.js) */
+  catalogue: {
+    titre: "Tous les projets",
+    texte: "Les réalisations en ligne, des agents IA aux pipelines de déploiement. Un projet n'entre ici qu'une fois publié et vérifiable.",
+    description: "Tous les projets d'Adebayo Moutalabi : agents IA, sites web, pipelines CI/CD. Chaque fiche renvoie au résultat en ligne."
+  },
+  /* catégories : filtres de la page « Tous les projets » */
   categories: [
     { id: "all", libelle: "Tous" },
     { id: "cloud", libelle: "Cloud & DevOps" },
@@ -39,8 +45,8 @@ Site.data.projets = {
   liste: [
     {
       id: "nox",
+      une: true,
       categorie: "ia",
-      large: true,
       vignette: "bot",
       type: "Agent IA vocal · OpenAI DevDay Hackathon Paris",
       titre: "Nox, le compagnon de bureau qui aide à démarrer",
@@ -83,6 +89,7 @@ Site.data.projets = {
     },
     {
       id: "continental-it",
+      une: true,
       categorie: "web",
       vignette: "shield",
       type: "Site vitrine · Cybersécurité · Bénin",
@@ -112,6 +119,7 @@ Site.data.projets = {
     },
     {
       id: "expoia",
+      une: true,
       categorie: "web",
       vignette: "expo",
       type: "Web · France 2030 / ANR",

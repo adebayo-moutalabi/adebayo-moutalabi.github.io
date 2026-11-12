@@ -53,8 +53,6 @@ p { margin: 0; }
 :root[data-theme="light"] .logo .l-clair { display: block; }
 .site-top { position: absolute; z-index: 6; top: calc(64px + env(safe-area-inset-top, 0px)); left: var(--gl); }
 .site-top .logo img { width: 44px; }
-/* Quand la barre de progression est affichée, son logo animé suffit : on masque celui de l'en-tête (pas de doublon) */
-html:has(.rail.show) .site-top { opacity: 0; visibility: hidden; transition: opacity .4s, visibility 0s .4s; }
 .legal-id { display: inline-flex; align-items: center; gap: 10px; }
 #contact .legal { align-items: center; }
 .sec { padding-block: clamp(80px, 11vw, 150px); }
@@ -68,6 +66,8 @@ html:has(.rail.show) .site-top { opacity: 0; visibility: hidden; transition: opa
 .btn:hover { transform: scale(1.03); }
 .btn:active { transform: scale(.97); }
 .btn-gold { background: var(--gold); color: var(--on-gold); border-color: var(--gold); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--hair); background: var(--surface); font-size: 13.5px; color: var(--ink-muted); }
 
 /* ===== ouverture ===== */
 .intro { position: relative; height: 240vh; }
@@ -99,15 +99,3 @@ html:has(.rail.show) .site-top { opacity: 0; visibility: hidden; transition: opa
   .foot { flex-direction: column; align-items: flex-start; } .hint { display: none; }
 }
 
-/* ===== choix du visiteur ===== */
-.who { padding-block: clamp(70px, 9vw, 120px); }
-.choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-@media (max-width: 820px) { .choices { grid-template-columns: 1fr; } }
-.choice { position: relative; text-align: left; border: 1px solid var(--hair); background: var(--surface); border-radius: 26px; padding: 26px; display: grid; gap: 10px; cursor: pointer; transition: transform .45s var(--ease), border-color .3s, background .3s; min-height: 170px; align-content: start; }
-.choice:hover { transform: translateY(-4px); }
-.choice[aria-pressed="true"] { border-color: var(--gold); background: color-mix(in srgb, var(--gold) 10%, var(--surface)); }
-.choice .ct { display: block; font-family: var(--display); font-size: 26px; letter-spacing: -.02em; }
-.choice .cp { display: block; color: var(--ink-muted); font-size: 15px; }
-.choice .go { position: absolute; top: 22px; right: 22px; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-2); transition: background .3s, transform .45s var(--ease); }
-.choice[aria-pressed="true"] .go { background: var(--gold); color: var(--on-gold); transform: rotate(-45deg); }
-.choice-out { margin-top: 18px; min-height: 26px; color: var(--ink-muted); font-size: 15px; }
