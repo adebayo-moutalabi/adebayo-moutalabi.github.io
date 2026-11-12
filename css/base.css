@@ -41,6 +41,17 @@ p { margin: 0; }
 /* Lien « Aller au contenu » : invisible, apparaît au clavier (touche Tab) */
 .skip { position: fixed; z-index: 300; left: 16px; top: -60px; padding: 10px 16px; border-radius: 999px; background: var(--gold); color: var(--on-gold); font-weight: 600; }
 .skip:focus-visible { top: 16px; }
+/* Logo : la variante claire n'apparaît qu'en thème clair (préférence système ou bouton Thème) */
+.logo { display: inline-flex; align-items: center; line-height: 0; }
+.logo img { display: block; height: auto; }
+.logo .l-clair { display: none; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .logo .l-sombre { display: none; } :root:not([data-theme="dark"]) .logo .l-clair { display: block; } }
+:root[data-theme="light"] .logo .l-sombre { display: none; }
+:root[data-theme="light"] .logo .l-clair { display: block; }
+.site-top { position: absolute; z-index: 6; top: calc(64px + env(safe-area-inset-top, 0px)); left: var(--gl); }
+.site-top .logo img { width: 44px; }
+.legal-id { display: inline-flex; align-items: center; gap: 10px; }
+#contact .legal { align-items: center; }
 .sec { padding-block: clamp(80px, 11vw, 150px); }
 .head { display: grid; grid-template-columns: 1.5fr 1fr; gap: 16px clamp(28px, 6vw, 90px); align-items: end; margin-bottom: clamp(32px, 5vw, 60px); }
 .head > * { min-width: 0; }

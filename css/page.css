@@ -1,7 +1,11 @@
 /* Pages de projet (projets/<id>/index.html, générées par scripts/generer.js).
    Les couleurs et polices viennent de base.css (variables :root). */
 body.page-projet { padding-bottom: 0; }
-.pp-top { padding-top: 22px; }
+.pp-top { padding-top: 22px; display: grid; gap: 14px; }
+.pp-top > .wrap { width: 100%; }
+.pp-marque { display: flex; }
+.pp-logo { display: inline-flex; }
+.pp-pied .pp-logo { margin-bottom: 6px; }
 .pp-nav { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 14px; color: var(--ink-muted); }
 .pp-nav a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--hair); }
 .pp-nav a:hover { color: var(--ink); }

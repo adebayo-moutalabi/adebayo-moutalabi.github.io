@@ -10,8 +10,8 @@ Site.data.profil = {
   nomComplet: "Adebayo Habib Moutalabi",
   /* Métier : affiché dans le titre principal (h1), le titre de l'onglet et les données pour Google */
   metier: "Ingénieur Cloud, DevOps & IA",
-  /* Liens publics (repris dans le contact, le pied de page, les données pour Google et llms.txt) */
-  site: "https://adebayo-moutalabi.github.io/",
+  /* Liens publics (repris dans le contact, les données pour Google et llms.txt).
+     L'adresse du site lui-même est la variable SITE_URL de scripts/generer.js. */
   github: "https://github.com/adebayo-moutalabi",
   linkedin: "https://www.linkedin.com/in/adebayo-moutalabi/",
   annee: 2026,
