@@ -16,7 +16,7 @@ const canon = html.match(/<link rel="canonical" href="(https:\/\/[^"]+\/)">/);
 if (!canon) erreurs.push('index.html : balise <link rel="canonical"> absente (lancez node scripts/generer.js)');
 const SITE = canon ? canon[1] : 'https://invalide/';
 const SITE_RE = new RegExp(SITE.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&') + '([^"\'\\s<>)#?]*)', 'g');
-const pagesProjet = fs.existsSync(path.join(racine, 'projets')) ? fs.readdirSync(path.join(racine, 'projets')).map(d => 'projets/' + d + '/index.html') : [];
+const pagesProjet = fs.existsSync(path.join(racine, 'projets')) ? fs.readdirSync(path.join(racine, 'projets'), { withFileTypes: true }).filter(d => d.isDirectory()).map(d => 'projets/' + d.name + '/index.html').concat(['projets/index.html']) : [];
 if (!fs.existsSync(path.join(racine, 'google2f457726f419ac07.html'))) erreurs.push('Fichier de vérification Google Search Console supprimé : google2f457726f419ac07.html');
 // Icônes et manifest : chaque fichier cité doit exister
 for (const f of ['favicon.ico', 'site.webmanifest', 'assets/favicon.svg', 'assets/icones/apple-touch-icon.png', 'assets/logo/logo-am.svg', 'assets/logo/logo-am-clair.svg', 'assets/logo/logo-am-512.png'])
