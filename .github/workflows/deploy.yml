@@ -49,7 +49,7 @@ jobs:
         with:
           node-version: 22
       # Règles dans .htmlvalidate.json
-      - run: npx --yes html-validate@11.21.0 index.html outils/image-partage.html
+      - run: npx --yes html-validate@11.21.0 index.html projets/*/index.html outils/image-partage.html
 
   liens:
     name: Liens cassés
@@ -59,7 +59,7 @@ jobs:
       # Réglages dans lychee.toml (codes acceptés, liens ignorés)
       - uses: lycheeverse/lychee-action@v2
         with:
-          args: --config lychee.toml --no-progress index.html llms.txt README.md
+          args: --config lychee.toml --no-progress index.html 'projets/*/index.html' llms.txt README.md
           fail: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

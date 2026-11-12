@@ -31,7 +31,7 @@
       '<ul>' + p.points.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' +
       (p.resultat ? '<span class="caps">Résultat</span><p>' + esc(p.resultat) + '</p>' : '') +
       '<div class="chips">' + p.techno.map(function (t) { return '<span class="chip">' + esc(t) + '</span>'; }).join('') + '</div>' +
-      (p.liens ? '<div style="display:grid;gap:10px">' + p.liens.map(function (l) { return '<a class="btn btn-gold" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.texte) + ' ↗</a>'; }).join('') + '</div>' : '');
+      ((p.liens || p.page) ? '<div style="display:grid;gap:10px">' + (p.page ? '<a class="btn" href="' + esc(p.page) + '">Page complète du projet →</a>' : '') + (p.liens || []).map(function (l) { return '<a class="btn btn-gold" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.texte) + ' ↗</a>'; }).join('') + '</div>' : '');
     sheetBg.hidden = false; document.body.style.overflow = 'hidden';
     $('#sh-x').focus();
   }

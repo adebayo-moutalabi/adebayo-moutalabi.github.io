@@ -45,7 +45,7 @@ Site.data.competences = {
     { nom: "Wireshark", famille: "net", role: "Analyser le trafic paquet par paquet." },
     { nom: "gRPC", famille: "net", role: "Faire dialoguer des services écrits dans des langages différents." },
     { nom: "n8n", famille: "ia", role: "Des workflows qui relient les outils entre eux." },
-    { nom: "API LLM", famille: "ia", role: "Appeler un modèle de langage depuis un workflow ou une application." },
+    { nom: "API LLM", famille: "ia", role: "Appeler un modèle de langage depuis une application : voix temps réel, appel de fonctions." },
     { nom: "Claude", famille: "ia", role: "Concevoir des agents et prototyper plus vite." },
     { nom: "MCP", famille: "ia", role: "Brancher un agent sur les outils et les données." },
     { nom: "Mistral AI", famille: "ia", role: "Un modèle de langage européen, utilisable en auto-hébergement." },
@@ -54,6 +54,7 @@ Site.data.competences = {
     { nom: "RAG", famille: "ia", role: "Faire répondre un agent uniquement à partir de sources fiables." },
     { nom: "Next.js", famille: "web", role: "Des sites rapides et bien référencés." },
     { nom: "Payload CMS", famille: "web", role: "Un CMS pour que l'équipe édite le contenu." },
-    { nom: "TypeScript", famille: "web", role: "Du JavaScript typé, plus sûr." }
+    { nom: "TypeScript", famille: "web", role: "Du JavaScript typé, plus sûr." },
+    { nom: "Electron", famille: "web", role: "Des applications de bureau en JavaScript, comme Nox." }
   ]
 };

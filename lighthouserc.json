@@ -5,7 +5,11 @@
       "numberOfRuns": 3,
       "settings": {
         "chromeFlags": "--no-sandbox"
-      }
+      },
+      "url": [
+        "http://localhost/index.html",
+        "http://localhost/projets/nox/index.html"
+      ]
     },
     "assert": {
       "assertions": {

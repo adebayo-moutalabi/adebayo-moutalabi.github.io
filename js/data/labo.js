@@ -45,7 +45,7 @@ Site.data.labo = {
       },
       {
         question: "Ta réalisation phare ?",
-        reponse: "Le site <b>ExpoIA</b> du Musée des Transmissions (projet France 2030 / ANR) : coordination technique, Next.js et Payload CMS, et le jeu Floriale. Ce portfolio est aussi vérifié et déployé par un pipeline <b>GitHub Actions</b>. D'autres projets Cloud, DevOps et IA sont en préparation."
+        reponse: "<b>Nox</b>, un compagnon de bureau pour les personnes TDAH, réalisé pour l'OpenAI DevDay Community Hackathon Paris : voix temps réel avec l'API Realtime d'OpenAI, micro-étapes de 2 à 10 minutes, intégrations Agenda, Gmail et Telegram. Ensuite, le site <b>ExpoIA</b> du Musée des Transmissions, et ce portfolio, déployé par un pipeline <b>GitHub Actions</b>."
       },
       {
         question: "Comment travailles-tu ?",

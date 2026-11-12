@@ -12,10 +12,12 @@ for (const m of html.matchAll(/(?:src|href)="((?:js|css|assets)\/[^"]+)"/g)) {
 
 // 1 bis. Les liens absolus vers ce site (canonical, og:image, sitemap…) pointent vers des fichiers qui existent
 const SITE = 'https://adebayo-moutalabi.github.io/';
-for (const f of ['index.html', 'robots.txt', 'sitemap.xml', 'llms.txt']) {
+const pagesProjet = fs.existsSync(path.join(racine, 'projets')) ? fs.readdirSync(path.join(racine, 'projets')).map(d => 'projets/' + d + '/index.html') : [];
+if (!fs.existsSync(path.join(racine, 'google2f457726f419ac07.html'))) erreurs.push('Fichier de vérification Google Search Console supprimé : google2f457726f419ac07.html');
+for (const f of ['index.html', 'robots.txt', 'sitemap.xml', 'llms.txt', ...pagesProjet]) {
   if (!fs.existsSync(path.join(racine, f))) { erreurs.push('Fichier introuvable : ' + f); continue; }
   for (const m of fs.readFileSync(path.join(racine, f), 'utf8').matchAll(/https:\/\/adebayo-moutalabi\.github\.io\/([^"'\s<>)#?]*)/g)) {
-    const cible = m[1] === '' ? 'index.html' : m[1];
+    const cible = m[1] === '' || m[1].endsWith('/') ? m[1] + 'index.html' : m[1];
     if (!fs.existsSync(path.join(racine, cible))) erreurs.push(f + ' : lien vers ' + SITE + m[1] + ' mais le fichier « ' + cible + ' » n\'existe pas');
   }
 }
