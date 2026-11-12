@@ -18,7 +18,7 @@
 - Systèmes : Linux, Bash, Prometheus, Grafana
 - Réseaux : RIPv2, VLAN, Quagga, Wireshark, gRPC
 - Agents IA : n8n, API LLM, Claude, MCP, Mistral AI, Python, Supabase, RAG
-- Web : Next.js, Payload CMS, TypeScript, Electron
+- Web : Next.js, Payload CMS, TypeScript, WordPress, Electron
 
 ## Réalisations
 
@@ -35,6 +35,17 @@ Application de bureau pour Windows, réalisée pour l'OpenAI DevDay Community Ha
 - [Regarder la vidéo (2 min)](https://get-nox.github.io/#video)
 - [Télécharger pour Windows](https://github.com/adebayo-moutalabi/nox/releases/latest)
 - [Voir le code](https://github.com/adebayo-moutalabi/nox)
+
+### Continental IT, le site d'un cabinet de cybersécurité à Cotonou
+
+Continental IT est un cabinet basé à Cotonou (Bénin) qui accompagne les organisations publiques et privées d'Afrique de l'Ouest en gouvernance des systèmes d'information, gestion des risques et cybersécurité (ISO/IEC 27001, EBIOS RM, formations certifiantes PECB).
+
+- Problème : Le cabinet devait présenter en ligne ses six pôles d'expertise, ses certifications et ses masterclasses en cybersécurité, et permettre aux visiteurs de le contacter ou de demander un audit gratuit.
+- Ce que j'ai fait : Création et enrichissement du site vitrine sous WordPress et Elementor ; Animations d'en-tête et effets au survol ; Pages de services et système de boutons ; Contenus des masterclasses et corrections éditoriales
+- Résultat : Le site est officiellement en ligne sur continentalit.org : accueil, services, à propos, équipe, masterclasses, contact et demande d'audit gratuit.
+- Stack : WordPress, Elementor
+- [Page du projet](https://adebayo-moutalabi.github.io/projets/continental-it/)
+- [Voir le site](https://continentalit.org/)
 
 ### ExpoIA, l'exposition sur l'IA du Musée des Transmissions
 

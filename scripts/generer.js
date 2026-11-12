@@ -246,7 +246,7 @@ ${ldJSON(ld).trim()}
     <h1>${esc(p.titre)}</h1>
     <p class="pp-lead">${esc(p.resume)}</p>
     ${p.liens ? '<div class="pp-liens">' + p.liens.map((l, i) => '<a class="pp-btn' + (i === 0 ? ' or' : '') + '" href="' + esc(l.url) + '">' + esc(l.texte) + ' ↗</a>').join('') + '</div>' : ''}
-    ${p.image ? '<figure class="pp-fig"><img src="' + racineRel + esc(p.image) + '" alt="' + esc(p.imageAlt || '') + '" width="1200" height="678"></figure>' : ''}
+    ${p.image ? '<figure class="pp-fig"><img src="' + racineRel + esc(p.image) + '" alt="' + esc(p.imageAlt || '') + '" width="' + (p.imageTaille || [1200, 678])[0] + '" height="' + (p.imageTaille || [1200, 678])[1] + '"></figure>' : ''}
     <section><h2>Contexte</h2><p>${esc(p.intro)}</p></section>
     ${p.probleme ? '<section><h2>Problème</h2><p>' + esc(p.probleme) + '</p></section>' : ''}
     <section><h2>Ce que j'ai fait</h2>${liste(p.points)}</section>

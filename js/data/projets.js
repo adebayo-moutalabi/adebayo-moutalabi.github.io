@@ -20,6 +20,7 @@
    page        (facultatif) chemin d'une page dédiée, ex. "projets/nox/" : générée par scripts/generer.js,
                ajoutée au sitemap, à llms.txt et aux données Google. Avec page, renseignez aussi :
    image, imageAlt, partage   capture affichée sur la page, son texte alternatif, image de partage 1200 × 630
+   imageTaille [largeur, hauteur] de la capture (évite que la page « saute » au chargement)
    description phrase courte (balise meta description de la page)
    logiciel    (facultatif) données Google « SoftwareApplication » : { version, systeme, telechargement, site, code }
    Pour SUPPRIMER un projet : effacez son bloc { ... } en entier.
@@ -45,7 +46,7 @@ Site.data.projets = {
       titre: "Nox, le compagnon de bureau qui aide à démarrer",
       nomCourt: "Nox",
       resume: "Une mascotte de bureau qui parle en premier, découpe une tâche en micro-étapes de 2 à 10 minutes et aide les personnes TDAH à démarrer, rester concentrées et reprendre.",
-      description: "Nox, application de bureau Windows réalisée par Adebayo Moutalabi : un agent IA vocal (API Realtime d'OpenAI) qui aide les personnes TDAH à démarrer une tâche, micro-étape par micro-étape.",
+      description: "Nox, application Windows d'Adebayo Moutalabi : un agent IA vocal (API Realtime d'OpenAI) qui aide les personnes TDAH à démarrer une tâche par micro-étapes.",
       intro: "Application de bureau pour Windows, réalisée pour l'OpenAI DevDay Community Hackathon Paris (piste Impact / inclusion). Pensée d'abord pour les personnes TDAH, utile à toute personne qui a du mal à démarrer.",
       probleme: "Pour beaucoup de personnes TDAH, le plus difficile n'est pas le travail lui-même : c'est démarrer, rester sur la tâche après une notification, et reprendre après une interruption. Les outils de productivité (listes, agendas, minuteurs) attendent qu'on les ouvre : ils aident surtout les personnes déjà organisées.",
       points: [
@@ -65,6 +66,7 @@ Site.data.projets = {
       image: "assets/projets/nox-tableau-de-bord.webp",
       imageAlt: "Tableau de bord de Nox : étape en cours, minutes de concentration sur 7 jours et tâches terminées",
       partage: "assets/projets/nox-partage.png",
+      imageTaille: [1200, 678],
       logiciel: {
         version: "1.4.0",
         systeme: "Windows 10, Windows 11",
@@ -77,6 +79,35 @@ Site.data.projets = {
         { url: "https://get-nox.github.io/#video", texte: "Regarder la vidéo (2 min)" },
         { url: "https://github.com/adebayo-moutalabi/nox/releases/latest", texte: "Télécharger pour Windows" },
         { url: "https://github.com/adebayo-moutalabi/nox", texte: "Voir le code" }
+      ]
+    },
+    {
+      id: "continental-it",
+      categorie: "web",
+      vignette: "shield",
+      type: "Site vitrine · Cybersécurité · Bénin",
+      titre: "Continental IT, le site d'un cabinet de cybersécurité à Cotonou",
+      nomCourt: "Continental IT",
+      resume: "Site vitrine de Continental IT, cabinet béninois de conseil en gouvernance des SI, gestion des risques et cybersécurité, en ligne sur continentalit.org.",
+      description: "Site vitrine de Continental IT, cabinet de conseil en cybersécurité à Cotonou (Bénin), réalisé par Adebayo Moutalabi sous WordPress et Elementor.",
+      intro: "Continental IT est un cabinet basé à Cotonou (Bénin) qui accompagne les organisations publiques et privées d'Afrique de l'Ouest en gouvernance des systèmes d'information, gestion des risques et cybersécurité (ISO/IEC 27001, EBIOS RM, formations certifiantes PECB).",
+      probleme: "Le cabinet devait présenter en ligne ses six pôles d'expertise, ses certifications et ses masterclasses en cybersécurité, et permettre aux visiteurs de le contacter ou de demander un audit gratuit.",
+      points: [
+        "Création et enrichissement du site vitrine sous WordPress et Elementor",
+        "Animations d'en-tête et effets au survol",
+        "Pages de services et système de boutons",
+        "Contenus des masterclasses et corrections éditoriales"
+      ],
+      resultat: "Le site est officiellement en ligne sur continentalit.org : accueil, services, à propos, équipe, masterclasses, contact et demande d'audit gratuit.",
+      techno: ["WordPress", "Elementor"],
+      outils: ["WordPress"],
+      page: "projets/continental-it/",
+      image: "assets/projets/continental-it-accueil.webp",
+      imageAlt: "Page d'accueil de continentalit.org : « Sécurisez votre souveraineté numérique »",
+      partage: "assets/projets/continental-it-partage.png",
+      imageTaille: [1200, 750],
+      liens: [
+        { url: "https://continentalit.org/", texte: "Voir le site" }
       ]
     },
     {

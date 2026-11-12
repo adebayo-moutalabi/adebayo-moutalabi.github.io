@@ -55,6 +55,7 @@ Site.data.competences = {
     { nom: "Next.js", famille: "web", role: "Des sites rapides et bien référencés." },
     { nom: "Payload CMS", famille: "web", role: "Un CMS pour que l'équipe édite le contenu." },
     { nom: "TypeScript", famille: "web", role: "Du JavaScript typé, plus sûr." },
+    { nom: "WordPress", famille: "web", role: "Des sites vitrines que le client met à jour seul." },
     { nom: "Electron", famille: "web", role: "Des applications de bureau en JavaScript, comme Nox." }
   ]
 };
