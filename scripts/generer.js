@@ -202,14 +202,45 @@ const llms = [
 
 
 // Barre de navigation des pages de projet et de la page « Tous les projets »
-const barre = (racineRel, courant) => '<div class="wrap pp-barre">' +
-  '<a class="pp-logo" href="' + racineRel + '" aria-label="Accueil">' + S.logo(36, racineRel) + '</a>' +
-  '<nav class="pp-menu" aria-label="Navigation principale">' +
+const barre = (racineRel, courant) => '<div class="pp-pilule">' +
+  '<a class="pp-marque" href="' + racineRel + '">' + S.logo(28, racineRel).replace(/ alt="Adebayo Moutalabi"/g, ' alt=""') + '<span>' + esc(P.prenom + ' ' + P.nomFamille) + '</span></a>' +
+  '<button type="button" class="pp-burger" id="pp-burger" aria-expanded="false" aria-controls="pp-menu">Menu</button>' +
+  '<nav class="pp-menu" id="pp-menu" aria-label="Navigation principale">' +
   '<a href="' + racineRel + '">Accueil</a>' +
   '<a href="' + racineRel + '#projets">Réalisations</a>' +
   '<a href="' + racineRel + 'projets/"' + (courant === 'tous' ? ' aria-current="page"' : '') + '>Tous les projets</a>' +
   '<a href="' + racineRel + '#parcours">Parcours</a>' +
-  '</nav><a class="pp-btn or pp-ecrire" href="' + racineRel + '#contact">Écrivez-moi</a></div>';
+  '<a class="pp-ecrire" href="' + racineRel + '#contact">Écrivez-moi</a></nav>' +
+  '<span class="pp-lecture" id="pp-lecture" aria-hidden="true"></span></div>';
+
+// Pied de page des pages de projet et de « Tous les projets »
+const piedPage = racineRel => `<footer class="gut pp-pied">
+  <div class="wrap">
+    <div class="pf-cta">
+      <span class="caps">Contact</span>
+      <p class="pf-titre">Un projet, une mission ou une alternance ? <em>Écrivez-moi.</em></p>
+      <a class="pp-btn or" href="${racineRel}#contact">Me contacter →</a>
+    </div>
+    <div class="pf-cols">
+      <nav aria-label="Plan du site"><h2>Navigation</h2><ul>
+        <li><a href="${racineRel}">Accueil</a></li><li><a href="${racineRel}#projets">Réalisations</a></li><li><a href="${racineRel}projets/">Tous les projets</a></li><li><a href="${racineRel}#parcours">Parcours</a></li><li><a href="${racineRel}#contact">Contact</a></li>
+      </ul></nav>
+      <nav aria-label="Projets"><h2>Projets</h2><ul>
+        ${D.projets.liste.filter(p => p.page).map(p => '<li><a href="' + racineRel + p.page + '">' + esc(p.nomCourt) + '</a></li>').join('')}
+      </ul></nav>
+      <div><h2>Ailleurs</h2><ul>
+        <li><a href="${P.github}" rel="me">GitHub ↗</a></li><li><a href="${P.linkedin}" rel="me">LinkedIn ↗</a></li><li><a href="https://github.com/adebayo-moutalabi/adebayo-moutalabi.github.io">Code source de ce site ↗</a></li>
+      </ul></div>
+    </div>
+    <div class="pf-bas">
+      <a class="pp-logo" href="${racineRel}" aria-label="Accueil">${S.logo(30, racineRel).replace(/ alt="Adebayo Moutalabi"/g, ' alt=""')}</a>
+      <span>${esc(P.prenom + ' ' + P.nomFamille)} · ${esc(P.metier)} · Rennes</span>
+      <span>Vérifié et déployé par GitHub Actions</span>
+      <a class="pf-haut" href="#contenu">Haut de page ↑</a>
+    </div>
+  </div>
+</footer>
+<script src="${racineRel}js/page.js" defer></script>`;
 
 // ---------- 5. Pages de projet (une par projet qui a un champ « page ») ----------
 // Bas de page : projet précédent, tous les projets, projet suivant (en boucle)
@@ -268,7 +299,7 @@ ${ldJSON(ld).trim()}
 </head>
 <body class="page-projet">
 <a class="skip" href="#contenu">Aller au contenu</a>
-<header class="pp-top gut">
+<header class="pp-top" id="pp-top">
   ${barre(racineRel, 'projet')}
 </header>
 <main id="contenu" class="gut">
@@ -289,13 +320,7 @@ ${ldJSON(ld).trim()}
   </article>
   ${suite(p, racineRel)}
 </main>
-<footer class="gut pp-pied">
-  <div class="wrap">
-    <a class="pp-logo" href="${racineRel}">${S.logo(32, racineRel)}</a>
-    <p>Réalisé par <a href="${racineRel}">${esc(P.prenom + ' ' + P.nomFamille)}</a>, ${esc(P.metier.charAt(0).toLowerCase() + P.metier.slice(1))}, basé à Rennes.</p>
-    <p><a href="${racineRel}">Portfolio</a> · <a href="${P.github}" rel="me">GitHub</a> · <a href="${P.linkedin}" rel="me">LinkedIn</a> · <a href="${racineRel}#contact">Contact</a></p>
-  </div>
-</footer>
+${piedPage(racineRel)}
 </body>
 </html>
 `;
@@ -361,7 +386,7 @@ ${ldJSON(ld).trim()}
 </head>
 <body class="page-projet">
 <a class="skip" href="#contenu">Aller au contenu</a>
-<header class="pp-top gut">
+<header class="pp-top" id="pp-top">
   ${barre(racineRel, 'tous')}
 </header>
 <main id="contenu" class="gut">
@@ -383,13 +408,7 @@ ${L.map(ligne).join('\n')}
     </aside>
   </div>
 </main>
-<footer class="gut pp-pied">
-  <div class="wrap">
-    <a class="pp-logo" href="${racineRel}">${S.logo(32, racineRel)}</a>
-    <p>Réalisé par <a href="${racineRel}">${esc(P.prenom + ' ' + P.nomFamille)}</a>, ${esc(P.metier.charAt(0).toLowerCase() + P.metier.slice(1))}, basé à Rennes.</p>
-    <p><a href="${racineRel}">Portfolio</a> · <a href="${P.github}" rel="me">GitHub</a> · <a href="${P.linkedin}" rel="me">LinkedIn</a> · <a href="${racineRel}#contact">Contact</a></p>
-  </div>
-</footer>
+${piedPage(racineRel)}
 <script src="${racineRel}js/catalogue.js" defer></script>
 </body>
 </html>

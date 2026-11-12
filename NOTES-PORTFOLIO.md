@@ -11,6 +11,17 @@ https://adebayo-moutalabi.github.io (dépôt `adebayo-moutalabi/adebayo-moutalab
 - Aperçu (captures) avant chaque publication.
 - Après toute modification de `js/data/` : `node scripts/generer.js` (sinon la CI échoue).
 
+## v3.5 : stack « suivie à la trace », nouvel en-tête et pied des pages de projet (12/11/2026)
+
+- **Compétences** : la pile 3D (jugée peu fiable) est remplacée par une **carte de l'infrastructure** : un visiteur →
+  Web → Agents IA → Conteneurs → Cloud → Réseaux, avec CI/CD qui déploie et Systèmes qui surveille. Liaisons
+  dessinées en SVG d'après la position réelle des blocs, « paquets » lumineux qui circulent, verbe sur chaque
+  liaison, survol d'un bloc = ses liaisons s'allument, rôle de l'outil au survol. Sur téléphone : blocs empilés
+  et fil vertical. Réglages dans `competences.js` → `carte`.
+- **Pages de projet et « Tous les projets »** : en-tête en pilule flottante (logo + nom, liens, « Écrivez-moi »),
+  qui se cache en descendant et revient en remontant, ligne dorée de progression de lecture, menu déroulant
+  sur téléphone (`js/page.js`). Nouveau pied de page : appel à écrire, plan du site, liste des projets, liens.
+
 ## v3.4 : stack en couches, méthode en pipeline (12/11/2026)
 
 Retours d'Adebayo sur la v3.3 :
