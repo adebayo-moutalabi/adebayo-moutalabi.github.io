@@ -1,28 +1,31 @@
 /* =====================================================================
-   CONTACT : coordonnées et formulaire court
-   Le formulaire n'envoie rien tout seul : il ouvre la messagerie du visiteur avec le message prérempli.
-   Après modification : node scripts/generer.js
+   CONTACT : coordonnées, fiche de statut et messagerie
    ===================================================================== */
 
 Site.data.contact = {
   etiquette: "Contact",
   titre: "Un projet, une mission ou une opportunité ?",
   accent: "Écrivez-moi.",
+  accroche: "Ouvert aux missions ponctuelles et à une alternance M2 en 2027.",
 
   email: "moutalabihabib2002@gmail.com",
   linkedin: "https://www.linkedin.com/in/adebayo-moutalabi/",
   github: "https://github.com/adebayo-moutalabi",
-  lieu: "Rennes, mobile partout en France",
 
-  /* Ligne discrète sous les coordonnées */
-  disponibilite: "Ouvert aux missions ponctuelles et à une alternance M2 en 2027.",
+  /* Fiche à droite. « statut » : texte affiché dans la tuile verte. */
+  fiche: {
+    statut: "Disponible",
+    recherche: "Missions · alternance M2 2027",
+    domaines: "Cloud · DevOps · Agents IA",
+    lieu: "Rennes, mobile partout en France"
+  },
 
-  formulaire: {
-    nom: "Votre nom",
-    message: "Votre message",
-    envoyer: "Ouvrir dans ma messagerie",
-    copier: "Copier l'adresse",
-    copie: "Adresse copiée",
-    objet: "Prise de contact"
-  }
+  /* Boutons de la fenêtre de message. L'objet du mail est :
+     « <besoin> en <domaine> : échangeons ». Le dernier domaine est affiché en bleu (IA). */
+  besoins: ["Un projet", "Une mission", "Une alternance", "Autre"],
+  domaines: ["Cloud", "DevOps", "Agents IA"],
+  objetSuffixe: " : échangeons",
+  salutation: "Bonjour Adebayo,",
+  messageVide: "Je souhaiterais échanger avec vous.",
+  placeholders: { nom: "Votre nom et votre structure", message: "Décrivez en deux lignes votre besoin…" }
 };

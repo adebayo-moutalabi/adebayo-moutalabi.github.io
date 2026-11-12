@@ -10,6 +10,42 @@ https://adebayo-moutalabi.github.io (dépôt `adebayo-moutalabi/adebayo-moutalab
 - Aperçu (captures) avant chaque publication.
 - Après toute modification de `js/data/` : `node scripts/generer.js` (sinon la CI échoue).
 
+## v3.1 : la v2.0, corrigée (12/11/2026)
+
+Base : le site de la v2.0 (hero banner gardé), avec :
+- **Logo AM** (le M à l'orbite) : en-tête, pied de page, favicon et icônes, manifest, image de partage, JSON-LD.
+- **Mascotte Atom gardée** (demande d'Adebayo) pour l'écran de chargement et la barre de progression au
+  défilement (bulles à chaque section). Le logo AM sert partout ailleurs.
+- **Marque personnelle** : intitulé « Cloud, DevOps & IA », aucune étiquette candidat / indépendant ; accroche
+  « Je construis, j'automatise, je livre. » ; contact « Un projet, une mission ou une opportunité ? Écrivez-moi. »
+  avec « Ouvert aux missions ponctuelles et à une alternance M2 en 2027. »
+- **Nouvelle section « Ce que je fais »** : 3 domaines (infrastructure et déploiement, web, agents IA et automatisations).
+- **Sections retirées** : « Par où commencer ? » (chacun vient pour sa raison) et le Labo (démos).
+- **Compétences redessinées** : carte de la stack en grille (7 familles, Agents IA en grand), filtre
+  « Utilisés dans » qui allume les outils d'une réalisation, point doré = outil utilisé dans un projet en ligne,
+  rôle de l'outil au survol.
+- **Réalisations redessinées** : les projets « à la une » (`une: true` : Nox, Continental IT, ExpoIA) en grandes
+  lignes alternées (capture dans un cadre de navigateur, numéro, résumé, stack, « Lire l'étude de cas »,
+  « Aperçu rapide », lien du site) ; les autres en petit sous « Aussi ».
+- **Nouvelle page `/projets/`** (« Tous les projets ») : index de tous les projets avec filtres par catégorie et
+  aperçu de la capture qui suit la souris. Générée par `scripts/generer.js`, ajoutée au sitemap et à Lighthouse.
+  Le site d'inspiration (localhost d'Adebayo) n'était pas accessible depuis la session cloud.
+- **Copywriting revu** : Compétences (« Ma stack, couche par couche »), Méthode,
+  Réalisations (« Des projets en ligne, du besoin au résultat » au lieu de « Peu de projets, mais vérifiables »),
+  résumés des projets. Vraies captures dans les cartes de projets ; page `/projets/expoia/`.
+- **Bugs de l'audit corrigés** : titres de section qui s'arrêtent sous la barre de progression ; indicateur de
+  section exact (section qui traverse le milieu de l'écran).
+- Lighthouse local : accueil 97/100/100/100, pages de projet 99-100/100/100/100.
+
+## ⚠️ Retour à la v2.0 (12/11/2026)
+
+Après mise en ligne, Adebayo n'a pas accroché avec la v3.0 (marque personnelle, nouveau design) : **retour au site
+de la v2.0** (commit `03dc68a`). Republié immédiatement par `deploy.yml` (champ version), puis code du site remis
+à l'état v2.0 par pull request (`git read-tree -u --reset 03dc68a`). Conservés : workflows des versions et du
+retour arrière, notes, `docs/NOM-DE-DOMAINE.md`. La v3.0 reste disponible (tag et Release `v3.0`) si on veut en
+reprendre des éléments (logo AM, icônes, page ExpoIA, nouvel en-tête…). Les sections ci-dessous sur la v3.0 sont
+gardées pour mémoire. Version proposée pour ce retour : **v3.1** (« retour au contenu de la v2.0 »).
+
 ## Positionnement : marque personnelle (décision du 12/11/2026, à réévaluer vers juin 2027)
 
 - Le site présente **qui je suis, ce que je construis et ce que j'ai livré**, et laisse chacun me contacter pour sa
@@ -180,3 +216,5 @@ Démarche complète dans `docs/NOM-DE-DOMAINE.md`. En bref :
 - 12/11/2026 : versions (workflow release.yml, retour arrière via deploy.yml -f version=…) ; tags v1.0 et v2.0 à créer par le workflow.
 - 12/11/2026 : décision « marque personnelle » ; refonte v3.0 sur la base du design v1.0 (en-tête éditorial, frise git,
   cartes visuelles) ; architecture : pages entièrement générées, un seul script léger ; réglage Pages = GitHub Actions.
+- 12/11/2026 : v3.0 publiée puis non retenue ; retour au site v2.0 (republication immédiate + PR de retour du code).
+- 12/11/2026 : v3.1 = v2.0 + logo AM animé (chargement, barre), marque personnelle, « Ce que je fais », copywriting, bugs de la barre corrigés.

@@ -1,0 +1,84 @@
+/* Projets (sélection, fiche « Aperçu rapide ») et section « Ce que je fais » */
+/* ===== projets ===== */
+.pthumb { aspect-ratio: 16 / 9; display: grid; place-items: center; background: radial-gradient(circle at 70% 30%, var(--halo), transparent 60%), var(--surface-2); border-bottom: 1px solid var(--hair); }
+.pthumb svg { width: 52%; max-width: 260px; height: auto; overflow: visible; }
+.ln { fill: none; stroke: var(--line-art); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.gd { fill: var(--gold); }
+
+/* fiche */
+.sheet-bg { position: fixed; inset: 0; z-index: 100; background: rgba(13, 14, 16, .5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; justify-content: flex-end; animation: bgin .3s ease; }
+@keyframes bgin { from { background: rgba(13, 14, 16, 0); } }
+.sheet { width: min(560px, 100%); height: 100%; background: var(--raise); overflow-y: auto; padding: calc(28px + env(safe-area-inset-top, 0px)) var(--gr) calc(40px + var(--sb)) max(28px, var(--gl)); display: flex; flex-direction: column; gap: 18px; animation: sidein .5s var(--ease); box-shadow: -30px 0 80px var(--shadow); }
+@keyframes sidein { from { transform: translateX(40px); opacity: .3; } }
+.sheet-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.x { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--hair); background: var(--surface); cursor: pointer; font-size: 18px; }
+.sheet h3 { font-size: clamp(34px, 5vw, 48px); line-height: 1.02; font-weight: 300; }
+.sheet .lead { font-size: 17px; }
+.sheet ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.sheet li { display: flex; gap: 12px; color: var(--ink-muted); }
+.sheet li::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); margin-top: 9px; }
+.sheet .grab { display: none; }
+@media (max-width: 700px) {
+  .sheet-bg { align-items: flex-end; }
+  .sheet { height: auto; max-height: 88vh; max-height: 88svh; border-radius: 28px 28px 0 0; padding-top: 14px; animation: upin .5s var(--ease); box-shadow: 0 -20px 60px var(--shadow); }
+  .sheet .grab { display: block; width: 40px; height: 5px; border-radius: 5px; background: var(--ink-faint); margin: 0 auto 6px; }
+  @keyframes upin { from { transform: translateY(60px); opacity: .3; } }
+}
+
+/* ===== Ce que je fais : trois domaines ===== */
+.doms { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.dom { position: relative; display: grid; grid-template-rows: auto auto 1fr auto auto; gap: 14px; padding: 16px 16px 24px; border-radius: 28px; border: 1px solid var(--hair); background: var(--surface); transition: transform .45s var(--ease), border-color .35s; }
+.dom:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--gold) 45%, var(--hair)); }
+.dom.ia:hover { border-color: color-mix(in srgb, var(--blue) 55%, var(--hair)); }
+.dom-vis { position: relative; height: 150px; border-radius: 20px; background: var(--surface-2); display: grid; place-items: center; overflow: hidden; }
+.dom-vis svg { width: 62%; height: auto; max-height: 120px; transition: transform .6s var(--ease); }
+.dom:hover .dom-vis svg { transform: scale(1.06); }
+.dom-no { position: absolute; left: 16px; top: 12px; font-family: var(--display); font-size: 15px; color: var(--accent-ink); }
+.dom h3 { font-size: clamp(24px, 2.2vw, 30px); font-weight: 300; line-height: 1.1; padding: 4px 8px 0; }
+.dom > p, .dom .chips, .dom-ex { margin-inline: 8px; }
+.dom > p { color: var(--ink-muted); font-size: 15.5px; line-height: 1.55; }
+.dom-ex { justify-self: start; font-size: 14px; font-weight: 500; color: var(--accent-ink); text-underline-offset: 4px; }
+@media (max-width: 980px) { .doms { grid-template-columns: 1fr; } .dom-vis { height: 120px; } }
+
+/* Vraies captures d'écran dans les cartes et la fiche de projet */
+.pthumb.shot { padding: 0; place-items: stretch; }
+.pthumb.shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 1s var(--ease); }
+
+
+/* ===== Réalisations : sélection en grandes lignes (capture + texte, en alternance) ===== */
+.cases { display: grid; gap: clamp(40px, 7vw, 96px); }
+.cs { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: center; }
+.cs.inv .cs-vis { order: 2; }
+.cs-vis { border-radius: 22px; border: 1px solid var(--hair); background: var(--surface); overflow: hidden; box-shadow: 0 30px 80px -40px rgba(0, 0, 0, .55); transition: transform .6s var(--ease), border-color .4s; }
+.cs:hover .cs-vis { transform: translateY(-6px) rotate(-.4deg); border-color: color-mix(in srgb, var(--gold) 45%, var(--hair)); }
+.cs.inv:hover .cs-vis { transform: translateY(-6px) rotate(.4deg); }
+.cs-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--hair); font-size: 12px; color: var(--ink-muted); }
+.cs-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--hair); }
+.cs-bar span { margin-left: 10px; padding: 3px 12px; border-radius: 999px; background: var(--surface-2); }
+.cs-img { aspect-ratio: 16 / 10; overflow: hidden; background: var(--surface-2); display: grid; place-items: center; }
+.cs-img img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 1.2s var(--ease); }
+.cs:hover .cs-img img { transform: scale(1.04); }
+.cs-art svg { width: min(260px, 60%); height: auto; }
+.cs-txt { display: grid; gap: 16px; align-content: center; }
+.cs-meta { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.cs-no { font-family: var(--display); font-size: 44px; line-height: 1; color: var(--accent-ink); font-weight: 300; }
+.cs-no small { font-size: 15px; color: var(--ink-muted); }
+.cs h3 { font-size: clamp(30px, 3.6vw, 50px); font-weight: 300; line-height: 1.02; letter-spacing: -.02em; }
+.cs h3 a { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .5s var(--ease); }
+.cs h3 a:hover { background-size: 100% 1px; }
+.cs-txt > p { color: var(--ink-muted); font-size: 16.5px; line-height: 1.6; max-width: 52ch; }
+.cs-act { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin-top: 4px; }
+.cs-fiche, .cs-lien { min-height: 44px; display: inline-flex; align-items: center; padding: 0; border: 0; background: none; color: var(--ink); font: inherit; font-size: 15px; font-weight: 500; text-decoration: underline; text-underline-offset: 5px; text-decoration-color: var(--hair); cursor: pointer; }
+.cs-fiche:hover, .cs-lien:hover { text-decoration-color: var(--gold); }
+.cs-plus { margin-top: clamp(48px, 7vw, 88px); padding-top: 28px; border-top: 1px solid var(--hair); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
+.cs-autres { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.cs-mini { display: inline-flex; align-items: baseline; gap: 10px; min-height: 44px; padding: 8px 18px; border-radius: 999px; border: 1px solid var(--hair); background: var(--surface); color: var(--ink); font: inherit; text-align: left; cursor: pointer; transition: border-color .3s; }
+.cs-mini:hover { border-color: var(--gold); }
+.cs-mini span { font-size: 13px; color: var(--ink-muted); }
+.cs-tous span { display: inline-grid; place-items: center; min-width: 26px; height: 26px; border-radius: 999px; background: var(--surface-2); font-size: 13px; }
+@media (max-width: 900px) {
+  .cs { grid-template-columns: 1fr; gap: 22px; }
+  .cs.inv .cs-vis { order: 0; }
+  .cs-no { font-size: 34px; }
+}
+@media (max-width: 620px) { .cs-mini span { display: none; } .cs-tous { width: 100%; } }
