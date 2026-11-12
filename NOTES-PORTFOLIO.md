@@ -62,6 +62,49 @@ Contenu publié :
   ajoutée au sitemap, à llms.txt, au JSON-LD de l'accueil et aux contrôles CI (html-validate, lychee, Lighthouse).
 - Lighthouse local : accueil 99/100/100/100, pages Nox et Continental IT 100/100/100/100.
 
+## Versions (tags Git annotés + Releases GitHub)
+
+| Version | Commit | Contenu |
+|---|---|---|
+| v1.0 | `5880c02` | Site d'origine (avant la PR #1) |
+| v2.0 | `03dc68a` | Positionnement Cloud, DevOps & IA, SEO/GEO, pipeline (PR #1) |
+| v2.1 | fusion de la PR #2 | Logo AM, icônes, SITE_URL unique |
+| v3.0 | fusion de la PR de refonte | Site prestataire Cloud, DevOps & IA |
+
+Règle : **chaque fusion sur `main` = une nouvelle version** (v2.1, v2.2… pour une évolution, v3.0 pour une refonte).
+
+**Créer une version** (après la fusion) : Actions → « Créer une version » → Run workflow → version, titre, notes.
+Le workflow `.github/workflows/release.yml` crée le tag annoté sur le dernier commit de `main`, sert cette
+version en local, la photographie (bureau 1440 × 900 et mobile) et publie la Release avec les captures.
+En ligne de commande (avec l'outil `gh` installé sur ton ordinateur) :
+
+```bash
+gh workflow run release.yml -f version=v2.1 -f titre="Logo AM et icônes"
+```
+
+Note 12/11/2026 : les tags v1.0 et v2.0 n'ont pas pu être poussés depuis la session Claude (le proxy Git de
+l'environnement refuse les tags). Ils seront créés par ce workflow, une fois sur `main`, avec
+`commit=5880c02` pour v1.0 et `commit=03dc68a` pour v2.0.
+
+**Revenir à une version, en une commande :**
+
+- Remettre **le site en ligne** dans l'état d'une version (le code de `main` ne change pas) :
+
+  ```bash
+  gh workflow run deploy.yml -f version=v2.0
+  ```
+
+  (ou Actions → « Vérifier et déployer » → Run workflow → version = v2.0). Les contrôles sont sautés, le tag est
+  republié tel quel. Le prochain push sur `main` remettra la version courante.
+- Remettre **le code** dans l'état d'une version (sur une branche, puis pull request) :
+
+  ```bash
+  git read-tree -u --reset v2.0 && git commit -m "Retour au contenu de v2.0"
+  ```
+
+  `read-tree -u --reset` remplace tous les fichiers suivis par ceux de v2.0 (y compris en supprimant les fichiers
+  ajoutés depuis), sans réécrire l'historique : le retour est lui-même un commit, annulable.
+
 ## Logo (12/11/2026)
 
 - Source : `assets/logo/logo-am.svg` (monogramme AM doré, orbite, check), fourni par Adebayo sur la branche `logo-am`.
@@ -108,3 +151,4 @@ Démarche complète dans `docs/NOM-DE-DOMAINE.md`. En bref :
 - 12/11/2026 : Continental IT ajouté en 2e réalisation (`/projets/continental-it/`) ; relecture complète avant fusion.
 - 12/11/2026 : PR #1 fusionnée par Claude (autorisation d'Adebayo), déploiement vérifié en ligne ; double publication Pages constatée.
 - 12/11/2026 : logo AM intégré partout (variante claire, icônes, manifest, JSON-LD) ; SITE_URL unique ; docs/NOM-DE-DOMAINE.md.
+- 12/11/2026 : versions (workflow release.yml, retour arrière via deploy.yml -f version=…) ; tags v1.0 et v2.0 à créer par le workflow.

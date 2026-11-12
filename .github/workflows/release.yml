@@ -1,0 +1,101 @@
+# Versions du portfolio : tag Git annoté + Release GitHub avec captures d'écran.
+# ------------------------------------------------------------------------------------------
+# Deux façons de lancer :
+#   1. Onglet Actions → « Créer une version » → Run workflow : version (ex. v2.1), titre, notes,
+#      commit (vide = dernier commit de main). Le workflow crée le tag annoté s'il n'existe pas.
+#   2. Pousser soi-même un tag : git tag -a v2.1 -m "…" && git push origin v2.1
+# Dans les deux cas : la version taguée est servie en local, photographiée (bureau + mobile),
+# et la Release est créée avec les captures (ou ses captures sont remplacées si elle existe déjà).
+# ------------------------------------------------------------------------------------------
+name: Créer une version
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Numéro de version (ex. v2.1)"
+        required: true
+      titre:
+        description: "Titre court (ex. Logo AM et icônes)"
+        required: true
+      notes:
+        description: "Notes de version (vide = message du commit)"
+        required: false
+        default: ""
+      commit:
+        description: "Commit à étiqueter (vide = dernier commit de main ; ignoré si le tag existe déjà)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write   # créer le tag et la Release
+
+concurrency:
+  group: versions-${{ inputs.version || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  version:
+    name: Tag, captures et Release
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      VERSION: ${{ inputs.version || github.ref_name }}
+      TITRE: ${{ inputs.titre }}
+      NOTES: ${{ inputs.notes }}
+      COMMIT: ${{ inputs.commit }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Vérifier le format du numéro de version
+        run: |
+          [[ "$VERSION" =~ ^v[0-9]+\.[0-9]+(\.[0-9]+)?$ ]] || { echo "::error::Version invalide : $VERSION (attendu : v2.1)"; exit 1; }
+
+      - name: Créer le tag annoté s'il n'existe pas
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          if git rev-parse -q --verify "refs/tags/$VERSION" >/dev/null; then
+            echo "Le tag $VERSION existe déjà : il est conservé tel quel."
+          else
+            CIBLE="${COMMIT:-$(git rev-parse HEAD)}"
+            CORPS="${NOTES:-$(git log -1 --format=%B "$CIBLE")}"
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag -a "$VERSION" "$CIBLE" -m "$VERSION · $TITRE" -m "$CORPS"
+            git push origin "refs/tags/$VERSION"
+          fi
+
+      - name: Extraire la version dans un dossier séparé
+        run: git worktree add /tmp/version "$VERSION"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Installer Playwright (navigateur pour les captures)
+        run: |
+          npm install --no-save --prefix /tmp/pw playwright@1.63.0
+          npx --prefix /tmp/pw playwright install --with-deps chromium
+
+      - name: Servir la version et la photographier
+        run: |
+          (cd /tmp/version && python3 -m http.server 8080 >/dev/null 2>&1 &)
+          sleep 2
+          mkdir -p captures
+          NODE_PATH=/tmp/pw/node_modules node scripts/capture-version.js http://localhost:8080/ captures "$VERSION"
+
+      - name: Créer ou mettre à jour la Release
+        run: |
+          git tag -l --format='%(contents:body)' "$VERSION" > notes.md
+          printf '\n\n---\nCaptures : %s-bureau.png (1440 × 900) et %s-mobile.png (390 × 844), ci-dessous.\n' "$VERSION" "$VERSION" >> notes.md
+          SUJET="$(git tag -l --format='%(contents:subject)' "$VERSION")"
+          if gh release view "$VERSION" >/dev/null 2>&1; then
+            gh release upload "$VERSION" captures/*.png --clobber
+          else
+            gh release create "$VERSION" captures/*.png --title "${SUJET:-$VERSION}" --notes-file notes.md --verify-tag
+          fi
+          echo "Release : $(gh release view "$VERSION" --json url --jq .url)" >> "$GITHUB_STEP_SUMMARY"
