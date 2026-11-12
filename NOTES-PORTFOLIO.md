@@ -41,9 +41,13 @@ https://adebayo-moutalabi.github.io (dépôt `adebayo-moutalabi/adebayo-moutalab
 - Stack : ajout de GitHub Actions, API LLM, Electron ; WordPress gardé (Continental IT) ; retrait de Render, Laravel, Flutter.
 - Les entrées du parcours sont inchangées.
 
-## État (12/11/2026, branche `claude/portfolio-seo-audit-ct0caq`)
+## État (12/11/2026) : en ligne
 
-Fait sur la branche (pull request à valider) :
+PR #1 fusionnée dans `main` (commit `03dc68a`), déployée par le run « Vérifier et déployer » n° 7 (tout vert).
+Vérifié en ligne : accueil, /projets/nox/, /projets/continental-it/, sitemap.xml, robots.txt, llms.txt,
+google2f457726f419ac07.html (200) ; NOTES, docs, scripts non publiés (404).
+
+Contenu publié :
 - SEO/GEO : contenu lisible sans JS (10 400 caractères au lieu de 52), h1 avec nom + métier, title et
   description, Open Graph + image de partage, JSON-LD ProfilePage/Person, robots.txt, sitemap.xml, llms.txt,
   favicon, URL canonique, liens GitHub et LinkedIn (rel="me").
@@ -60,7 +64,10 @@ Fait sur la branche (pull request à valider) :
 
 ## Prochaines étapes
 
-1. PR #1 : relecture complète faite ; fusion autorisée par Adebayo (12/11/2026), faite par Claude une fois la CI verte.
+1. **Réglage GitHub Pages à corriger (à la main)** : Settings → Pages → Build and deployment → Source :
+   « GitHub Actions ». Aujourd'hui la source est encore « Deploy from a branch » : à chaque push sur `main`,
+   « pages build and deployment » publie tout le dépôt sans contrôle, environ 2 min 30 avant que le pipeline
+   ne republie la version vérifiée. Après le changement, seul le pipeline publie.
 2. Après déploiement : Search Console → valider avec le fichier HTML, envoyer le sitemap, inspecter `/` et `/projets/nox/`.
 3. À la main sur github.com : épingler `nox`, descriptions et topics (portfolio et nox), ajouter Nox au README de profil.
 4. Nouveaux projets : chaque projet aura une fiche (problème, stack, résultat, lien) ; avec plusieurs projets,
@@ -75,3 +82,4 @@ Fait sur la branche (pull request à valider) :
 - 12/11/2026 : profil GitHub fait par Adebayo ; ajout du fichier Google Search Console ; Nox en réalisation
   principale avec page `/projets/nox/`.
 - 12/11/2026 : Continental IT ajouté en 2e réalisation (`/projets/continental-it/`) ; relecture complète avant fusion.
+- 12/11/2026 : PR #1 fusionnée par Claude (autorisation d'Adebayo), déploiement vérifié en ligne ; double publication Pages constatée.
