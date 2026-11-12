@@ -35,10 +35,21 @@ https://adebayo-moutalabi.github.io (dépôt `adebayo-moutalabi/adebayo-moutalab
 3. GitHub (README de profil, bio, épingles, topics) : à faire.
 4. CI : validation HTML, liens cassés, Lighthouse : à faire.
 
+## Décisions de contenu (12/11/2026)
+
+- Stage Le Casier Français : **pas affiché pour l'instant**.
+- Projets : on n'en met plus en avant pour l'instant. Adebayo va construire de nouveaux projets
+  de zéro ; le site ne montrera que les plus solides et pertinents pour sa carrière (Cloud, DevOps, IA).
+- Conséquence : pas de pages par projet pour l'instant ; elles viendront avec les nouveaux projets.
+
 ## Questions ouvertes
 
-Voir la conversation du 12/11/2026 : réponses attendues sur le contenu avant toute modification.
+- Accroche / titre (proposition : « Adebayo Moutalabi, ingénieur Cloud, DevOps & IA »).
+- Section projets : la masquer entièrement ou garder 2-3 réalisations solides ?
+- Écran de chargement : une fois par visite ou supprimé ?
+- Alternance M2 : rythme et date de début.
 
 ## Journal
 
 - 12/11/2026 : audit, création de ce fichier.
+- 12/11/2026 : décisions sur le stage et les projets (voir ci-dessus).
