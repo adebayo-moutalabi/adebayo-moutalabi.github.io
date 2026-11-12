@@ -1,0 +1,11 @@
+# Configuration de lychee (vérification des liens cassés), lancé par la CI.
+# Doc : https://lychee.cli.rs/
+# Codes acceptés : 2xx, plus 429 (trop de requêtes) et 999 (LinkedIn refuse les robots).
+accept = ["200..=299", "429", "999"]
+max_retries = 3
+timeout = 20
+# Ignorés : les adresses e-mail (invérifiables) et les liens vers ce site lui-même :
+# ils pointent vers la version pas encore déployée, scripts/verifier.js les contrôle sur les fichiers locaux.
+exclude = ["^mailto:", "^https://adebayo-moutalabi\\.github\\.io"]
+# Le README contient http://localhost:8000 (serveur local) : on ignore les adresses locales.
+exclude_loopback = true

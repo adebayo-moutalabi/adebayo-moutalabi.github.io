@@ -1,4 +1,14 @@
-# CI/CD du portfolio : vérifier à chaque push / pull request, déployer sur GitHub Pages depuis main.
+# CI/CD du portfolio
+# ------------------------------------------------------------------------------------------
+# Quand ? À chaque push sur main, à chaque pull request, ou à la main (onglet Actions).
+# Quoi ?  4 contrôles qui tournent en parallèle, puis le déploiement sur GitHub Pages
+#         (uniquement depuis main, et uniquement si les 4 contrôles sont verts).
+#
+#   coherence ─┐
+#   html ──────┼──► deployer (main seulement)
+#   liens ─────┤
+#   lighthouse ┘
+# ------------------------------------------------------------------------------------------
 name: Vérifier et déployer
 
 on:
@@ -7,40 +17,81 @@ on:
   pull_request:
   workflow_dispatch:
 
+# Droits minimaux par défaut : lire le code. Le job de déploiement demande les siens.
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
+# Une nouvelle exécution sur la même branche annule la précédente (inutile de finir un vieux run).
 concurrency:
-  group: pages
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  verifier:
-    name: Vérifier le site
+  coherence:
+    name: Cohérence des données et contenu généré
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+      # Syntaxe JS, fichiers référencés, cohérence projets / compétences, liens vers le site
       - run: node scripts/verifier.js
+      # Le HTML statique, le JSON-LD et llms.txt doivent correspondre aux fichiers js/data
+      - run: node scripts/generer.js --verifier
+
+  html:
+    name: Validation HTML
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Règles dans .htmlvalidate.json
+      - run: npx --yes html-validate@11.21.0 index.html outils/image-partage.html
+
+  liens:
+    name: Liens cassés
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Réglages dans lychee.toml (codes acceptés, liens ignorés)
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --config lychee.toml --no-progress index.html llms.txt README.md
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  lighthouse:
+    name: Audit Lighthouse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: bash scripts/construire.sh
+      # Seuils dans lighthouserc.json ; le rapport est publié sur un lien public temporaire
+      # (affiché dans le journal de cette étape).
+      - run: npx --yes @lhci/cli@0.16.1 autorun
 
   deployer:
     name: Déployer sur GitHub Pages
-    needs: verifier
+    needs: [coherence, html, liens, lighthouse]
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deploiement.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - name: Ne publier que le site (sans docs, outils, scripts)
-        run: |
-          mkdir _site
-          cp -r index.html css js assets _site/
+        run: bash scripts/construire.sh
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
