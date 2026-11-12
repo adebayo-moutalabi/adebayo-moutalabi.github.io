@@ -11,8 +11,6 @@
 
 ## Ce que je fais
 
-Je fais passer une idée du premier commit à la production, puis j'automatise tout ce qui peut l'être pour qu'elle y reste.
-
 - Infrastructure et déploiement : Mettre une application en ligne et l'y garder : conteneurs, cloud, pipelines CI/CD qui testent et déploient chaque modification, supervision. (Docker, Kubernetes, AWS EC2, GitLab CI/CD, GitHub Actions, Prometheus)
 - Web : Des sites et des applications rapides, accessibles et bien référencés, dont le contenu reste simple à mettre à jour. (Next.js, Payload CMS, TypeScript, WordPress)
 - Agents IA et automatisations : Des agents reliés aux outils du quotidien (e-mail, agenda, messagerie) et des workflows qui prennent en charge les tâches répétitives. (API LLM, n8n, Python, RAG)

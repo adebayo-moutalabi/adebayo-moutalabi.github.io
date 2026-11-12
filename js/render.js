@@ -15,46 +15,47 @@
     S.$('#foot').innerHTML = '<p class="tag">' + esc(a.pied) + '</p><span class="hint"><i></i>' + esc(a.defiler) + '</span>';
   }
 
-  /* ---------- Ce que je fais : une phrase, puis trois panneaux reliés par un fil (js/domaines.js) ---------- */
+  /* ---------- Ce que je fais : trois cartes ---------- */
   function domaines() {
     var Dm = D.domaines, ART = D.vignettes;
-    var phrase = Dm.phrase.map(function (m) {
-      if (typeof m === 'string') return esc(m);
-      if (m.accent) return '<span class="it">' + esc(m.accent) + '</span>';
-      return '<span class="ph-logos" aria-hidden="true">' + m.logos.map(function (n) { return S.icone(n).replace('width="14" height="14"', 'width="30" height="30"'); }).join('') + '</span>';
-    }).join(' ').replace(/ ,/g, ',');
-    S.$('#domaines .wrap').innerHTML = '<div class="head ph-head"><span class="caps">' + esc(Dm.etiquette) + '</span><h2 class="ph">' + phrase + '</h2></div>' +
-      '<p class="fil-titre">' + esc(Dm.fil) + '</p>' +
-      '<div class="fil" id="fil"><div class="fil-ligne" aria-hidden="true"><i id="fil-point"></i></div>' + Dm.liste.map(function (d, i) {
-        return '<article class="dom' + (d.ia ? ' ia' : '') + (i === 0 ? ' on' : '') + '" id="domaine-' + esc(d.id) + '" data-i="' + i + '">' +
-          '<div class="dom-art" aria-hidden="true">' + (ART[d.vignette] || '') + '</div>' +
-          '<h3><button type="button" class="dom-btn" aria-expanded="' + (i === 0) + '" aria-controls="dom-c-' + esc(d.id) + '"><span class="dom-no">0' + (i + 1) + '</span><span class="dom-t">' + esc(d.titre) + '</span></button></h3>' +
-          '<div class="dom-c" id="dom-c-' + esc(d.id) + '"><p>' + esc(d.texte) + '</p>' + chips(d.outils) +
-          (d.exemple ? '<a class="dom-ex" href="' + esc(d.exemple.url) + '">' + esc(d.exemple.texte) + ' →</a>' : '') + '</div></article>';
-      }).join('') + '</div>';
+    S.$('#domaines .wrap').innerHTML = head(Dm.entete) + '<div class="doms">' + Dm.liste.map(function (d, i) {
+      return '<article class="dom' + (d.ia ? ' ia' : '') + '" id="domaine-' + esc(d.id) + '"><div class="dom-vis" aria-hidden="true"><span class="dom-no">0' + (i + 1) + '</span>' + (ART[d.vignette] || '') + '</div>' +
+        '<h3>' + esc(d.titre) + '</h3><p>' + esc(d.texte) + '</p>' + chips(d.outils, true) +
+        (d.exemple ? '<a class="dom-ex" href="' + esc(d.exemple.url) + '">' + esc(d.exemple.texte) + ' →</a>' : '') + '</article>';
+    }).join('') + '</div>';
   }
 
-  /* ---------- Compétences : « boîte à outils » (moteur physique dans js/competences.js) ----------
-     La liste complète (familles, outils, rôles) reste dans la page, repliée, pour la lecture et le référencement. */
+  /* ---------- Compétences : une pile de couches en 3D qui s'ouvre au défilement (js/competences.js) ----------
+     Chaque couche a sa fiche (outils et rôles), toutes présentes dans la page pour la lecture et le référencement. */
   function competences() {
-    var C = D.competences;
-    var filtres = '<div class="tb-filtres" role="group" aria-label="Choisir une famille d\'outils"><button type="button" data-f="all" aria-pressed="true">Tout</button>' +
-      C.familles.map(function (f) { return '<button type="button" data-f="' + esc(f.id) + '" aria-pressed="false"' + (f.ia ? ' class="ia"' : '') + '>' + esc(f.nom) + '</button>'; }).join('') + '</div>';
-    var liste = '<details class="tb-liste"><summary>Voir la liste complète des outils</summary><div class="tb-fams">' + C.familles.map(function (f) {
-      return '<section><h3>' + esc(f.nom) + '</h3><p>' + esc(f.resume) + '</p><ul>' + C.outils.filter(function (o) { return o.famille === f.id; }).map(function (o) {
-        return '<li><b>' + esc(o.nom) + '</b> ' + esc(o.role) + '</li>';
-      }).join('') + '</ul></section>';
-    }).join('') + '</div></details>';
-    S.$('#competences .wrap').innerHTML = head(C.entete) + filtres +
-      '<div class="tb" id="tb"><p class="tb-astuce" aria-hidden="true">Attrapez-les, lancez-les.</p><div class="tb-info" id="tb-info" aria-live="polite"><b>' + C.outils.length + ' outils</b><span>' + C.familles.map(function (f) { return esc(f.nom); }).join(' · ') + '</span></div></div>' + liste;
+    var C = D.competences, ordre = (C.pile || []).filter(function (id) { return C.familles.some(function (f) { return f.id === id; }); });
+    C.familles.forEach(function (f) { if (ordre.indexOf(f.id) < 0) ordre.push(f.id); });
+    var fams = ordre.map(function (id) { return C.familles.filter(function (f) { return f.id === id; })[0]; }), n = fams.length;
+    var outilsDe = function (f) { return C.outils.filter(function (o) { return o.famille === f.id; }); };
+    var couches = fams.map(function (f, i) {
+      return '<div class="couche' + (f.ia ? ' ia' : '') + (i === 0 ? ' on' : '') + '" style="--i:' + i + '"><div class="couche-dessous"></div><div class="couche-face"><span class="couche-nom">' + esc(f.nom) + '</span><span class="couche-puces">' +
+        outilsDe(f).map(function (o) { return S.icone(o.nom) || '<span class="puce">' + esc(o.nom.slice(0, 3)) + '</span>'; }).join('') + '</span></div></div>';
+    }).join('');
+    var fiches = fams.map(function (f, i) {
+      return '<article class="pd' + (f.ia ? ' ia' : '') + (i === 0 ? ' on' : '') + '" id="couche-' + esc(f.id) + '" data-i="' + i + '"><span class="pd-no">Couche ' + (i + 1) + ' / ' + n + '</span><h3>' + esc(f.nom) + '</h3><p>' + esc(f.resume) + '</p><ul class="pd-outils">' +
+        outilsDe(f).map(function (o) { return '<li>' + (S.icone(o.nom) || '<span class="ico ico-vide" aria-hidden="true"></span>') + '<b>' + esc(o.nom) + '</b><span>' + esc(o.role) + '</span></li>'; }).join('') + '</ul></article>';
+    }).join('');
+    var index = '<ol class="pile-index" aria-label="Couches">' + fams.map(function (f, i) { return '<li><a href="#couche-' + esc(f.id) + '" data-i="' + i + '"' + (i === 0 ? ' class="on"' : '') + '>' + esc(f.nom) + '</a></li>'; }).reverse().join('') + '</ol>';
+    S.$('#competences .wrap').innerHTML = head(C.entete) +
+      '<div class="pile" id="pile" style="--n:' + n + '"><div class="pile-colle"><div class="pile-scene" aria-hidden="true"><div class="pile-3d">' + couches + '</div></div>' + index + '<div class="pile-fiches">' + fiches + '</div></div></div>';
   }
 
-  /* ---------- Méthode ---------- */
+  /* ---------- Méthode : un pipeline qui se lance quand on arrive (js/methode.js) ---------- */
   function methode() {
-    var m = D.methode;
-    S.$('#methode .wrap').innerHTML = head(m.entete) + '<ol class="method" id="method"><li class="mline" aria-hidden="true"><i id="mline"></i></li>' + m.etapes.map(function (e, i) {
-      return '<li class="mstep"><span class="ghost" aria-hidden="true">' + (i + 1) + '</span><span class="mnum">0' + (i + 1) + '</span><h3>' + esc(e.titre) + '</h3><p>' + esc(e.texte) + '</p>' + chips(e.outils).replace('class="chips"', 'class="mtools"') + '<div class="mliv"><small>Livrable</small>' + esc(e.livrable) + '</div></li>';
-    }).join('') + '</ol>';
+    var m = D.methode, n = m.etapes.length;
+    S.$('#methode .wrap').innerHTML = head(m.entete) +
+      '<div class="run ok" id="run"><div class="run-tete"><span class="run-statut"><i aria-hidden="true"></i><b id="run-statut">Réussi</b></span><code>' + esc(m.fichier || 'methode.yml') + '</code><span class="run-meta">' + esc(m.declencheur || '') + '</span><span class="run-jobs-n">' + n + ' jobs</span></div>' +
+      '<div class="run-fil" aria-hidden="true"><i id="run-fil"></i></div>' +
+      '<ol class="jobs">' + m.etapes.map(function (e, i) {
+        return '<li class="job ok" data-i="' + i + '"><span class="job-etat" aria-hidden="true"></span><div class="job-carte"><span class="job-no">job ' + (i + 1) + ' / ' + n + '</span><h3>' + esc(e.titre) + '</h3><p>' + esc(e.texte) + '</p>' +
+          '<ul class="job-log">' + e.outils.map(function (o) { return '<li><i aria-hidden="true"></i>' + esc(o) + '</li>'; }).join('') + '</ul>' +
+          '<div class="job-art"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg><span><small>Artefact</small>' + esc(e.livrable) + '</span></div></div></li>';
+      }).join('') + '</ol></div>';
   }
 
   /* ---------- Projets ---------- */

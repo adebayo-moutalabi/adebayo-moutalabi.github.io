@@ -161,8 +161,6 @@ const llms = [
   '',
   '## Ce que je fais',
   '',
-  D.domaines.phrase.map(m => typeof m === 'string' ? m : (m.accent || '')).filter(Boolean).join(' ').replace(/ ,/g, ','),
-  '',
   ...D.domaines.liste.map(d => '- ' + d.titre + ' : ' + d.texte + ' (' + d.outils.join(', ') + ')'),
   '- Langues : ' + D.parcours.langues.map(l => l.nom + ' (' + l.niveau + ')').join(', '),
   '',
