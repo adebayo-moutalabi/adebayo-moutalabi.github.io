@@ -7,14 +7,16 @@
 1. Va sur https://search.google.com/search-console et connecte-toi avec ton compte Google.
 2. **Ajouter une propriété** → choisis **Préfixe de l'URL** (pas « Domaine » : sur `github.io` tu ne gères pas le DNS)
    → saisis `https://adebayo-moutalabi.github.io/` → **Continuer**.
-3. Validation : choisis **Balise HTML**. Google affiche une ligne comme
-   `<meta name="google-site-verification" content="AbCd…">`.
-   - Envoie-moi la valeur de `content` : je l'ajoute dans `index.html` par une pull request.
-     (Ce n'est pas un secret : elle est publique dans le code de la page.)
-   - Une fois la PR fusionnée et le déploiement terminé (onglet Actions vert), clique **Valider**.
+3. Validation : méthode **Fichier HTML**. Le fichier `google2f457726f419ac07.html` est à la racine du dépôt
+   (contenu exact : `google-site-verification: google2f457726f419ac07.html`).
+   - Une fois la PR fusionnée et le déploiement terminé (onglet Actions vert), vérifie que
+     https://adebayo-moutalabi.github.io/google2f457726f419ac07.html s'affiche, puis clique **Valider**.
+   - **Ne jamais supprimer ce fichier** : Google revérifie régulièrement. `scripts/verifier.js` fait échouer
+     la CI s'il disparaît. Il n'est volontairement pas dans le sitemap.
 4. Menu **Sitemaps** → saisis `sitemap.xml` → **Envoyer**. Le statut doit passer à « Opération réussie ».
 5. Menu **Inspection de l'URL** → colle `https://adebayo-moutalabi.github.io/` →
    **Tester l'URL en ligne** → vérifie la capture et le HTML → **Demander l'indexation**.
+   Recommence avec `https://adebayo-moutalabi.github.io/projets/nox/`.
 6. Quelques jours plus tard :
    - **Performances** : les recherches qui mènent au site (par ex. « Adebayo Moutalabi ») ;
    - **Pages** : la page doit être « Indexée » ;
@@ -24,6 +26,8 @@
 
 https://search.google.com/test/rich-results → URL du site → le test doit détecter **Page de profil**
 (ProfilePage avec la personne Adebayo Moutalabi, liens GitHub et LinkedIn).
+Pour la page Nox, utilise https://validator.schema.org (SoftwareApplication et fil d'Ariane) : Google n'affiche
+de résultat enrichi « logiciel » qu'avec des notes d'utilisateurs, que Nox n'a pas, mais les données restent lues.
 
 ## 3. Bing Webmaster Tools (important pour les moteurs IA)
 

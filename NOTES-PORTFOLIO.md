@@ -23,8 +23,14 @@ https://adebayo-moutalabi.github.io (dépôt `adebayo-moutalabi/adebayo-moutalab
 ## Décisions de contenu (12/11/2026)
 
 - Stage Le Casier Français (janv.–juin 2027) : **pas affiché pour l'instant**.
-- Projets : seules les réalisations en ligne et vérifiables. Aujourd'hui : **ExpoIA** et **ce portfolio**
-  (pipeline CI/CD public). Retirés : Sock Shop, n8n auto-hébergé, BoursIA, AWS hybride, VirtuStage, LogiScout,
+- Projets : seules les réalisations en ligne et vérifiables. Aujourd'hui, dans l'ordre : **Nox** (réalisation
+  principale, page dédiée `/projets/nox/`), **ExpoIA** et **ce portfolio** (pipeline CI/CD public).
+- Nox : fiche écrite uniquement à partir du dépôt `adebayo-moutalabi/nox` (README, CHANGELOG, docs) et de
+  get-nox.github.io. Points à garder en tête : le README cite le modèle `gpt-realtime-2.1` pour la voix ; le nombre
+  de tests diffère selon les documents (26 dans le README, 52 dans docs/SUBMISSION.md), donc le site dit seulement
+  « tests de bout en bout automatisés » ; version 1.4.0 d'après package.json et CHANGELOG ; aucun résultat du
+  hackathon n'est affiché (non documenté).
+- Retirés : Sock Shop, n8n auto-hébergé, BoursIA, AWS hybride, VirtuStage, LogiScout,
   gRPC, multi-VLAN, Continental IT, StageBenin. Adebayo va construire de nouveaux projets de zéro.
 - Recherche affichée : alternance M2 à partir de septembre 2027, mobile partout en France.
 - Écran de chargement : une fois par visite (onglet).
@@ -40,21 +46,27 @@ Fait sur la branche (pull request à valider) :
 - Accessibilité : lien « Aller au contenu », titres dans le bon ordre, HTML valide.
 - CI : 4 contrôles (cohérence + contenu généré, html-validate, lychee, Lighthouse CI) avant déploiement.
 - Lighthouse en local : performance 99, accessibilité 100, bonnes pratiques 100, SEO 100.
-- Profil GitHub : README prêt dans `docs/github/`, consignes manuelles dans `docs/github/A-FAIRE-SUR-GITHUB.md`.
-- Search Console : procédure dans `docs/SEARCH-CONSOLE.md`.
+- Profil GitHub : README de profil, bio, lien LinkedIn et épingle du portfolio **faits par Adebayo**.
+  Reste : épingler `nox`, description/topics des dépôts (voir `docs/github/A-FAIRE-SUR-GITHUB.md`).
+- Search Console : fichier de vérification `google2f457726f419ac07.html` à la racine (**ne jamais le supprimer**,
+  hors sitemap, contrôlé par `scripts/verifier.js`). Procédure dans `docs/SEARCH-CONSOLE.md`.
+- Page projet générée : `projets/nox/index.html` (JSON-LD WebPage + SoftwareApplication + fil d'Ariane),
+  ajoutée au sitemap, à llms.txt, au JSON-LD de l'accueil et aux contrôles CI (html-validate, lychee, Lighthouse).
+- Lighthouse local : accueil 99/100/100/100, page Nox 100/100/100/100.
 
 ## Prochaines étapes
 
-1. Adebayo relit l'aperçu et la pull request, puis fusionne.
-2. Search Console : envoyer la valeur `google-site-verification` pour l'ajouter dans `index.html`.
-3. Créer le dépôt `adebayo-moutalabi/adebayo-moutalabi` → pousser le README de profil.
-4. Bio, épingles, description et topics à faire à la main sur github.com.
-5. Nouveaux projets : chaque projet aura une fiche (problème, stack, résultat, lien) ; avec plusieurs projets,
-   envisager une page par projet (`/projets/<id>/`) pour le référencement, et remettre `filtres: true`.
-6. Plus tard : ajouter le stage Le Casier Français quand Adebayo le décidera.
+1. Adebayo relit l'aperçu et la pull request #1, puis fusionne.
+2. Après déploiement : Search Console → valider avec le fichier HTML, envoyer le sitemap, inspecter `/` et `/projets/nox/`.
+3. À la main sur github.com : épingler `nox`, descriptions et topics (portfolio et nox), ajouter Nox au README de profil.
+4. Nouveaux projets : chaque projet aura une fiche (problème, stack, résultat, lien) ; avec plusieurs projets,
+   lui donner une page (`page: "projets/<id>/"`, comme Nox) pour le référencement, et remettre `filtres: true`.
+5. Plus tard : ajouter le stage Le Casier Français quand Adebayo le décidera.
 
 ## Journal
 
 - 12/11/2026 : audit, création de ce fichier.
 - 12/11/2026 : décisions sur le stage et les projets.
-- 12/11/2026 : missions 2 (SEO/GEO), 3 (GitHub, préparé) et 4 (CI) réalisées sur la branche.
+- 12/11/2026 : missions 2 (SEO/GEO), 3 (GitHub, préparé) et 4 (CI) réalisées sur la branche ; PR #1 ouverte, CI verte.
+- 12/11/2026 : profil GitHub fait par Adebayo ; ajout du fichier Google Search Console ; Nox en réalisation
+  principale avec page `/projets/nox/`.

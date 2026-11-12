@@ -67,8 +67,11 @@ portfolio-adebayo/
 │   ├── photo.webp          ← ta photo (carrée, 640 px conseillé)
 │   ├── partage.png         ← image d'aperçu lors d'un partage (1200 × 630)
 │   ├── favicon.svg         ← icône de l'onglet
+│   ├── projets/            ← captures et images de partage des projets
 │   └── atom.svg            ← dessin de la mascotte
 ├── robots.txt, sitemap.xml, llms.txt   ← référencement (voir §3)
+├── projets/nox/index.html  ← page du projet Nox (générée)
+├── google2f457726f419ac07.html   ← vérification Google, ne pas supprimer
 ├── scripts/
 │   ├── generer.js          ← écrit le HTML statique, le JSON-LD et llms.txt
 │   ├── verifier.js         ← contrôles de cohérence (CI)
@@ -105,8 +108,10 @@ Si vous oubliez de lancer le script, la CI échoue avec le message « index.html
 |---|---|---|
 | `index.html` (`<head>`) | Titre, description, Open Graph (aperçu de partage), URL canonique | À la main |
 | `assets/partage.png` | Image d'aperçu 1200 × 630 | `node outils/generer-image-partage.js` (modèle : `outils/image-partage.html`) |
-| `robots.txt`, `sitemap.xml` | Autoriser les robots, lister les pages | À la main |
-| `llms.txt`, JSON-LD | Résumé pour les moteurs IA, fiche Google | `node scripts/generer.js` |
+| `robots.txt` | Autoriser les robots | À la main |
+| `sitemap.xml`, `llms.txt`, JSON-LD | Liste des pages, résumé pour les moteurs IA, fiche Google | `node scripts/generer.js` |
+| `projets/<id>/index.html` | Page dédiée d'un projet (URL propre, ex. `/projets/nox/`) | `node scripts/generer.js`, pour chaque projet qui a un champ `page` |
+| `google2f457726f419ac07.html` | Vérification Google Search Console | **Ne pas supprimer** |
 
 ---
 
@@ -152,7 +157,7 @@ Options : `fusion: true` pour une étape où formation et expérience se rejoign
 `sceau` est le court texte qui tourne autour du médaillon.
 
 ### Ajouter, modifier ou retirer un projet
-`js/data/projets.js`, liste `liste` : copiez un bloc, changez `id` (unique, sans espace), `categorie` (`cloud`, `ia` ou `web`), les textes, `probleme`, `points` et `resultat`. Écrivez des phrases **factuelles et vérifiables** (problème, stack, résultat avec un lien) : ce sont elles que Google et les moteurs IA citent. Avec plusieurs projets, remettez `filtres: true` pour afficher les boutons de filtre. Le champ `vignette` choisit le dessin (voir `vignettes.js`). `outils` doit contenir des noms **exactement identiques** à ceux de `competences.js` : c'est ce qui relie le projet à la stack. Pour retirer : supprimez le bloc.
+`js/data/projets.js`, liste `liste` : copiez un bloc, changez `id` (unique, sans espace), `categorie` (`cloud`, `ia` ou `web`), les textes, `probleme`, `points` et `resultat`. Écrivez des phrases **factuelles et vérifiables** (problème, stack, résultat avec un lien) : ce sont elles que Google et les moteurs IA citent. Avec plusieurs projets, remettez `filtres: true` pour afficher les boutons de filtre. Pour donner une page dédiée à un projet, ajoutez `page: "projets/<id>/"` (plus `image`, `imageAlt`, `partage`) : `node scripts/generer.js` crée la page et l'ajoute au sitemap, à `llms.txt` et aux données Google. Ajoutez alors aussi l'URL dans `lighthouserc.json` (`collect.url`). Le champ `vignette` choisit le dessin (voir `vignettes.js`). `outils` doit contenir des noms **exactement identiques** à ceux de `competences.js` : c'est ce qui relie le projet à la stack. Pour retirer : supprimez le bloc.
 Pour une nouvelle catégorie de filtre : ajoutez-la dans `categories` du même fichier.
 
 ### Ajouter ou retirer une compétence
