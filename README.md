@@ -65,13 +65,48 @@ portfolio-adebayo/
 │   ├── utils.js, main.js   ← outils partagés et démarrage
 ├── assets/
 │   ├── photo.webp          ← ta photo (carrée, 640 px conseillé)
-│   └── atom.svg             ← dessin de la mascotte
-├── docs/ATOM-persona.md     ← fiche persona de la mascotte
-├── outils/construire_fichier_unique.py   ← fabrique un fichier HTML unique
+│   ├── partage.png         ← image d'aperçu lors d'un partage (1200 × 630)
+│   ├── favicon.svg         ← icône de l'onglet
+│   └── atom.svg            ← dessin de la mascotte
+├── robots.txt, sitemap.xml, llms.txt   ← référencement (voir §3)
+├── scripts/
+│   ├── generer.js          ← écrit le HTML statique, le JSON-LD et llms.txt
+│   ├── verifier.js         ← contrôles de cohérence (CI)
+│   └── construire.sh       ← prépare le dossier publié _site (CI)
+├── .github/workflows/deploy.yml   ← pipeline CI/CD (voir §5)
+├── .htmlvalidate.json, lychee.toml, lighthouserc.json   ← réglages des contrôles
+├── docs/
+│   ├── ATOM-persona.md     ← fiche persona de la mascotte
+│   ├── SEARCH-CONSOLE.md   ← étapes Google Search Console, Bing, LinkedIn
+│   └── github/             ← README de profil GitHub et réglages à faire à la main
+├── outils/
+│   ├── construire_fichier_unique.py   ← fabrique un fichier HTML unique
+│   └── generer-image-partage.js       ← fabrique assets/partage.png
 └── dist/                   ← sortie du fichier unique (créé par le script)
 ```
 
-**Règle d'or : pour changer du contenu, ouvrez un fichier de `js/data/`.** Vous n'avez pas besoin de toucher aux autres.
+**Règle d'or : pour changer du contenu, ouvrez un fichier de `js/data/`, puis lancez `node scripts/generer.js`.** Vous n'avez pas besoin de toucher aux autres.
+
+### Pourquoi `node scripts/generer.js` ?
+
+Le site est construit par JavaScript à partir de `js/data/`. Or les moteurs IA (ChatGPT, Perplexity…) et une partie
+des robots ne lisent pas le JavaScript : sans précaution, ils verraient une page vide.
+`scripts/generer.js` exécute le même code de rendu (`js/render.js`) et écrit le résultat **directement dans `index.html`**
+(entre les repères `<!-- genere:… -->`), ainsi que :
+- les **données structurées JSON-LD** (fiche « Person » lue par Google) dans le `<head>` ;
+- **`llms.txt`**, un résumé factuel du profil destiné aux moteurs IA.
+
+Au chargement, le JavaScript remplace ce HTML par la version animée, avec le même contenu.
+Si vous oubliez de lancer le script, la CI échoue avec le message « index.html n'est pas à jour ».
+
+### Fichiers de référencement
+
+| Fichier | Rôle | Modifié par |
+|---|---|---|
+| `index.html` (`<head>`) | Titre, description, Open Graph (aperçu de partage), URL canonique | À la main |
+| `assets/partage.png` | Image d'aperçu 1200 × 630 | `node outils/generer-image-partage.js` (modèle : `outils/image-partage.html`) |
+| `robots.txt`, `sitemap.xml` | Autoriser les robots, lister les pages | À la main |
+| `llms.txt`, JSON-LD | Résumé pour les moteurs IA, fiche Google | `node scripts/generer.js` |
 
 ---
 
@@ -117,7 +152,7 @@ Options : `fusion: true` pour une étape où formation et expérience se rejoign
 `sceau` est le court texte qui tourne autour du médaillon.
 
 ### Ajouter, modifier ou retirer un projet
-`js/data/projets.js`, liste `liste` : copiez un bloc, changez `id` (unique, sans espace), `categorie` (`cloud`, `ia` ou `web`), les textes et `points`. Le champ `vignette` choisit le dessin (voir `vignettes.js`). `outils` doit contenir des noms **exactement identiques** à ceux de `competences.js` : c'est ce qui relie le projet à la stack. Pour retirer : supprimez le bloc.
+`js/data/projets.js`, liste `liste` : copiez un bloc, changez `id` (unique, sans espace), `categorie` (`cloud`, `ia` ou `web`), les textes, `probleme`, `points` et `resultat`. Écrivez des phrases **factuelles et vérifiables** (problème, stack, résultat avec un lien) : ce sont elles que Google et les moteurs IA citent. Avec plusieurs projets, remettez `filtres: true` pour afficher les boutons de filtre. Le champ `vignette` choisit le dessin (voir `vignettes.js`). `outils` doit contenir des noms **exactement identiques** à ceux de `competences.js` : c'est ce qui relie le projet à la stack. Pour retirer : supprimez le bloc.
 Pour une nouvelle catégorie de filtre : ajoutez-la dans `categories` du même fichier.
 
 ### Ajouter ou retirer une compétence
@@ -148,15 +183,33 @@ Pour une nouvelle catégorie de filtre : ajoutez-la dans `categories` du même f
 
 ---
 
-## 5. Publier le site en ligne
+## 5. Publier le site en ligne : le pipeline CI/CD
 
-Le dossier entier est un site statique : déposez-le tel quel chez un hébergeur gratuit.
-- **Netlify Drop** (<https://app.netlify.com/drop>) : glissez-déposez le dossier, le site est en ligne en 30 secondes.
-- **GitHub Pages**, **Cloudflare Pages**, **Vercel** : créez un dépôt avec ces fichiers, activez la publication.
-- Ou construisez **un seul fichier** : `python3 outils/construire_fichier_unique.py` crée `dist/portfolio-fichier-unique.html` (CSS, JS et photo inclus), pratique à envoyer ou à héberger seul.
+Le site est publié sur <https://adebayo-moutalabi.github.io> par **GitHub Actions** (`.github/workflows/deploy.yml`).
 
-Après un changement de contenu : refaire la même opération (ré-envoyer le dossier ou le fichier unique).
-Pensez à vérifier avec `?debug` avant de publier.
+**Le chemin d'une modification :**
+1. Travailler sur une **branche** (`git switch -c ma-modif`), commiter, pousser (`git push -u origin ma-modif`).
+2. Ouvrir une **pull request** vers `main` : la CI lance 4 contrôles en parallèle.
+3. Si tout est vert, **fusionner** la pull request : la CI relance les contrôles sur `main`, puis **déploie**.
+
+| Contrôle | Outil | Ce qui le fait échouer | Réglages |
+|---|---|---|---|
+| Cohérence | `node scripts/verifier.js` + `node scripts/generer.js --verifier` | Erreur JS, fichier manquant, outil inconnu, `index.html` pas régénéré | les scripts |
+| HTML | [html-validate](https://html-validate.org) | HTML invalide (balise mal placée, `&` non encodé…) | `.htmlvalidate.json` |
+| Liens | [lychee](https://lychee.cli.rs) | Lien externe cassé | `lychee.toml` |
+| Lighthouse | [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci) | Accessibilité < 95, SEO < 95, bonnes pratiques < 90 (performance < 90 = simple avertissement) | `lighthouserc.json` |
+
+Le rapport Lighthouse complet est publié sur un lien temporaire, affiché dans le journal de l'étape « Audit Lighthouse » (onglet **Actions** du dépôt).
+
+**Lancer les contrôles chez soi (Node.js requis) :**
+```
+node scripts/verifier.js
+node scripts/generer.js --verifier
+npx html-validate@11.21.0 index.html
+bash scripts/construire.sh && npx @lhci/cli@0.16.1 autorun
+```
+
+Autre option : construire **un seul fichier** avec `python3 outils/construire_fichier_unique.py` (crée `dist/portfolio-fichier-unique.html`, CSS, JS et photo inclus), pratique à envoyer.
 
 ---
 

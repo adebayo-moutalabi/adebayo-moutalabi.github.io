@@ -6,50 +6,55 @@ https://adebayo-moutalabi.github.io (dépôt `adebayo-moutalabi/adebayo-moutalab
 ## Règles de travail
 
 - On travaille sur une branche (`claude/portfolio-seo-audit-ct0caq` pour l'instant), puis pull request.
-- Rien n'est poussé sur `main` sans l'accord d'Adebayo (le push sur `main` déclenche le déploiement).
-- Aperçu (capture ou page) avant chaque publication.
+- Rien n'est fusionné dans `main` sans l'accord d'Adebayo (la fusion dans `main` déclenche le déploiement).
+- Aperçu (captures) avant chaque publication.
+- Après toute modification de `js/data/` : `node scripts/generer.js` (sinon la CI échoue).
 
 ## Positionnement (décidé le 12/11/2026)
 
+- Titre : « Adebayo Moutalabi · Ingénieur Cloud, DevOps & IA ».
 - Cloud & DevOps **et** IA : agents IA et automatisations qui répondent à des besoins métier.
 - Titre et accroche : jamais « étudiant ».
 - Ne plus mettre en avant le « pont Europe-Afrique francophone ».
 - Jamais présenté comme YouTubeur ou créateur de contenu.
+- Le surnom « Rekj » n'est pas utilisé sur le site (à décider si on veut l'ajouter dans les données Google).
 - LinkedIn : https://www.linkedin.com/in/adebayo-moutalabi/ ; GitHub : https://github.com/adebayo-moutalabi
-
-## État actuel (audit du 12/11/2026)
-
-- Site statique (HTML/CSS/JS sans framework), contenu dans `js/data/*.js`, rendu par `js/render.js`.
-- Déploiement : `.github/workflows/deploy.yml` (vérification `node scripts/verifier.js`, puis GitHub Pages depuis `main`).
-- Sans JavaScript, la page ne contient que 52 caractères de texte : aucun titre, aucun projet. C'est le
-  problème SEO/GEO principal.
-- Pas de robots.txt, sitemap.xml, llms.txt (404), pas d'Open Graph, pas de JSON-LD, pas de favicon, pas d'URL canonique.
-- Aucun lien vers GitHub sur le site.
-- Contenu manquant : stage Le Casier Français (janv.–juin 2027), projet Nox.
-- Écran de chargement de 3 s à chaque rechargement (`mascotte.js`, `uneFoisParSession: false`).
-
-## Missions
-
-1. Audit : fait (voir ci-dessus).
-2. SEO/GEO : en attente des réponses sur le contenu.
-3. GitHub (README de profil, bio, épingles, topics) : à faire.
-4. CI : validation HTML, liens cassés, Lighthouse : à faire.
 
 ## Décisions de contenu (12/11/2026)
 
-- Stage Le Casier Français : **pas affiché pour l'instant**.
-- Projets : on n'en met plus en avant pour l'instant. Adebayo va construire de nouveaux projets
-  de zéro ; le site ne montrera que les plus solides et pertinents pour sa carrière (Cloud, DevOps, IA).
-- Conséquence : pas de pages par projet pour l'instant ; elles viendront avec les nouveaux projets.
+- Stage Le Casier Français (janv.–juin 2027) : **pas affiché pour l'instant**.
+- Projets : seules les réalisations en ligne et vérifiables. Aujourd'hui : **ExpoIA** et **ce portfolio**
+  (pipeline CI/CD public). Retirés : Sock Shop, n8n auto-hébergé, BoursIA, AWS hybride, VirtuStage, LogiScout,
+  gRPC, multi-VLAN, Continental IT, StageBenin. Adebayo va construire de nouveaux projets de zéro.
+- Recherche affichée : alternance M2 à partir de septembre 2027, mobile partout en France.
+- Écran de chargement : une fois par visite (onglet).
+- Stack : ajout de GitHub Actions et API LLM ; retrait de Render, Laravel, WordPress, Flutter (hors positionnement).
+- Les entrées du parcours sont inchangées.
 
-## Questions ouvertes
+## État (12/11/2026, branche `claude/portfolio-seo-audit-ct0caq`)
 
-- Accroche / titre (proposition : « Adebayo Moutalabi, ingénieur Cloud, DevOps & IA »).
-- Section projets : la masquer entièrement ou garder 2-3 réalisations solides ?
-- Écran de chargement : une fois par visite ou supprimé ?
-- Alternance M2 : rythme et date de début.
+Fait sur la branche (pull request à valider) :
+- SEO/GEO : contenu lisible sans JS (10 400 caractères au lieu de 52), h1 avec nom + métier, title et
+  description, Open Graph + image de partage, JSON-LD ProfilePage/Person, robots.txt, sitemap.xml, llms.txt,
+  favicon, URL canonique, liens GitHub et LinkedIn (rel="me").
+- Accessibilité : lien « Aller au contenu », titres dans le bon ordre, HTML valide.
+- CI : 4 contrôles (cohérence + contenu généré, html-validate, lychee, Lighthouse CI) avant déploiement.
+- Lighthouse en local : performance 99, accessibilité 100, bonnes pratiques 100, SEO 100.
+- Profil GitHub : README prêt dans `docs/github/`, consignes manuelles dans `docs/github/A-FAIRE-SUR-GITHUB.md`.
+- Search Console : procédure dans `docs/SEARCH-CONSOLE.md`.
+
+## Prochaines étapes
+
+1. Adebayo relit l'aperçu et la pull request, puis fusionne.
+2. Search Console : envoyer la valeur `google-site-verification` pour l'ajouter dans `index.html`.
+3. Créer le dépôt `adebayo-moutalabi/adebayo-moutalabi` → pousser le README de profil.
+4. Bio, épingles, description et topics à faire à la main sur github.com.
+5. Nouveaux projets : chaque projet aura une fiche (problème, stack, résultat, lien) ; avec plusieurs projets,
+   envisager une page par projet (`/projets/<id>/`) pour le référencement, et remettre `filtres: true`.
+6. Plus tard : ajouter le stage Le Casier Français quand Adebayo le décidera.
 
 ## Journal
 
 - 12/11/2026 : audit, création de ce fichier.
-- 12/11/2026 : décisions sur le stage et les projets (voir ci-dessus).
+- 12/11/2026 : décisions sur le stage et les projets.
+- 12/11/2026 : missions 2 (SEO/GEO), 3 (GitHub, préparé) et 4 (CI) réalisées sur la branche.
