@@ -8,6 +8,12 @@ Site.data.profil = {
   prenom: "Adebayo",
   nomFamille: "Moutalabi",
   nomComplet: "Adebayo Habib Moutalabi",
+  /* Métier : affiché dans le titre principal (h1), le titre de l'onglet et les données pour Google */
+  metier: "Ingénieur Cloud, DevOps & IA",
+  /* Liens publics (repris dans le contact, le pied de page, les données pour Google et llms.txt) */
+  site: "https://adebayo-moutalabi.github.io/",
+  github: "https://github.com/adebayo-moutalabi",
+  linkedin: "https://www.linkedin.com/in/adebayo-moutalabi/",
   annee: 2026,
   ville: "Rennes, France",
 
@@ -17,11 +23,11 @@ Site.data.profil = {
 
   /* Ouverture (l'écran avec la photo qui s'agrandit au défilement) */
   accroche: {
-    sur: "Cloud & DevOps · Agents IA & automatisation",
+    sur: "Cloud, DevOps & IA",
     titre: "Fini les déploiements manuels.",
     accent: "Place à vos pipelines et à vos agents IA.",
     texte: "Je construis des infrastructures fiables, puis j'automatise ce qui fait perdre du temps aux équipes.",
-    pied: "Cloud & DevOps · Agents IA · basé à Rennes",
+    pied: "Ingénieur Cloud, DevOps & IA · Rennes",
     defiler: "Faites défiler"
   },
 

@@ -14,16 +14,16 @@ Site.data.visiteurs = {
       texte: "Parcours, formations et compétences, l'essentiel pour évaluer un profil.",
       message: "Parfait. Direction le parcours : expériences, formations et distinctions.",
       cible: "#parcours",
-      contactTitre: "Un poste en Cloud & DevOps ?",
+      contactTitre: "Une alternance en Cloud, DevOps & IA ?",
       contactAccent: "Échangeons."
     },
     {
       id: "pro",
       etiquette: "Client",
       titre: "J'ai un projet",
-      texte: "Pipelines, agents IA, sites : ce que je peux construire pour vous.",
-      message: "Très bien. Voici les projets, filtrés sur ce que je peux livrer.",
-      cible: "#projets",
+      texte: "Pipelines, agents IA, automatisations : comment je construis une solution.",
+      message: "Très bien. Voici ma méthode, du besoin réel au déploiement.",
+      cible: "#methode",
       contactTitre: "Une tâche à automatiser ?",
       contactAccent: "Parlons-en."
     },

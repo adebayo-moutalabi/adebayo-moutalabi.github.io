@@ -14,13 +14,13 @@ Site.data.labo = {
     texte: "Avec l'autoscaling horizontal (HPA), Kubernetes ajoute ou retire des copies de votre application selon la charge. Faites glisser le curseur.",
     outils: ["Docker", "Kubernetes", "RBAC", "HPA", "Prometheus"],
     libelleCharge: "Charge CPU moyenne", libelleCible: "Cible : 60 % de CPU par pod",
-    note: "Simulation pédagogique, inspirée du déploiement Sock Shop."
+    note: "Simulation pédagogique de l'autoscaling horizontal (HPA)."
   },
 
   ci: {
     onglet: "CI/CD", etiquette: "Intégration & déploiement continus", titre: "Un commit,", accent: "et c'est en ligne.",
     texte: "Chaque modification est testée, empaquetée puis déployée automatiquement. Lancez le pipeline pour voir les étapes s'enchaîner.",
-    outils: ["GitLab CI/CD", "Docker", "Registry", "Kubernetes"],
+    outils: ["GitLab CI/CD", "GitHub Actions", "Docker", "Registry", "Kubernetes"],
     bouton: "Lancer git push", boutonEnCours: "Pipeline en cours…", boutonRelancer: "Relancer",
     messageFin: "Déployé en production, sans intervention manuelle",
     etapes: [
@@ -41,11 +41,11 @@ Site.data.labo = {
     questions: [
       {
         question: "Que sais-tu faire ?",
-        reponse: "Adebayo travaille d'abord en <b>Cloud & DevOps</b> : Docker, Kubernetes, pipelines GitLab CI/CD, AWS et supervision Prometheus/Grafana. Il conçoit ensuite des agents IA et des automatisations n8n pour des besoins métier précis."
+        reponse: "Adebayo travaille d'abord en <b>Cloud &amp; DevOps</b> : Linux, Docker, Kubernetes, pipelines GitLab CI/CD et GitHub Actions, AWS et supervision Prometheus/Grafana. Il conçoit aussi des <b>agents IA</b> et des automatisations (n8n, API de LLM, RAG) qui répondent à des besoins métier précis."
       },
       {
-        question: "Ton projet le plus solide ?",
-        reponse: "Côté infra, le déploiement de <b>Sock Shop</b> sur Kubernetes, avec RBAC et autoscaling. Côté web, le site <b>ExpoIA</b> du Musée des Transmissions, où il a coordonné la technique et créé le jeu Floriale."
+        question: "Ta réalisation phare ?",
+        reponse: "Le site <b>ExpoIA</b> du Musée des Transmissions (projet France 2030 / ANR) : coordination technique, Next.js et Payload CMS, et le jeu Floriale. Ce portfolio est aussi vérifié et déployé par un pipeline <b>GitHub Actions</b>. D'autres projets Cloud, DevOps et IA sont en préparation."
       },
       {
         question: "Comment travailles-tu ?",
@@ -53,7 +53,7 @@ Site.data.labo = {
       },
       {
         question: "Quelle formation ?",
-        reponse: "Master 1 <b>Cloud & Réseaux</b> à l'ISTIC (Université de Rennes), après une Licence 3 Informatique à l'ISTIC et une Licence Informatique de gestion à l'ENEAM (Université d'Abomey-Calavi)."
+        reponse: "Master 1 <b>Cloud &amp; Réseaux</b> à l'ISTIC (Université de Rennes), après une Licence 3 Informatique à l'ISTIC et une Licence Informatique de gestion à l'ENEAM (Université d'Abomey-Calavi)."
       },
       {
         question: "Comment te contacter ?",
@@ -64,7 +64,7 @@ Site.data.labo = {
 
   aws: {
     onglet: "Cloud AWS", etiquette: "Cloud AWS", titre: "Une architecture", accent: "couche par couche.",
-    texte: "Activez les briques une à une pour construire une architecture hybride, comme dans mon projet reliant un environnement local à AWS.",
+    texte: "Activez les briques une à une pour construire une architecture hybride : un environnement local relié à AWS.",
     outils: ["VPC", "EC2", "S3", "IAM", "Terraform"],
     messageComplet: "Architecture complète. Chaque brique est en place et sécurisée.",
     messageFin: "Architecture hybride prête",
