@@ -1,7 +1,7 @@
 /* Pages de projet (projets/<id>/index.html, générées par scripts/generer.js).
    Les couleurs et polices viennent de base.css (variables :root). */
 body.page-projet { padding-bottom: 0; }
-.pp-top { padding-top: 22px; display: grid; gap: 14px; }
+.pp-top { position: sticky; top: 0; z-index: 20; padding-top: 12px; padding-bottom: 12px; background: color-mix(in srgb, var(--ground) 86%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--hair); }
 .pp-top > .wrap { width: 100%; }
 .pp-marque { display: flex; }
 .pp-logo { display: inline-flex; }
@@ -60,3 +60,27 @@ body.page-projet { padding-bottom: 0; }
   .pc-apercu { display: none; }
 }
 @media (hover: none) { .pc-apercu { display: none; } }
+
+/* ===== Barre de navigation (pages de projet et « Tous les projets ») ===== */
+.pp-barre { display: flex; align-items: center; gap: 18px; }
+.pp-menu { display: flex; gap: 4px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+.pp-menu::-webkit-scrollbar { display: none; }
+.pp-menu a { flex: none; display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; font-size: 14.5px; color: var(--ink-muted); transition: background .25s, color .25s; }
+.pp-menu a:hover { color: var(--ink); background: var(--surface); }
+.pp-menu a[aria-current] { color: var(--ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--hair); }
+.pp-ecrire { flex: none; min-height: 40px; }
+main > .pp-nav { padding-top: 22px; }
+.pp-suite { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: stretch; padding-bottom: 64px; }
+.pp-suite a { display: grid; gap: 4px; align-content: center; padding: 20px 24px; border-radius: 22px; border: 1px solid var(--hair); background: var(--surface); transition: border-color .3s, transform .3s; }
+.pp-suite a:hover { border-color: var(--gold); transform: translateY(-2px); }
+.pp-suite small { font-size: 13px; color: var(--ink-muted); }
+.pp-suite b { font-family: var(--display); font-weight: 400; font-size: 24px; }
+.pp-ap { text-align: right; }
+.pp-tous { place-items: center; font-weight: 500; font-size: 15px; }
+@media (max-width: 760px) {
+  .pp-barre { flex-wrap: wrap; gap: 8px 12px; }
+  .pp-menu { order: 3; width: 100%; margin-left: -10px; }
+  .pp-ecrire { margin-left: auto; }
+  .pp-suite { grid-template-columns: 1fr 1fr; }
+  .pp-tous { grid-column: 1 / -1; grid-row: 2; min-height: 52px; }
+}

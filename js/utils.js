@@ -34,5 +34,6 @@
     var L = (S.data && S.data.logos) || {}, f = L[nom] || L[String(nom).replace(/ \d+(\.\d+)*$/, '')];
     return f ? '<span class="ico" aria-hidden="true"><img src="' + (racine || '') + 'assets/outils/' + f + '.svg" alt="" width="14" height="14" loading="lazy"></span>' : '';
   };
-  S.chips = function (arr) { return '<div class="chips">' + arr.map(function (t) { return '<span class="chip">' + S.icone(t) + S.esc(t) + '</span>'; }).join('') + '</div>'; };
+  /* Pastilles ; logos = true pour afficher le logo de l'outil (cartes de projets uniquement) */
+  S.chips = function (arr, logos) { return '<div class="chips">' + arr.map(function (t) { return '<span class="chip">' + (logos ? S.icone(t) : '') + S.esc(t) + '</span>'; }).join('') + '</div>'; };
 })(window.Site = window.Site || { data: {} });

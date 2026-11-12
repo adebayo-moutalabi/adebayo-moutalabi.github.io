@@ -15,33 +15,38 @@
     S.$('#foot').innerHTML = '<p class="tag">' + esc(a.pied) + '</p><span class="hint"><i></i>' + esc(a.defiler) + '</span>';
   }
 
-  /* ---------- Ce que je fais : trois domaines ---------- */
+  /* ---------- Ce que je fais : une phrase, puis trois panneaux reliés par un fil (js/domaines.js) ---------- */
   function domaines() {
     var Dm = D.domaines, ART = D.vignettes;
-    S.$('#domaines .wrap').innerHTML = head(Dm.entete) + '<div class="doms">' + Dm.liste.map(function (d, i) {
-      return '<article class="dom' + (d.ia ? ' ia' : '') + '" id="domaine-' + esc(d.id) + '"><div class="dom-vis" aria-hidden="true"><span class="dom-no">0' + (i + 1) + '</span>' + (ART[d.vignette] || '') + '</div>' +
-        '<h3>' + esc(d.titre) + '</h3><p>' + esc(d.texte) + '</p>' + chips(d.outils) +
-        (d.exemple ? '<a class="dom-ex" href="' + esc(d.exemple.url) + '">' + esc(d.exemple.texte) + ' →</a>' : '') + '</article>';
-    }).join('') + '</div>';
+    var phrase = Dm.phrase.map(function (m) {
+      if (typeof m === 'string') return esc(m);
+      if (m.accent) return '<span class="it">' + esc(m.accent) + '</span>';
+      return '<span class="ph-logos" aria-hidden="true">' + m.logos.map(function (n) { return S.icone(n).replace('width="14" height="14"', 'width="30" height="30"'); }).join('') + '</span>';
+    }).join(' ').replace(/ ,/g, ',');
+    S.$('#domaines .wrap').innerHTML = '<div class="head ph-head"><span class="caps">' + esc(Dm.etiquette) + '</span><h2 class="ph">' + phrase + '</h2></div>' +
+      '<p class="fil-titre">' + esc(Dm.fil) + '</p>' +
+      '<div class="fil" id="fil"><div class="fil-ligne" aria-hidden="true"><i id="fil-point"></i></div>' + Dm.liste.map(function (d, i) {
+        return '<article class="dom' + (d.ia ? ' ia' : '') + (i === 0 ? ' on' : '') + '" id="domaine-' + esc(d.id) + '" data-i="' + i + '">' +
+          '<div class="dom-art" aria-hidden="true">' + (ART[d.vignette] || '') + '</div>' +
+          '<h3><button type="button" class="dom-btn" aria-expanded="' + (i === 0) + '" aria-controls="dom-c-' + esc(d.id) + '"><span class="dom-no">0' + (i + 1) + '</span><span class="dom-t">' + esc(d.titre) + '</span></button></h3>' +
+          '<div class="dom-c" id="dom-c-' + esc(d.id) + '"><p>' + esc(d.texte) + '</p>' + chips(d.outils) +
+          (d.exemple ? '<a class="dom-ex" href="' + esc(d.exemple.url) + '">' + esc(d.exemple.texte) + ' →</a>' : '') + '</div></article>';
+      }).join('') + '</div>';
   }
 
-  /* ---------- Compétences : la stack en grille « bento », avec un filtre par réalisation ----------
-     Point doré = outil utilisé dans une réalisation en ligne ; le filtre allume les outils d'un projet. */
+  /* ---------- Compétences : « boîte à outils » (moteur physique dans js/competences.js) ----------
+     La liste complète (familles, outils, rôles) reste dans la page, repliée, pour la lecture et le référencement. */
   function competences() {
-    var C = D.competences, PRJ = D.projets.liste;
-    var filtre = '<div class="stack-filtre" role="group" aria-label="Voir les outils d\'une réalisation"><span class="caps">Utilisés dans</span>' +
-      '<button type="button" data-p="" aria-pressed="true">Tout</button>' +
-      PRJ.filter(function (p) { return (p.outils || []).length; }).map(function (p) { return '<button type="button" data-p="' + esc(p.id) + '" aria-pressed="false">' + esc(p.nomCourt) + '</button>'; }).join('') + '</div>';
-    var cartes = C.familles.map(function (f, i) {
-      var outils = C.outils.filter(function (o) { return o.famille === f.id; });
-      return '<article class="sk' + (f.ia ? ' ia' : '') + '" data-f="' + esc(f.id) + '"><div class="sk-tete"><span class="sk-no">0' + (i + 1) + '</span><span class="sk-ct">' + outils.length + ' outils</span></div>' +
-        '<h3>' + esc(f.nom) + '</h3><p>' + esc(f.resume) + '</p><ul class="sk-outils">' + outils.map(function (o) {
-          var usages = PRJ.filter(function (p) { return (p.outils || []).indexOf(o.nom) > -1; }).map(function (p) { return p.id; });
-          return '<li class="sk-o' + (usages.length ? ' utilise' : '') + '" data-p="' + esc(usages.join(' ')) + '" title="' + esc(o.role) + '">' + S.icone(o.nom) + '<span>' + esc(o.nom) + '</span><small>' + esc(o.role) + '</small></li>';
-        }).join('') + '</ul></article>';
-    }).join('');
-    S.$('#competences .wrap').innerHTML = head(C.entete) + filtre + '<div class="stack" id="stack">' + cartes + '</div>' +
-      '<p class="sk-legende"><i></i>Utilisé dans une réalisation en ligne · survolez un outil pour voir son rôle</p>';
+    var C = D.competences;
+    var filtres = '<div class="tb-filtres" role="group" aria-label="Choisir une famille d\'outils"><button type="button" data-f="all" aria-pressed="true">Tout</button>' +
+      C.familles.map(function (f) { return '<button type="button" data-f="' + esc(f.id) + '" aria-pressed="false"' + (f.ia ? ' class="ia"' : '') + '>' + esc(f.nom) + '</button>'; }).join('') + '</div>';
+    var liste = '<details class="tb-liste"><summary>Voir la liste complète des outils</summary><div class="tb-fams">' + C.familles.map(function (f) {
+      return '<section><h3>' + esc(f.nom) + '</h3><p>' + esc(f.resume) + '</p><ul>' + C.outils.filter(function (o) { return o.famille === f.id; }).map(function (o) {
+        return '<li><b>' + esc(o.nom) + '</b> ' + esc(o.role) + '</li>';
+      }).join('') + '</ul></section>';
+    }).join('') + '</div></details>';
+    S.$('#competences .wrap').innerHTML = head(C.entete) + filtres +
+      '<div class="tb" id="tb"><p class="tb-astuce" aria-hidden="true">Attrapez-les, lancez-les.</p><div class="tb-info" id="tb-info" aria-live="polite"><b>' + C.outils.length + ' outils</b><span>' + C.familles.map(function (f) { return esc(f.nom); }).join(' · ') + '</span></div></div>' + liste;
   }
 
   /* ---------- Méthode ---------- */
@@ -65,14 +70,14 @@
       var lien = (x.liens || [])[0];
       return '<article class="cs" id="projet-' + esc(x.id) + '" style="--i:' + i + ';--c:' + esc(x.couleur || 'var(--gold)') + '"><span class="cs-ghost" aria-hidden="true">0' + (i + 1) + '</span>' +
         '<div class="cs-txt"><div class="cs-meta"><span class="cs-no">0' + (i + 1) + '<small> / 0' + une.length + '</small></span><span class="cs-tag">' + esc(x.type) + '</span></div>' +
-        '<h3>' + (x.page ? '<a href="' + esc(x.page) + '">' + esc(x.nomCourt) + '</a>' : esc(x.nomCourt)) + '</h3><p>' + esc(x.resume) + '</p>' + chips(x.techno.slice(0, 5)) +
+        '<h3>' + (x.page ? '<a href="' + esc(x.page) + '">' + esc(x.nomCourt) + '</a>' : esc(x.nomCourt)) + '</h3><p>' + esc(x.resume) + '</p>' + chips(x.techno.slice(0, 5), true) +
         '<div class="cs-act">' + (x.page ? '<a class="btn btn-gold" href="' + esc(x.page) + '">Lire l\'étude de cas →</a>' : '') +
         '<button type="button" class="cs-fiche" data-fiche="' + esc(x.id) + '" aria-haspopup="dialog">Aperçu rapide</button>' +
         (lien ? '<a class="cs-lien" href="' + esc(lien.url) + '" target="_blank" rel="noopener">' + esc(lien.texte) + ' ↗</a>' : '') + '</div></div>' +
         '<div class="cs-vis"><div class="cs-bar" aria-hidden="true"><i></i><i></i><i></i><span>' + esc(hote(x)) + '</span></div><div class="cs-img">' + visuel(x) + '</div></div></article>';
     }).join('');
     var plus = (autres.length ? '<div class="cs-autres">' + autres.map(function (x) {
-      return '<button type="button" class="cs-mini" id="projet-' + esc(x.id) + '" data-fiche="' + esc(x.id) + '" aria-haspopup="dialog"><span class="caps">' + esc(x.type.split(' · ')[0]) + '</span><b>' + esc(x.nomCourt) + '</b><span class="cs-mini-r">' + esc(x.resume) + '</span><span class="cs-mini-go">En savoir plus →</span></button>';
+      return '<button type="button" class="cs-mini" id="projet-' + esc(x.id) + '" data-fiche="' + esc(x.id) + '" aria-haspopup="dialog">' + (x.image ? '<span class="cs-mini-img"><img src="' + esc(x.image) + '" alt="" loading="lazy" width="' + (x.imageTaille || [1200, 750])[0] + '" height="' + (x.imageTaille || [1200, 750])[1] + '"></span>' : '') + '<span class="caps">' + esc(x.type.split(' · ')[0]) + '</span><b>' + esc(x.nomCourt) + '</b><span class="cs-mini-r">' + esc(x.resume) + '</span><span class="cs-mini-go">En savoir plus →</span></button>';
     }).join('') + '</div>' : '') + '<div class="cs-plus"><a class="btn cs-tous" href="projets/">Tous les projets <span>' + L.length + '</span> →</a></div>';
     S.$('#projets .wrap').innerHTML = head(p.entete) + '<div class="cases">' + lignes + '</div>' + plus;
   }

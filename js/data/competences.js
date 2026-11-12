@@ -10,7 +10,7 @@
    ===================================================================== */
 
 Site.data.competences = {
-  entete: { etiquette: "Compétences", titre: "Ma stack,", accent: "couche par couche.", texte: "Sept familles d'outils, de l'intégration continue aux agents IA. Choisissez une réalisation : les outils qu'elle a mobilisés s'allument." },
+  entete: { etiquette: "Compétences", titre: "Ma boîte", accent: "à outils.", texte: "Les outils avec lesquels je construis, rangés en sept familles. Attrapez-les et lancez-les, ou choisissez une famille." },
   familles: [
     { id: "ci", nom: "CI/CD", resume: "Automatiser le chemin entre une modification de code et sa mise en ligne." },
     { id: "cont", nom: "Conteneurs", resume: "Empaqueter les applications et les faire tourner de façon fiable." },
