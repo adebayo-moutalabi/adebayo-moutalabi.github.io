@@ -53,6 +53,8 @@ p { margin: 0; }
 :root[data-theme="light"] .logo .l-clair { display: block; }
 .site-top { position: absolute; z-index: 6; top: calc(64px + env(safe-area-inset-top, 0px)); left: var(--gl); }
 .site-top .logo img { width: 44px; }
+/* Quand la barre de progression est affichée, son logo animé suffit : on masque celui de l'en-tête (pas de doublon) */
+html:has(.rail.show) .site-top { opacity: 0; visibility: hidden; transition: opacity .4s, visibility 0s .4s; }
 .legal-id { display: inline-flex; align-items: center; gap: 10px; }
 #contact .legal { align-items: center; }
 .sec { padding-block: clamp(80px, 11vw, 150px); }
