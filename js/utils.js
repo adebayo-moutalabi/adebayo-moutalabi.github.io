@@ -29,5 +29,10 @@
     var p = prefixe || '', t = taille || 32;
     return '<span class="logo"><img class="l-sombre" src="' + p + 'assets/logo/logo-am.svg" alt="Adebayo Moutalabi" width="' + t + '" height="' + t + '"><img class="l-clair" src="' + p + 'assets/logo/logo-am-clair.svg" alt="Adebayo Moutalabi" width="' + t + '" height="' + t + '"></span>';
   };
-  S.chips = function (arr) { return '<div class="chips">' + arr.map(function (t) { return '<span class="chip">' + S.esc(t) + '</span>'; }).join('') + '</div>'; };
+  /* Logo d'un outil (data/logos.js), dans une petite tuile blanche ; '' si aucun logo */
+  S.icone = function (nom, racine) {
+    var L = (S.data && S.data.logos) || {}, f = L[nom] || L[String(nom).replace(/ \d+(\.\d+)*$/, '')];
+    return f ? '<span class="ico" aria-hidden="true"><img src="' + (racine || '') + 'assets/outils/' + f + '.svg" alt="" width="14" height="14" loading="lazy"></span>' : '';
+  };
+  S.chips = function (arr) { return '<div class="chips">' + arr.map(function (t) { return '<span class="chip">' + S.icone(t) + S.esc(t) + '</span>'; }).join('') + '</div>'; };
 })(window.Site = window.Site || { data: {} });

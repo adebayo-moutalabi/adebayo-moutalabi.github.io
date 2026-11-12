@@ -5,6 +5,7 @@
    
    id          identifiant unique, sans espace ni accent (ex. "monprojet")
    categorie   "cloud", "ia" ou "web" (voir la liste « categories » plus bas)
+   couleur     teinte de la carte sur l'accueil (projets « à la une »), ex. "#5b8def"
    une         true = projet « à la une » sur l'accueil (grande ligne avec capture). Les autres
                apparaissent en petit sous la sélection. Tous figurent sur la page projets/.
    vignette    nom du dessin dans js/data/vignettes.js (expo, k8s, aws, net, bot, flow, web, shield, elo)
@@ -46,6 +47,7 @@ Site.data.projets = {
     {
       id: "nox",
       une: true,
+      couleur: "#5b8def",
       categorie: "ia",
       vignette: "bot",
       type: "Agent IA vocal · OpenAI DevDay Hackathon Paris",
@@ -90,6 +92,7 @@ Site.data.projets = {
     {
       id: "continental-it",
       une: true,
+      couleur: "#e07a3f",
       categorie: "web",
       vignette: "shield",
       type: "Site vitrine · Cybersécurité · Bénin",
@@ -120,6 +123,7 @@ Site.data.projets = {
     {
       id: "expoia",
       une: true,
+      couleur: "#e8b65f",
       categorie: "web",
       vignette: "expo",
       type: "Web · France 2030 / ANR",
@@ -148,6 +152,42 @@ Site.data.projets = {
         { url: "https://expo-ia.univ-rennes.fr/fr", texte: "Voir le site" },
         { url: "https://expo-ia.univ-rennes.fr/fr/jeu/floriale", texte: "Jouer à Floriale" }
       ]
+    },
+    {
+      id: "floriale",
+      categorie: "web",
+      vignette: "expo",
+      couleur: "#e8b65f",
+      type: "Jeu web · ExpoIA",
+      titre: "Floriale, le jeu de l'exposition ExpoIA",
+      nomCourt: "Floriale",
+      resume: "Le jeu de l'exposition ExpoIA, conçu et développé pour le Musée des Transmissions.",
+      intro: "Floriale est le jeu de l'exposition sur l'IA du Musée des Transmissions, à Rennes, intégré au site d'ExpoIA.",
+      points: [
+        "Conception et développement du jeu",
+        "Intégration au site bilingue de l'exposition (Next.js, TypeScript)"
+      ],
+      resultat: "Le jeu est jouable en ligne sur le site d'ExpoIA.",
+      techno: ["Next.js", "TypeScript"],
+      outils: ["Next.js", "TypeScript"],
+      liens: [
+        { url: "https://expo-ia.univ-rennes.fr/fr/jeu/floriale", texte: "Jouer à Floriale" }
+      ]
+    },
+    {
+      id: "todjumi",
+      categorie: "web",
+      vignette: "web",
+      type: "Santé numérique · Huawei Seeds for the Future 2023",
+      titre: "TODJUMI, le suivi des patients pour les médecins béninois",
+      nomCourt: "TODJUMI",
+      resume: "Une plateforme de suivi des patients pour les médecins béninois, projet d'équipe sélectionné.",
+      intro: "TODJUMI est un projet d'équipe : une plateforme de suivi des patients pensée pour les médecins béninois.",
+      points: [
+        "Projet d'équipe autour du suivi des patients",
+        "Sélectionné dans le cadre du programme Huawei Seeds for the Future 2023"
+      ],
+      techno: []
     },
     {
       id: "portfolio",

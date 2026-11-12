@@ -21,8 +21,10 @@
 .sk > p { color: var(--ink-muted); font-size: 14.5px; line-height: 1.5; max-width: 46ch; }
 .sk-outils { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 7px; }
 .sk-o { position: relative; display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 12px; border: 1px solid var(--hair); background: color-mix(in srgb, var(--ground) 45%, var(--surface)); font-size: 14px; cursor: default; transition: all .3s var(--ease); }
+.sk-o .ico { margin-left: -4px; }
 .sk-o.utilise::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex: none; }
-.sk.ia .sk-o.utilise::before { background: var(--blue); }
+.sk.ia .sk-o .ico { margin-left: -4px; }
+.sk-o.utilise::before { background: var(--blue); }
 .sk-o small { position: absolute; z-index: 5; left: 50%; bottom: calc(100% + 8px); width: max-content; max-width: 240px; padding: 8px 11px; border-radius: 10px; background: var(--ink); color: var(--ground); font-size: 12.5px; line-height: 1.35; transform: translate(-50%, 4px); opacity: 0; visibility: hidden; transition: all .2s; pointer-events: none; }
 .sk-o:hover small { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
 .sk-o:hover { border-color: var(--gold); }

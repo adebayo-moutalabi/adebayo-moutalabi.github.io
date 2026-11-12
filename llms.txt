@@ -65,6 +65,21 @@ Projet confié dans le cadre du master Cloud & Réseaux de l'ISTIC (Université 
 - [Voir le site](https://expo-ia.univ-rennes.fr/fr)
 - [Jouer à Floriale](https://expo-ia.univ-rennes.fr/fr/jeu/floriale)
 
+### Floriale, le jeu de l'exposition ExpoIA
+
+Floriale est le jeu de l'exposition sur l'IA du Musée des Transmissions, à Rennes, intégré au site d'ExpoIA.
+
+- Ce que j'ai fait : Conception et développement du jeu ; Intégration au site bilingue de l'exposition (Next.js, TypeScript)
+- Résultat : Le jeu est jouable en ligne sur le site d'ExpoIA.
+- Stack : Next.js, TypeScript
+- [Jouer à Floriale](https://expo-ia.univ-rennes.fr/fr/jeu/floriale)
+
+### TODJUMI, le suivi des patients pour les médecins béninois
+
+TODJUMI est un projet d'équipe : une plateforme de suivi des patients pensée pour les médecins béninois.
+
+- Ce que j'ai fait : Projet d'équipe autour du suivi des patients ; Sélectionné dans le cadre du programme Huawei Seeds for the Future 2023
+
 ### Ce portfolio, vérifié et déployé par un pipeline
 
 Le site que vous lisez est aussi une démonstration : son code source est public sur GitHub.
