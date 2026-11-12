@@ -1,13 +1,24 @@
 # Adebayo Moutalabi
 
-> Adebayo Moutalabi · Cloud, DevOps & IA, basé à Rennes (France). Je construis et j'automatise des infrastructures, des pipelines et des agents IA.
+> Ingénieur Cloud, DevOps & IA, basé à Rennes (France). Je construis des infrastructures fiables, puis j'automatise ce qui fait perdre du temps aux équipes. Recherche : Alternance M2 · septembre 2027.
 
 ## Profil
 
 - Nom complet : Adebayo Habib Moutalabi
-- Domaines : Cloud, DevOps & IA
+- Métier : Ingénieur Cloud, DevOps & IA
 - Lieu : Rennes, mobile partout en France
+- Recherche : Alternance M2 · septembre 2027 (Cloud · DevOps · Agents IA)
 - Langues : Français (courant), Anglais (B1, lecture technique quotidienne)
+
+## Compétences
+
+- CI/CD : GitLab CI/CD, GitHub Actions, Git, Registry
+- Conteneurs : Docker, Kubernetes, Minikube, RBAC, HPA
+- Cloud : AWS EC2, VPC, S3, IAM, Terraform
+- Systèmes : Linux, Bash, Prometheus, Grafana
+- Réseaux : RIPv2, VLAN, Quagga, Wireshark, gRPC
+- Agents IA : n8n, API LLM, Claude, MCP, Mistral AI, Python, Supabase, RAG
+- Web : Next.js, Payload CMS, TypeScript, WordPress, Electron
 
 ## Réalisations
 
@@ -44,25 +55,19 @@ Projet confié dans le cadre du master Cloud & Réseaux de l'ISTIC (Université 
 - Ce que j'ai fait : Coordination technique entre les porteurs du projet et l'équipe de développement TIARe ; Développement sur Next.js 16, Payload CMS 3 et PostgreSQL ; Accessibilité (WCAG) et e-mails transactionnels avec React Email ; Contenus bilingues gérés dans le CMS ; Conception et développement du jeu Floriale
 - Résultat : Le site est en ligne sur expo-ia.univ-rennes.fr et le jeu Floriale y est jouable.
 - Stack : Next.js 16, Payload CMS 3, PostgreSQL, TypeScript, Tailwind, Framer Motion
-- [Page du projet](https://adebayo-moutalabi.github.io/projets/expoia/)
 - [Voir le site](https://expo-ia.univ-rennes.fr/fr)
 - [Jouer à Floriale](https://expo-ia.univ-rennes.fr/fr/jeu/floriale)
 
-## Ce que je fais
+### Ce portfolio, vérifié et déployé par un pipeline
 
-- Infrastructure et déploiement : Mettre une application en ligne et l'y garder : conteneurs, cloud, pipelines CI/CD qui testent et déploient chaque modification, supervision. (Docker, Kubernetes, AWS EC2, GitHub Actions, GitLab CI/CD, Prometheus)
-- Web : Des sites et des applications rapides, accessibles et bien référencés, dont le contenu reste simple à mettre à jour. (Next.js, TypeScript, Payload CMS, WordPress)
-- Agents IA et automatisations : Des agents reliés aux outils du quotidien (e-mail, agenda, messagerie) et des workflows qui prennent en charge les tâches répétitives. (API LLM, n8n, Python, RAG)
+Le site que vous lisez est aussi une démonstration : son code source est public sur GitHub.
 
-## Technologies
-
-- CI/CD : GitLab CI/CD, GitHub Actions, Git, Registry
-- Conteneurs : Docker, Kubernetes, Minikube, RBAC, HPA
-- Cloud : AWS EC2, VPC, S3, IAM, Terraform
-- Systèmes : Linux, Bash, Prometheus, Grafana
-- Réseaux : RIPv2, VLAN, Quagga, Wireshark, gRPC
-- Agents IA : n8n, API LLM, Claude, MCP, Mistral AI, Python, Supabase, RAG
-- Web : Next.js, Payload CMS, TypeScript, WordPress, Electron
+- Problème : Publier un site à la main laisse passer des erreurs : HTML invalide, liens cassés, baisse de performance ou d'accessibilité.
+- Ce que j'ai fait : Pipeline GitHub Actions déclenché à chaque push et à chaque pull request ; Contrôles automatiques : cohérence des données, validation HTML, liens cassés (lychee), audit Lighthouse ; Contenu lisible sans JavaScript, généré à partir des fichiers de données ; Déploiement sur GitHub Pages uniquement si tous les contrôles passent
+- Résultat : Chaque version en ligne a passé les mêmes contrôles ; l'historique des exécutions est public dans l'onglet Actions du dépôt.
+- Stack : GitHub Actions, GitHub Pages, Node.js, html-validate, lychee, Lighthouse CI
+- [Voir le code](https://github.com/adebayo-moutalabi/adebayo-moutalabi.github.io)
+- [Voir le pipeline](https://github.com/adebayo-moutalabi/adebayo-moutalabi.github.io/actions)
 
 ## Parcours
 
@@ -74,18 +79,23 @@ Projet confié dans le cadre du master Cloud & Réseaux de l'ISTIC (Université 
 - mai – sept. 2023 : Administration réseaux & systèmes, SPTIC · Université d'Abomey-Calavi (Stage). Stage au service des technologies de l'information et de la communication de l'université.
 - juil. – août 2022 : Développement web & mobile, PayPlus Africa · Cotonou (Stage). Premier stage en entreprise, entre web, mobile et formation.
 - 2020 – 2023 : Licence Informatique de gestion, ENEAM · Université d'Abomey-Calavi (Licence). Formation en informatique appliquée à la gestion des organisations. Le premier commit.
+
+## Distinctions
+
 - 2023 : Huawei Seeds for the Future. Participant au programme. Notre projet d'équipe TODJUMI, une plateforme de suivi des patients pour les médecins béninois, a été sélectionné.
 - 2026 : Statut étudiant-entrepreneur. Obtenu via Pépite Bretagne pour le projet VirtuStage.
 
-## Contact
+## Questions fréquentes
 
-- Un projet, une mission ou une opportunité ? Écrivez-moi.
-- E-mail : moutalabihabib2002@gmail.com
-- [LinkedIn](https://www.linkedin.com/in/adebayo-moutalabi/)
-- [GitHub](https://github.com/adebayo-moutalabi)
-- Ouvert aux missions ponctuelles et à une alternance M2 en 2027.
+- Que sais-tu faire ? Adebayo travaille d'abord en Cloud &amp; DevOps : Linux, Docker, Kubernetes, pipelines GitLab CI/CD et GitHub Actions, AWS et supervision Prometheus/Grafana. Il conçoit aussi des agents IA et des automatisations (n8n, API de LLM, RAG) qui répondent à des besoins métier précis.
+- Ta réalisation phare ? Nox, un compagnon de bureau pour les personnes TDAH, réalisé pour l'OpenAI DevDay Community Hackathon Paris : voix temps réel avec l'API Realtime d'OpenAI, micro-étapes de 2 à 10 minutes, intégrations Agenda, Gmail et Telegram. Ensuite, le site ExpoIA du Musée des Transmissions, et ce portfolio, déployé par un pipeline GitHub Actions.
+- Comment travailles-tu ? Il part d'un problème réel, rédige le cahier des charges, puis livre un prototype qui fonctionne. Il se décrit comme résilient, curieux et minutieux.
+- Quelle formation ? Master 1 Cloud &amp; Réseaux à l'ISTIC (Université de Rennes), après une Licence 3 Informatique à l'ISTIC et une Licence Informatique de gestion à l'ENEAM (Université d'Abomey-Calavi).
+- Comment te contacter ? Le plus simple : un message sur LinkedIn. Le lien est dans la section Contact, en bas de page.
 
 ## Liens
 
-- [Site](https://adebayo-moutalabi.github.io/)
+- [Portfolio](https://adebayo-moutalabi.github.io/)
+- [GitHub](https://github.com/adebayo-moutalabi)
+- [LinkedIn](https://www.linkedin.com/in/adebayo-moutalabi/)
 - [Code source et pipeline CI/CD de ce site](https://github.com/adebayo-moutalabi/adebayo-moutalabi.github.io)

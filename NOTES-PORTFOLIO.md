@@ -10,6 +10,15 @@ https://adebayo-moutalabi.github.io (dépôt `adebayo-moutalabi/adebayo-moutalab
 - Aperçu (captures) avant chaque publication.
 - Après toute modification de `js/data/` : `node scripts/generer.js` (sinon la CI échoue).
 
+## ⚠️ Retour à la v2.0 (12/11/2026)
+
+Après mise en ligne, Adebayo n'a pas accroché avec la v3.0 (marque personnelle, nouveau design) : **retour au site
+de la v2.0** (commit `03dc68a`). Republié immédiatement par `deploy.yml` (champ version), puis code du site remis
+à l'état v2.0 par pull request (`git read-tree -u --reset 03dc68a`). Conservés : workflows des versions et du
+retour arrière, notes, `docs/NOM-DE-DOMAINE.md`. La v3.0 reste disponible (tag et Release `v3.0`) si on veut en
+reprendre des éléments (logo AM, icônes, page ExpoIA, nouvel en-tête…). Les sections ci-dessous sur la v3.0 sont
+gardées pour mémoire. Version proposée pour ce retour : **v3.1** (« retour au contenu de la v2.0 »).
+
 ## Positionnement : marque personnelle (décision du 12/11/2026, à réévaluer vers juin 2027)
 
 - Le site présente **qui je suis, ce que je construis et ce que j'ai livré**, et laisse chacun me contacter pour sa
@@ -180,3 +189,4 @@ Démarche complète dans `docs/NOM-DE-DOMAINE.md`. En bref :
 - 12/11/2026 : versions (workflow release.yml, retour arrière via deploy.yml -f version=…) ; tags v1.0 et v2.0 à créer par le workflow.
 - 12/11/2026 : décision « marque personnelle » ; refonte v3.0 sur la base du design v1.0 (en-tête éditorial, frise git,
   cartes visuelles) ; architecture : pages entièrement générées, un seul script léger ; réglage Pages = GitHub Actions.
+- 12/11/2026 : v3.0 publiée puis non retenue ; retour au site v2.0 (republication immédiate + PR de retour du code).

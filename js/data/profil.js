@@ -1,45 +1,45 @@
 /* =====================================================================
-   PROFIL : identité, en-tête de la page d'accueil, navigation
-   C'est le premier fichier à modifier pour changer le nom, l'intitulé ou la phrase d'accroche.
-   Après modification : node scripts/generer.js
+   PROFIL : identité, accroche de l'ouverture, navigation
+   C'est le premier fichier à modifier pour changer le nom, la photo ou l'accroche.
+   Pour le titre de l'onglet du navigateur, voir la balise <title> de index.html.
    ===================================================================== */
 
 Site.data.profil = {
   prenom: "Adebayo",
   nomFamille: "Moutalabi",
   nomComplet: "Adebayo Habib Moutalabi",
+  /* Métier : affiché dans le titre principal (h1), le titre de l'onglet et les données pour Google */
+  metier: "Ingénieur Cloud, DevOps & IA",
+  /* Liens publics (repris dans le contact, le pied de page, les données pour Google et llms.txt) */
+  site: "https://adebayo-moutalabi.github.io/",
+  github: "https://github.com/adebayo-moutalabi",
+  linkedin: "https://www.linkedin.com/in/adebayo-moutalabi/",
   annee: 2026,
   ville: "Rennes, France",
 
-  /* Intitulé : affiché à côté du nom, dans le titre de l'onglet et les données pour Google.
-     Positionnement « marque personnelle » (décision du 12/11/2026) : ni « Ingénieur », ni « étudiant ». */
-  metier: "Cloud, DevOps & IA",
-
-  /* Phrase d'accroche. Variantes proposées (même ton) :
-     « Je conçois, déploie et automatise des infrastructures cloud, des pipelines CI/CD et des agents IA. »
-     « Des infrastructures fiables, des déploiements automatisés et des agents IA utiles : voilà ce que je construis. » */
-  phrase: "Je construis et j'automatise des infrastructures, des pipelines et des agents IA.",
-  surTitre: "Portfolio · Rennes",
-  boutons: { realisations: "Voir mes réalisations", contact: "Me contacter" },
-
-  /* Photo : petite et sobre dans l'en-tête (remplacez assets/photo.webp, carré, 640 px conseillé) */
+  /* Photo : remplacez le fichier assets/photo.webp (carré, 640 px conseillé) */
   photo: "assets/photo.webp",
-  photoAlt: "Portrait d'Adebayo Moutalabi",
+  photoAlt: "Portrait d'Adebayo Habib Moutalabi",
 
-  /* Liens publics (en-tête, contact, pied de page, données pour Google, llms.txt).
-     L'adresse du site lui-même est la variable SITE_URL de scripts/generer.js. */
-  github: "https://github.com/adebayo-moutalabi",
-  linkedin: "https://www.linkedin.com/in/adebayo-moutalabi/",
+  /* Ouverture (l'écran avec la photo qui s'agrandit au défilement) */
+  accroche: {
+    sur: "Cloud, DevOps & IA",
+    titre: "Fini les déploiements manuels.",
+    accent: "Place à vos pipelines et à vos agents IA.",
+    texte: "Je construis des infrastructures fiables, puis j'automatise ce qui fait perdre du temps aux équipes.",
+    pied: "Ingénieur Cloud, DevOps & IA · Rennes",
+    defiler: "Faites défiler"
+  },
 
-  /* Menu de l'en-tête (dans l'ordre de la page). id = identifiant de la section ;
-     inclut = autres sections qui allument le même lien quand elles sont à l'écran. */
+  /* Sections affichées sur la barre de progression (dans l'ordre de la page).
+     « bulle » = phrase dite par la mascotte quand elle y arrive (facultatif). */
   navigation: [
-    { id: "realisations", nom: "Réalisations" },
-    { id: "domaines", nom: "Ce que je fais", inclut: ["technologies"] },
-    { id: "parcours", nom: "Parcours" },
-    { id: "contact", nom: "Contact" }
-  ],
-
-  /* Détail visuel de l'en-tête : les étapes d'un déploiement, parcourues par une petite animation */
-  pipeline: ["git push", "build", "tests", "déploiement", "en ligne"]
+    { id: "intro", nom: "Accueil" },
+    { id: "labo", nom: "Labo", bulle: "Le labo !" },
+    { id: "competences", nom: "Compétences", bulle: "Ma stack" },
+    { id: "methode", nom: "Méthode", bulle: "La méthode" },
+    { id: "projets", nom: "Projets", bulle: "Les projets" },
+    { id: "parcours", nom: "Parcours", bulle: "Le parcours" },
+    { id: "contact", nom: "Contact", bulle: "Parlons-en !" }
+  ]
 };

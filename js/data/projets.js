@@ -1,29 +1,47 @@
 /* =====================================================================
-   RÉALISATIONS (section « Réalisations » + une page par projet : projets/<id>/)
-   Pour AJOUTER une réalisation : copiez un bloc { ... }, changez les textes, ajoutez une capture d'écran
-   dans assets/projets/, puis lancez node scripts/generer.js (la page, le sitemap, llms.txt et les données
-   Google sont mis à jour tout seuls). Ajoutez aussi l'URL de la page dans lighthouserc.json.
-
-   id          identifiant unique, sans espace ni accent (sert aussi d'adresse : projets/<id>/)
+   PROJETS (section « Projets » + fiches détaillées)
+   Pour AJOUTER un projet : copiez un bloc { ... } ci-dessous, collez-le à la suite
+   (n'oubliez pas la virgule entre deux blocs) et changez les textes.
+   
+   id          identifiant unique, sans espace ni accent (ex. "monprojet")
+   categorie   "cloud", "ia" ou "web" (voir la liste « categories » plus bas)
+   large       true = grande carte sur la première ligne (facultatif)
+   vignette    nom du dessin dans js/data/vignettes.js (expo, k8s, aws, net, bot, flow, web, shield, elo)
    type        petit texte au-dessus du titre
-   titre, nomCourt, resume   titre complet, nom court, phrase de la carte
+   nomCourt    nom court (boutons dans la section Compétences)
+   resume      phrase affichée sur la carte
+   intro       paragraphe en haut de la fiche
+   probleme    le besoin de départ (une ou deux phrases factuelles)
+   points      ce que j'ai fait (liste à puces de la fiche)
+   resultat    ce qui existe à la fin, vérifiable (lien, mise en ligne…)
+   techno      pastilles de technologies affichées dans la fiche
+   outils      noms EXACTS des outils de js/data/competences.js : ils relient la fiche aux cartes de la stack
+   liens       boutons (facultatif) : { url: "https://…", texte: "Voir le site" }
+   page        (facultatif) chemin d'une page dédiée, ex. "projets/nox/" : générée par scripts/generer.js,
+               ajoutée au sitemap, à llms.txt et aux données Google. Avec page, renseignez aussi :
+   image, imageAlt, partage   capture affichée sur la page, son texte alternatif, image de partage 1200 × 630
+   imageTaille [largeur, hauteur] de la capture (évite que la page « saute » au chargement)
    description phrase courte (balise meta description de la page)
-   intro       paragraphe « Contexte »
-   probleme    le besoin de départ ; points : ce que j'ai fait ; resultat : ce qui existe, vérifiable
-   techno      pastilles « Stack » ; outils : noms EXACTS de js/data/competences.js
-   page        chemin de la page dédiée (ex. "projets/nox/")
-   image, imageAlt, imageTaille, partage   capture d'écran, texte alternatif, [largeur, hauteur], image de partage
-   logiciel    (facultatif) données Google « SoftwareApplication »
-   liens       boutons : { url: "https://…", texte: "Voir le site" }
-   Écrivez des phrases factuelles et vérifiables : aucun chiffre ni témoignage inventé.
+   logiciel    (facultatif) données Google « SoftwareApplication » : { version, systeme, telechargement, site, code }
+   Pour SUPPRIMER un projet : effacez son bloc { ... } en entier.
    ===================================================================== */
 
 Site.data.projets = {
-  entete: { etiquette: "Réalisations", titre: "Réalisations" },
+  entete: { etiquette: "Réalisations", titre: "Peu de projets,", accent: "mais vérifiables.", texte: "Seules les réalisations en ligne et vérifiables sont présentées ici : code public, site ou application téléchargeable. De nouveaux projets Cloud, DevOps et IA arriveront au fil de leur mise en production." },
+  /* filtres: false = pas de boutons de filtre (inutiles avec peu de projets). Remettez true quand il y en aura plus. */
+  filtres: false,
+  categories: [
+    { id: "all", libelle: "Tous" },
+    { id: "cloud", libelle: "Cloud & DevOps" },
+    { id: "ia", libelle: "IA & automatisation" },
+    { id: "web", libelle: "Web" }
+  ],
   liste: [
     {
       id: "nox",
       categorie: "ia",
+      large: true,
+      vignette: "bot",
       type: "Agent IA vocal · OpenAI DevDay Hackathon Paris",
       titre: "Nox, le compagnon de bureau qui aide à démarrer",
       nomCourt: "Nox",
@@ -66,6 +84,7 @@ Site.data.projets = {
     {
       id: "continental-it",
       categorie: "web",
+      vignette: "shield",
       type: "Site vitrine · Cybersécurité · Bénin",
       titre: "Continental IT, le site d'un cabinet de cybersécurité à Cotonou",
       nomCourt: "Continental IT",
@@ -94,6 +113,7 @@ Site.data.projets = {
     {
       id: "expoia",
       categorie: "web",
+      vignette: "expo",
       type: "Web · France 2030 / ANR",
       titre: "ExpoIA, l'exposition sur l'IA du Musée des Transmissions",
       nomCourt: "ExpoIA",
@@ -109,16 +129,34 @@ Site.data.projets = {
       ],
       resultat: "Le site est en ligne sur expo-ia.univ-rennes.fr et le jeu Floriale y est jouable.",
       techno: ["Next.js 16", "Payload CMS 3", "PostgreSQL", "TypeScript", "Tailwind", "Framer Motion"],
-      description: "ExpoIA, site bilingue et accessible de l'exposition sur l'IA du Musée des Transmissions (Rennes), développé par Adebayo Moutalabi avec Next.js et Payload CMS.",
       outils: ["Next.js", "Payload CMS", "TypeScript", "Git"],
-      page: "projets/expoia/",
-      image: "assets/projets/expoia-accueil.webp",
-      imageAlt: "Page d'accueil du site de l'exposition ExpoIA : « Qu'est-ce qu'IA ? »",
-      partage: "assets/projets/expoia-partage.png",
-      imageTaille: [1200, 750],
       liens: [
         { url: "https://expo-ia.univ-rennes.fr/fr", texte: "Voir le site" },
         { url: "https://expo-ia.univ-rennes.fr/fr/jeu/floriale", texte: "Jouer à Floriale" }
+      ]
+    },
+    {
+      id: "portfolio",
+      categorie: "cloud",
+      vignette: "flow",
+      type: "CI/CD · GitHub Actions",
+      titre: "Ce portfolio, vérifié et déployé par un pipeline",
+      nomCourt: "Portfolio CI/CD",
+      resume: "Un site statique dont chaque modification passe par un pipeline GitHub Actions avant d'être mise en ligne.",
+      intro: "Le site que vous lisez est aussi une démonstration : son code source est public sur GitHub.",
+      probleme: "Publier un site à la main laisse passer des erreurs : HTML invalide, liens cassés, baisse de performance ou d'accessibilité.",
+      points: [
+        "Pipeline GitHub Actions déclenché à chaque push et à chaque pull request",
+        "Contrôles automatiques : cohérence des données, validation HTML, liens cassés (lychee), audit Lighthouse",
+        "Contenu lisible sans JavaScript, généré à partir des fichiers de données",
+        "Déploiement sur GitHub Pages uniquement si tous les contrôles passent"
+      ],
+      resultat: "Chaque version en ligne a passé les mêmes contrôles ; l'historique des exécutions est public dans l'onglet Actions du dépôt.",
+      techno: ["GitHub Actions", "GitHub Pages", "Node.js", "html-validate", "lychee", "Lighthouse CI"],
+      outils: ["GitHub Actions", "Git"],
+      liens: [
+        { url: "https://github.com/adebayo-moutalabi/adebayo-moutalabi.github.io", texte: "Voir le code" },
+        { url: "https://github.com/adebayo-moutalabi/adebayo-moutalabi.github.io/actions", texte: "Voir le pipeline" }
       ]
     }
   ]
